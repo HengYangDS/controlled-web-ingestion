@@ -1,0 +1,43 @@
+# Evidence ledger for the repository's controlled-admission practice.
+# It records the testable operating hypothesis, not a claim that an adapter owns
+# the product identity or that the reviewed workload authorizes a broader surface.
+
+[[hypothesis]]
+id = "controlled-admission-vs-adapter-expansion-20260714"
+campaign = "controlled-web-ingestion-admission"
+state = "validated"
+owner = "controlled-web-ingestion-maintainers"
+claim = "A policy-bound ingress controller with redacted receipts, explicit promotion, and a disposable loopback Firecrawl adapter can support the approved public workloads without becoming a standing scraping or RAG service."
+challenge = "A successful browser or crawl run could be misread as approval for arbitrary targets, direct RAG writes, MCP exposure, shared services, or a daemon."
+transition = "candidate comparison -> bounded implementation -> explicit runtime validation -> protected hosted verification"
+proof_refs = [
+  "evidence/verification/2026-07-14-controlled-web-ingestion-runtime-validation.json",
+  "evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json",
+]
+review_refs = [
+  "docs/evidence/chronicle/2026-07-14/runtime-validation.md",
+  "docs/evidence/chronicle/2026-07-14/local-proof.md",
+  "docs/evidence/chronicle/2026-07-14/ethos-adopter-proof.md",
+]
+decision_refs = [
+  "docs/decisions/0000-controlled-web-ingestion-position.md",
+  "docs/decisions/0001-ethos-adopter-boundary.md",
+]
+retirement_conditions = [
+  "A new target, purpose, data class, runtime topology, service exposure, or sink requires a new policy and evidence review.",
+  "A reproducible failure of target admission, body redaction, explicit promotion, provenance, or teardown invalidates this hypothesis.",
+]
+
+[[entry]]
+id = "controlled-web-ingestion-admission-20260714"
+type = "practice-validation"
+state = "validated"
+summary = "The bounded admission hypothesis is validated only for the exact approved public workloads and delivery boundary."
+evidence_refs = [
+  "evidence/verification/2026-07-14-controlled-web-ingestion-runtime-validation.json",
+  "evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json",
+]
+decision_refs = [
+  "docs/decisions/0000-controlled-web-ingestion-position.md",
+  "docs/decisions/0001-ethos-adopter-boundary.md",
+]

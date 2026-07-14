@@ -1,0 +1,15 @@
+---
+subject: controlled-web-ingestion:reference-index
+role: index
+state: canonical
+relations:
+  canonical_for: stable contracts and operational reference
+---
+
+# Reference
+
+- [CLI](cli.md)
+- [Contracts](contracts.md)
+- [Runtime validation](runtime-validation.md)
+- [Research contract](research-contract.md)
+- [Publication boundary](publication.md)

@@ -6,18 +6,34 @@ python-contracts:
   parallel:
     matrix:
       - PYTHON_VERSION: ["3.12", "3.13", "3.14"]
-  image: "python:${PYTHON_VERSION}-slim"
+  # Shell execution is deliberate: the project-scoped runner binds each matrix
+  # slot to its Homebrew-managed interpreter. The project controls the tested
+  # runtime rather than silently substituting a cached container image.
   variables:
     UV_NO_MANAGED_PYTHON: "1"
-    UV_PROJECT_ENVIRONMENT: "$CI_PROJECT_DIR/.venv"
+    UV_CACHE_DIR: "$CI_PROJECT_DIR/build/runtime/tool-cache/uv"
+    UV_PROJECT_ENVIRONMENT: "$CI_PROJECT_DIR/build/runtime/venv/python-${PYTHON_VERSION}"
     PIP_DISABLE_PIP_VERSION_CHECK: "1"
   before_script:
-    - python -m pip install --no-cache-dir "uv==0.11.28"
+    - 'export PATH="/opt/homebrew/bin:$PATH"'
+    - 'python_bin="$(command -v "python${PYTHON_VERSION}")"'
+    - 'test -n "$python_bin"'
+    - '"$python_bin" --version'
+    - 'uv --version'
   script:
-    - uv run --locked --python python python -m unittest discover -s tests -v
-    - bash -n scripts/firecrawl-isolated-benchmark.sh
-    - bash -n scripts/web-ingestion-m2-m5-validate.sh
+    - 'export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/run_tests.py --python "$python_bin"'
+    - 'export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/validate_schemas.py'
+    - 'export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/check_documentation.py'
+    - 'export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/check_source_topology.py'
 
-# The runtime Firecrawl validation is deliberately omitted from CI: it needs
-# reviewed local GHCR image identities and must prove loopback teardown rather
-# than borrow a shared runner's Docker environment.
+security:
+  stage: verify
+  before_script:
+    - 'export PATH="/opt/homebrew/bin:$PATH"'
+    - 'gitleaks version'
+  script:
+    - 'export PATH="/opt/homebrew/bin:$PATH"; sh tools/ci/run_security_checks.sh'
+
+# Explicit runtime Firecrawl validation is omitted from hosted CI. It needs
+# reviewed local GHCR identities and must prove loopback teardown rather than
+# borrow shared runner Docker state.

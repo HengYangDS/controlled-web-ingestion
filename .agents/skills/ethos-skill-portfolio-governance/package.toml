@@ -1,0 +1,30 @@
+schema_version = 2
+id = "ethos-skill-portfolio-governance"
+entrypoint = "SKILL.md"
+boundary = "workflow-package-projection"
+truth = "repository-source-and-contracts"
+digest_algorithm = "sha256"
+include = ["SKILL.md"]
+exclude = [".DS_Store"]
+expected_digest = "sha256:63cbdd8b901d91bc061fd9f82d5693989fd7230b55c592f587a6fce7b3451a8b"
+required_sections = ["When to Use", "Workflow", "Evidence", "Trust Boundary"]
+
+[quality]
+official_codex_loadable = true
+placeholder_allowed = false
+
+[[capability]]
+id = "ethos.playbooks.check"
+kind = "command_readonly"
+command = ["ethos", "playbooks", "check", "--mode", "v2-strict", "--json"]
+
+[[capability]]
+id = "ethos.playbooks.route"
+kind = "command_readonly"
+command = ["ethos", "playbooks", "route", "--changed", "--json"]
+
+[[capability]]
+id = "ethos.report"
+kind = "command_readonly"
+command = ["ethos", "report", "--json"]
+

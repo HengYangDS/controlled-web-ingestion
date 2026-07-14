@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Explicit public authorized workload declaration",
+  "type": "object",
+  "required": ["schema", "scope", "workloads"],
+  "properties": {"schema": {"type": "string", "const": "web-ingestion-authorized-workloads-v1"}, "scope": {"type": "string"}, "workloads": {"type": "array", "items": {"type": "object", "required": ["id", "url", "purpose", "mode", "max_pages", "timeout_seconds"], "properties": {"id": {"type": "string"}, "url": {"type": "string", "pattern": "https://.+"}, "purpose": {"type": "string", "pattern": ".+"}, "mode": {"type": "string", "enum": ["static", "browser", "crawl"]}, "max_pages": {"type": "integer", "minimum": 1, "maximum": 10}, "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 120}}}}},
+  "x-forbidden-recursive-keys": ["body", "content", "html", "markdown", "raw_response", "credentials", "authorization", "cookie"]
+}

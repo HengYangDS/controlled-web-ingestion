@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Body-redacted staged ingestion receipt",
+  "type": "object",
+  "required": [
+    "candidate",
+    "requested_url",
+    "final_url",
+    "source_url",
+    "content_sha256",
+    "status",
+    "content_type",
+    "fetched_at",
+    "parser_version",
+    "robots_decision",
+    "policy_decision",
+    "promotion_state",
+    "staged_at"
+  ],
+  "properties": {
+    "candidate": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "[0-9a-f]{24}"
+    },
+    "purpose": {
+      "type": "string",
+      "pattern": ".+"
+    },
+    "route": {
+      "type": "string",
+      "enum": [
+        "trafilatura",
+        "firecrawl"
+      ]
+    },
+    "requested_url": {
+      "type": "string"
+    },
+    "final_url": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "[0-9a-f]{64}"
+    },
+    "status": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string"
+    },
+    "fetched_at": {
+      "type": "string"
+    },
+    "parser_version": {
+      "type": "string"
+    },
+    "robots_decision": {
+      "type": "string"
+    },
+    "policy_decision": {
+      "type": "string"
+    },
+    "redirect_chain": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dedupe_decision": {
+      "type": "string",
+      "enum": [
+        "unique",
+        "duplicate"
+      ]
+    },
+    "budget": {
+      "type": "object"
+    },
+    "quality": {
+      "type": "object"
+    },
+    "promotion_state": {
+      "type": "string",
+      "const": "staged"
+    },
+    "staged_at": {
+      "type": "string"
+    }
+  },
+  "x-forbidden-recursive-keys": [
+    "body",
+    "content",
+    "html",
+    "markdown",
+    "raw_response",
+    "credentials",
+    "authorization",
+    "cookie",
+    "private_target"
+  ]
+}

@@ -1,0 +1,24 @@
+[claim]
+id = "controlled-web-ingestion-topology-20260714"
+subject = "controlled-web-ingestion:controlled-admission-proof"
+change_id = "controlled-web-ingestion-topology-20260714"
+state = "historical"
+summary = "The cited historical local proof records the 66-test Python 3.12-3.14 matrix and repository gates; explicit Firecrawl runtime and hosted CI evidence remain separately bounded."
+
+[evidence]
+dated = "evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json"
+sha256 = "891c0e40a8250efb4a73c7b357706e86a1498235643bfedb2e2ed707f65d703b"
+evidence_ids = ["evidence:controlled-web-ingestion-local-proof-2026-07-14"]
+binding = "digest-bound local proof with explicit runtime and hosted-CI scope limits"
+verifier = "digest_only"
+tests = [
+  "tools/ci/run_tests.py under Python 3.12, 3.13 and 3.14",
+  "tools/ci/validate_schemas.py",
+  "tools/ci/check_documentation.py",
+  "tools/ci/check_source_topology.py",
+  "tools/ci/run_security_checks.sh",
+  "tools/runtime/verify-firecrawl-provenance.py",
+]
+
+[evidence.freshness]
+mode = "historical"
