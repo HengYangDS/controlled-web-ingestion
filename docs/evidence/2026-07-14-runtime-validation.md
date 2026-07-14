@@ -8,11 +8,13 @@ relations:
 
 # Runtime Validation — 2026-07-14
 
-Image provenance and the zero-resource preflight passed. The authorized browser
-case did not start: OrbStack's `docker compose up --detach` did not return
-within the runner's 120-second bounded startup window, and no loopback API
-listener became available. The runner's timeout recovery released all
+The final authorized run passed provenance and zero-resource preflight, static
+ingestion, duplicate refusal, explicit promotion, sinkless bridge preparation,
+browser ingestion, and the ten-page single-concurrency crawl. A deliberate
+private-loopback browser request exited nonzero; the runner then left zero
 label-bound containers, volumes, networks and benchmark listeners.
 
-The runtime gate is therefore **open, not passed**. The evidence records a
-bounded orchestration failure and cleanup, not a Firecrawl capability success.
+The runtime gate is therefore **passed for the exact allowlisted workload**.
+It does not authorize arbitrary targets, a standing Firecrawl service, MCP,
+default-Agent, Hermes, Open WebUI, or direct RAG integration. Hosted GitLab CI
+remains a separate, currently unproven claim.

@@ -1,31 +1,33 @@
 {
   "schema": "controlled-web-ingestion-runtime-validation-v1",
-  "head": "0d24b31c8d3b07e75ddb88f8c00e89635e22152b",
-  "executed_at": "2026-07-14T05:42:42Z",
-  "status": "blocked",
+  "head": "3e7691ab5ccc4d3cd9f3974243000460db0de5c1",
+  "executed_at": "2026-07-14T06:37:46.919573+00:00",
+  "status": "passed",
   "preflight": {
     "provenance": "verified",
     "authorized_workload_manifest": "system/policies/authorized-workloads.json",
     "initial_resources": {"containers": 0, "volumes": 0, "networks": 0, "benchmark_listeners": 0}
   },
   "observation": {
-    "phase": "browser Firecrawl startup",
-    "failure": "docker compose up --detach did not return within the 120-second bounded startup window",
-    "api_loopback_listener_observed": false,
-    "workload_validation_completed": false
+    "phase": "authorized M2-M5 public workload set",
+    "browser_receipt": {"status": "success", "discovered_count": 1},
+    "crawl_receipt": {"status": "success", "discovered_count": 10},
+    "private_loopback_request": "rejected_nonzero_exit",
+    "workload_validation_completed": true
   },
   "recovery": {
-    "runner_timeout_process_group": "terminated",
+    "runner_timeout_process_group": "bounded_and_teardown_verified",
     "label_bound_containers": 0,
     "label_bound_volumes": 0,
     "label_bound_networks": 0,
     "benchmark_listeners": 0
   },
-  "decision": "runtime gate remains open; no Firecrawl admission expansion follows from this attempt",
+  "decision": "runtime gate passed for the exact allowlisted, disposable loopback workload; no admission expansion follows from this proof",
   "limits": [
     "no_body_html_markdown_or_raw_response_persisted",
     "no_shared_service_or_listener_reused",
     "no_docker_daemon_configuration_changed",
-    "no_hosted_ci_claim_inferred"
+    "no_hosted_ci_claim_inferred",
+    "no_mcp_default_agent_hermes_or_open_webui_integration"
   ]
 }
