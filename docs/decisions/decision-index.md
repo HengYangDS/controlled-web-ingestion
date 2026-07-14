@@ -10,3 +10,4 @@ relations:
 
 - [0000 — Controlled Web Ingestion position](0000-controlled-web-ingestion-position.md)
 - [0001 — ETHOS adopter boundary](0001-ethos-adopter-boundary.md)
+- [0002 — Delivery-train boundary](0002-delivery-train-boundary.md)

@@ -3,12 +3,16 @@ name = "root"
 path = "."
 domains = ["repository"]
 
-# This GitLab repository lands a reviewed work branch directly through an MR
-# into protected main. Map that existing train; do not invent a parallel dev
-# branch merely for ETHOS.
+# `main` is the published, protected release root. It is intentionally not
+# also the accepted root: ETHOS must distinguish a read-only release root from
+# the integration train used to mint an owned Work Lane.
+#
+# These are delivery roles, not product environments. The candidate train is
+# the reviewed MR source; `accepted/` is its integration base. Neither changes
+# the runtime, target allowlist, persistence policy or Firecrawl topology.
 [branch_roles]
 release_branch = "main"
-accepted_branch = "main"
-candidate_branch = "work/controlled-web-ingestion-topology"
+accepted_branch = "accepted/controlled-web-ingestion"
+candidate_branch = "candidate/controlled-web-ingestion"
 work_branch_prefix = "work/"
 submit_branch_prefix = "submit/"

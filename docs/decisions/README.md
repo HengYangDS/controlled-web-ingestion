@@ -8,5 +8,6 @@ relations:
 
 # Decisions
 
-The accepted decisions establish repository identity and ETHOS adoption scope.
+The accepted decisions establish repository identity, ETHOS adoption scope and
+the delivery-train boundary.
 See the [decision index](decision-index.md).

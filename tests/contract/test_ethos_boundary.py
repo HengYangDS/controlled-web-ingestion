@@ -1,5 +1,6 @@
 import unittest
 from pathlib import Path
+import tomllib
 
 
 class EthosAdopterBoundaryTests(unittest.TestCase):
@@ -13,9 +14,14 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
         self.assertIn('code_correctness_gates = ["controlled-web-ingestion-tests", "controlled-web-ingestion-static"]', profile)
         self.assertIn('behavior = "controlled-web-ingestion-tests"', profile)
         self.assertIn('static-analysis = "controlled-web-ingestion-static"', profile)
-        workspace = (root / ".ethos" / "workspace.toml").read_text(encoding="utf-8")
-        self.assertIn('accepted_branch = "main"', workspace)
-        self.assertIn('candidate_branch = "work/controlled-web-ingestion-topology"', workspace)
+        workspace = tomllib.loads(
+            (root / ".ethos" / "workspace.toml").read_text(encoding="utf-8")
+        )["branch_roles"]
+        self.assertEqual(workspace["release_branch"], "main")
+        self.assertEqual(workspace["accepted_branch"], "accepted/controlled-web-ingestion")
+        self.assertEqual(workspace["candidate_branch"], "candidate/controlled-web-ingestion")
+        self.assertNotEqual(workspace["release_branch"], workspace["accepted_branch"])
+        self.assertFalse(workspace["candidate_branch"].startswith(workspace["work_branch_prefix"]))
 
     def test_runtime_remains_independent_of_ethos_product_imports(self):
         root = Path(__file__).resolve().parents[2]

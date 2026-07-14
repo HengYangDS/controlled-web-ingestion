@@ -45,7 +45,7 @@ class RuntimeRunnerTimeoutTests(unittest.TestCase):
                     "--",
                     sys.executable,
                     "-c",
-                    "import time; time.sleep(0.2)",
+                    "import time; time.sleep(2)",
                 ]
             )
             for _ in range(40):
