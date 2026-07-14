@@ -205,3 +205,14 @@ class RoutingManifestTests(unittest.TestCase):
         self.assertEqual(routing["modes"]["browser"]["service"], "disposable_loopback_only")
         self.assertEqual(routing["modes"]["crawl"]["max_pages"], 10)
         self.assertIn("direct_rag_write", routing["excluded"])
+
+
+class AuthorizedWorkloadTimingTests(unittest.TestCase):
+    def test_ten_page_serial_firecrawl_workload_reserves_the_full_bounded_runtime(self):
+        root = Path(__file__).resolve().parents[2]
+        workloads = json.loads((root / "system" / "policies" / "authorized-workloads.json").read_text(encoding="utf-8"))
+        crawl = next(item for item in workloads["workloads"] if item["id"] == "crawl-quotes")
+
+        self.assertEqual(crawl["mode"], "crawl")
+        self.assertEqual(crawl["max_pages"], 10)
+        self.assertEqual(crawl["timeout_seconds"], 120)

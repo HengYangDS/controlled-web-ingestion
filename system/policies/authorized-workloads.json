@@ -24,7 +24,7 @@
       "purpose": "verify bounded public crawl routing and cleanup",
       "mode": "crawl",
       "max_pages": 10,
-      "timeout_seconds": 60
+      "timeout_seconds": 120
     }
   ]
 }

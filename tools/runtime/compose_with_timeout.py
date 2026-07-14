@@ -8,10 +8,12 @@ import os
 import signal
 import subprocess
 import sys
+from pathlib import Path
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--pid-file", type=Path)
     parser.add_argument("--timeout-seconds", type=float, required=True)
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args(argv)
@@ -19,6 +21,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.timeout_seconds <= 0 or not command:
         parser.error("a positive timeout and command are required")
     process = subprocess.Popen(command, start_new_session=True)
+    if args.pid_file is not None:
+        args.pid_file.write_text(f"{process.pid}\n", encoding="utf-8")
     try:
         return process.wait(timeout=args.timeout_seconds)
     except subprocess.TimeoutExpired:
@@ -30,6 +34,9 @@ def main(argv: list[str] | None = None) -> int:
             process.wait()
         print(f"bounded Compose command exceeded {args.timeout_seconds:g} seconds", file=sys.stderr)
         return 124
+    finally:
+        if args.pid_file is not None:
+            args.pid_file.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

@@ -18,6 +18,11 @@ tools/runtime/validate-authorized-workloads.sh
 
 The runner verifies provenance before Compose startup, binds only loopback
 ports, starts no shared service, rejects a private-loopback target, and tears
-down containers, volumes, networks, listeners and temporary Python state. A
-missing image, unavailable dependency, or failure to clean up leaves the gate
-open; it never authorizes a fallback daemon or weaker policy.
+down containers, volumes, networks, listeners and temporary Python state. Its
+Compose invocation is process-group bounded and records the active child group
+so an interrupted runner cannot leave a detached `compose up` behind. The
+allowlisted ten-page serial crawl has a 120-second total budget; it remains
+bounded by the runtime contract and does not increase page or concurrency
+limits. A missing image, unavailable dependency, failed workload, or failed
+cleanup leaves the gate open; none authorizes a fallback daemon or weaker
+policy.

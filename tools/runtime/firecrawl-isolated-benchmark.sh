@@ -6,7 +6,12 @@ ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
 COMPOSE_FILE="$ROOT/system/projections/firecrawl-isolated-compose.yaml"
 EVIDENCE_DIR="$ROOT/results/m1"
 PROJECT=web-ingestion-firecrawl-bench
+# Docker Compose can leave its own process group alive after the client shell
+# is interrupted. Keep the startup bound at the runner boundary so teardown
+# cannot race an orphaned `compose up` into a newly-cleaned project.
+STARTUP_TIMEOUT_SECONDS="${FIRECRAWL_STARTUP_TIMEOUT_SECONDS:-120}"
 WORK=$(mktemp -d -t web-ingestion-firecrawl.XXXXXX)
+COMPOSE_UP_PID_FILE="$WORK/compose-up.pid"
 REDIS_PID=""
 RABBIT_PID=""
 EPMD_PID=""
@@ -14,11 +19,30 @@ COMPOSE_STARTED=0
 WEB_INGEST_REQUEST=""
 umask 077
 
+stop_inflight_compose_up() {
+  trap - TERM INT
+  if [[ ! -f "$COMPOSE_UP_PID_FILE" ]]; then
+    return
+  fi
+  local compose_pid
+  compose_pid=$(cat "$COMPOSE_UP_PID_FILE" 2>/dev/null || true)
+  if [[ "$compose_pid" =~ ^[0-9]+$ ]] && kill -0 "$compose_pid" 2>/dev/null; then
+    kill -TERM -- "-$compose_pid" >/dev/null 2>&1 || true
+    for _ in $(seq 1 10); do
+      kill -0 "$compose_pid" 2>/dev/null || break
+      sleep 1
+    done
+    kill -0 "$compose_pid" 2>/dev/null && kill -KILL -- "-$compose_pid" >/dev/null 2>&1 || true
+  fi
+  rm -f "$COMPOSE_UP_PID_FILE"
+}
+
 cleanup() {
   status=$?
-  # A signal and the EXIT trap can otherwise enter cleanup twice. Disable both
-  # before tearing down this run's exclusively preflighted resources.
-  trap - EXIT INT TERM
+  # A signal and the EXIT trap can otherwise enter cleanup twice. Disable the
+  # EXIT trap, but keep TERM/INT ignored while `wait` in cleanup reaps children.
+  trap - EXIT
+  stop_inflight_compose_up
   if (( COMPOSE_STARTED )); then
     python3 "$ROOT/tools/runtime/compose_with_timeout.py" --timeout-seconds 45 -- \
       docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" \
@@ -126,10 +150,10 @@ done
 mkdir -p "$EVIDENCE_DIR"
 COMPOSE_STARTED=1
 if [[ -n "$WEB_INGEST_REQUEST" ]]; then
-  python3 "$ROOT/tools/runtime/compose_with_timeout.py" --timeout-seconds 120 -- \
+  python3 "$ROOT/tools/runtime/compose_with_timeout.py" --pid-file "$COMPOSE_UP_PID_FILE" --timeout-seconds "$STARTUP_TIMEOUT_SECONDS" -- \
     docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" up --detach >/dev/null
 else
-  python3 "$ROOT/tools/runtime/compose_with_timeout.py" --timeout-seconds 120 -- \
+  python3 "$ROOT/tools/runtime/compose_with_timeout.py" --pid-file "$COMPOSE_UP_PID_FILE" --timeout-seconds "$STARTUP_TIMEOUT_SECONDS" -- \
     docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" up --detach
 fi
 
