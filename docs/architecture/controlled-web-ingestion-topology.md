@@ -1,17 +1,18 @@
 ---
 subject: web-ingestion:topology
 role: design
-state: proposed
+state: active
 relations:
   canonical_for: controlled-web-ingestion repository topology and ETHOS adoption boundary
   supersedes: flat benchmark-root organization
+  implemented_by: docs/plans/2026-07-14-controlled-web-ingestion-topology-implementation.md
 ---
 
 # Controlled Web Ingestion: Repository Topology and ETHOS Adoption Design
 
 ## Status
 
-Proposed. This design is the approval boundary for the repository reorganization
+Active. This approved design is the implementation boundary for the repository reorganization
 and for subsequent ETHOS adoption. It does not authorize a standing service,
 unbounded crawling, direct RAG delivery, MCP/default-tool registration, Hermes
 or Open WebUI integration.
