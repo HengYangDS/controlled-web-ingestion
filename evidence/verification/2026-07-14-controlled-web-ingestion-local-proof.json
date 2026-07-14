@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "id": "schema",
+      "result": "passed",
+      "verifier": "tools/ci/validate_schemas.py"
+    },
+    {
+      "id": "documentation",
+      "result": "passed",
+      "verifier": "tools/ci/check_documentation.py"
+    },
+    {
+      "id": "source_topology",
+      "result": "passed",
+      "verifier": "tools/ci/check_source_topology.py"
+    },
+    {
+      "id": "security",
+      "result": "passed",
+      "verifier": "tools/ci/run_security_checks.sh"
+    },
+    {
+      "id": "firecrawl_provenance",
+      "result": "passed",
+      "verifier": "tools/runtime/verify-firecrawl-provenance.py"
+    },
+    {
+      "evidence": "evidence/verification/2026-07-14-controlled-web-ingestion-runtime-validation.json",
+      "id": "firecrawl_runtime",
+      "result": "blocked"
+    },
+    {
+      "id": "hosted_gitlab_ci",
+      "reason": "requires pushed branch and eligible hosted runner",
+      "result": "not_run"
+    }
+  ],
+  "limits": [
+    "runtime_blocked_is_not_a_success_claim",
+    "hosted_ci_is_distinct_from_local_proof",
+    "body_html_markdown_raw_response_credentials_and_private_targets_are_not_persisted"
+  ],
+  "python_matrix": [
+    {
+      "binary": "/opt/homebrew/bin/python3.12",
+      "exit_code": 0,
+      "python": "3.12",
+      "started_at": "2026-07-14T05:42:57Z",
+      "test_count": 62
+    },
+    {
+      "binary": "/opt/homebrew/bin/python3.13",
+      "exit_code": 0,
+      "python": "3.13",
+      "started_at": "2026-07-14T05:43:01Z",
+      "test_count": 62
+    },
+    {
+      "binary": "/opt/homebrew/bin/python3.14",
+      "exit_code": 0,
+      "python": "3.14",
+      "started_at": "2026-07-14T05:43:05Z",
+      "test_count": 62
+    }
+  ],
+  "schema": "controlled-web-ingestion-local-proof-v1",
+  "verified_at": "2026-07-14T05:43:33.113905+00:00",
+  "verified_head": "77d19b0dda37222ede71006f512b6f58f5e657d8"
+}
