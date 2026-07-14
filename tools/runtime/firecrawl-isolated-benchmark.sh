@@ -20,7 +20,9 @@ cleanup() {
   # before tearing down this run's exclusively preflighted resources.
   trap - EXIT INT TERM
   if (( COMPOSE_STARTED )); then
-    docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" down --volumes --remove-orphans >/dev/null 2>&1 || true
+    python3 "$ROOT/tools/runtime/compose_with_timeout.py" --timeout-seconds 45 -- \
+      docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" \
+      down --volumes --remove-orphans >/dev/null 2>&1 || true
   fi
   [[ -n "$RABBIT_PID" ]] && kill "$RABBIT_PID" >/dev/null 2>&1 || true
   [[ -n "$REDIS_PID" ]] && kill "$REDIS_PID" >/dev/null 2>&1 || true
@@ -124,9 +126,11 @@ done
 mkdir -p "$EVIDENCE_DIR"
 COMPOSE_STARTED=1
 if [[ -n "$WEB_INGEST_REQUEST" ]]; then
-  docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" up --detach >/dev/null
+  python3 "$ROOT/tools/runtime/compose_with_timeout.py" --timeout-seconds 120 -- \
+    docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" up --detach >/dev/null
 else
-  docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" up --detach
+  python3 "$ROOT/tools/runtime/compose_with_timeout.py" --timeout-seconds 120 -- \
+    docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" up --detach
 fi
 
 for _ in $(seq 1 90); do
