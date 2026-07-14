@@ -1,0 +1,24 @@
+{
+  "schema": "web-ingestion-routing-v1",
+  "modes": {
+    "static": {
+      "route": "trafilatura",
+      "service": false,
+      "max_pages": 1,
+      "requirements": ["public_http", "redirect_validation", "robots", "allowed_content_type", "staging_receipt"]
+    },
+    "browser": {
+      "route": "firecrawl",
+      "service": "disposable_loopback_only",
+      "max_pages": 1,
+      "requirements": ["provenance_verified", "public_http", "redirect_validation", "robots", "staging_receipt", "cleanup"]
+    },
+    "crawl": {
+      "route": "firecrawl",
+      "service": "disposable_loopback_only",
+      "max_pages": 10,
+      "requirements": ["provenance_verified", "public_http", "redirect_validation", "robots", "per_origin_concurrency_1", "staging_receipt", "cleanup"]
+    }
+  },
+  "excluded": ["mcp", "default_agent_tool", "hermes_dashboard", "open_webui_pipe", "direct_rag_write", "persistent_daemon"]
+}

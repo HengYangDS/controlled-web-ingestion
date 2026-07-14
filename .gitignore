@@ -1,0 +1,16 @@
+# Local Python and test state
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Disposable Firecrawl execution state and body-redacted local run outputs.
+# Curated evidence belongs under evidence/; raw per-run output stays local.
+results/
+.firecrawl-request.json
+
+# Editor and OS residue
+.DS_Store
+*~

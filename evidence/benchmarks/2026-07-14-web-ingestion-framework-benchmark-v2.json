@@ -1,0 +1,496 @@
+{
+  "decisions": {
+    "crawl4ai": {
+      "next_gate": "Use only behind a small, provenance-preserving ingestion adapter; retain no global installation and no MCP/default-tool registration.",
+      "reason": "Passed static, JavaScript-rendered, and bounded ten-page crawl workloads with the existing local Chrome. It needs no persistent service for this workload.",
+      "state": "admit-as-library"
+    },
+    "crawlee": {
+      "next_gate": "Any real pipeline must use ThrottlingRequestManager or an equivalent per-domain delay control before admission to recurring site crawling.",
+      "reason": "Passed static, JavaScript-rendered, and bounded ten-page crawl workloads. The current 1.x integration warns that crawl-delay directives are not enforced without ThrottlingRequestManager.",
+      "state": "admit-as-library-with-condition"
+    },
+    "firecrawl": {
+      "boundary": "On-demand, explicitly invoked, disposable loopback-only ingestion service only. It is not a standing daemon and it is not registered as MCP, a default agent tool, Hermes Dashboard capability, Open WebUI Pipe, or a direct RAG writer.",
+      "next_gate": "Any image/digest/runtime configuration change requires the same policy, function, resource, listener, and teardown evidence before reuse.",
+      "reason": "The reviewed official GHCR arm64 image set imported through the digest-verified range recovery path, then completed static, JavaScript, and bounded ten-page crawl workloads in a disposable loopback-only service. A direct loopback scrape was rejected with HTTP 400. The API, fresh Homebrew Redis/RabbitMQ, and support containers were removed with no residual benchmark listener, container, volume, network, or project virtual environment.",
+      "state": "admit-as-service"
+    },
+    "jina-reader": {
+      "next_gate": "Treat this as a current egress/service-availability fact. Re-test only after the reader route is independently reachable; it is not a local deployment candidate.",
+      "reason": "The current r.jina.ai reader endpoint timed out for both public reading cases and does not supply recursive crawling in this benchmark.",
+      "state": "hold"
+    },
+    "scrapy-trafilatura": {
+      "next_gate": "Use only where a browser-rendered page is not required; preserve the hard scheduling cap implemented by the benchmark regression test.",
+      "reason": "Passed static and bounded crawl workloads, but the JavaScript marker was absent. Its valid role is static/document-oriented crawling and extraction, not a replacement for browser rendering.",
+      "state": "admit-as-static-library"
+    }
+  },
+  "generated_at": "2026-07-13T17:32:04+00:00",
+  "limits": [
+    "Jina Reader did not reach reading tests because r.jina.ai timed out from this workstation.",
+    "Performance values include isolated process startup and are not a production throughput benchmark.",
+    "Firecrawl resource figures are one isolated arm64 run, not a production capacity or multi-site authorization benchmark."
+  ],
+  "m1_runtime_evidence": "2026-07-14-web-ingestion-firecrawl-m1-runtime.json",
+  "records": [
+    {
+      "artifacts": [],
+      "candidate": "crawl4ai",
+      "case": "crawl",
+      "content_sha256": "d3dbbf0be6075d7903b23f05729668237cb1a3cc0839fea7704ad0f446d7d235",
+      "discovered_count": 10,
+      "ended_at": "2026-07-13T04:45:43.962237+00:00",
+      "error": null,
+      "final_url": "https://quotes.toscrape.com/",
+      "requested_url": "https://quotes.toscrape.com/",
+      "resources": {
+        "elapsed_ms": 32001,
+        "max_rss_kb": 140272
+      },
+      "source_url": "https://quotes.toscrape.com/",
+      "started_at": "2026-07-13T04:45:11.959708+00:00",
+      "status": "success",
+      "title": "Quotes to Scrape"
+    },
+    {
+      "artifacts": [],
+      "candidate": "crawl4ai",
+      "case": "javascript",
+      "content_sha256": "8b0c9c3839bef658ad5c8ab5fbe09089737c312eaff705ee801b67c7dcd62f84",
+      "discovered_count": 1,
+      "ended_at": "2026-07-13T04:45:10.679178+00:00",
+      "error": null,
+      "final_url": "https://quotes.toscrape.com/js/",
+      "requested_url": "https://quotes.toscrape.com/js/",
+      "resources": {
+        "elapsed_ms": 6788,
+        "max_rss_kb": 134608
+      },
+      "source_url": "https://quotes.toscrape.com/js/",
+      "started_at": "2026-07-13T04:45:03.890560+00:00",
+      "status": "success",
+      "title": "Quotes to Scrape"
+    },
+    {
+      "artifacts": [],
+      "candidate": "crawl4ai",
+      "case": "static",
+      "content_sha256": "afbe8ebdfffe8026d9bec5c5b006005661c1f715df2d060fec6cea228b9aa28a",
+      "discovered_count": 1,
+      "ended_at": "2026-07-13T04:45:02.665873+00:00",
+      "error": null,
+      "final_url": "https://example.com/",
+      "requested_url": "https://example.com/",
+      "resources": {
+        "elapsed_ms": 8825,
+        "max_rss_kb": 139408
+      },
+      "source_url": "https://example.com/",
+      "started_at": "2026-07-13T04:44:53.840621+00:00",
+      "status": "success",
+      "title": "Example Domain"
+    },
+    {
+      "artifacts": [],
+      "candidate": "crawlee",
+      "case": "crawl",
+      "content_sha256": "82177c369719552d195a78d6bce9377574903d6b1e75096327185af70b9065c3",
+      "discovered_count": 10,
+      "ended_at": "2026-07-13T04:44:17.001865+00:00",
+      "error": null,
+      "final_url": "https://quotes.toscrape.com/",
+      "requested_url": "https://quotes.toscrape.com/",
+      "resources": {
+        "elapsed_ms": 34804,
+        "max_rss_kb": 173568
+      },
+      "source_url": "https://quotes.toscrape.com/",
+      "started_at": "2026-07-13T04:43:42.180237+00:00",
+      "status": "success",
+      "title": "Quotes to Scrape"
+    },
+    {
+      "artifacts": [],
+      "candidate": "crawlee",
+      "case": "javascript",
+      "content_sha256": "3ebebfe513f7a7be96cd3954bb21574be91c3bad15d15276dc07e151002d3604",
+      "discovered_count": 1,
+      "ended_at": "2026-07-13T04:46:06.244384+00:00",
+      "error": null,
+      "final_url": "https://quotes.toscrape.com/js/",
+      "requested_url": "https://quotes.toscrape.com/js/",
+      "resources": {
+        "elapsed_ms": 5196,
+        "max_rss_kb": 172656
+      },
+      "source_url": "https://quotes.toscrape.com/js/",
+      "started_at": "2026-07-13T04:46:01.048334+00:00",
+      "status": "success",
+      "title": "Quotes to Scrape"
+    },
+    {
+      "artifacts": [],
+      "candidate": "crawlee",
+      "case": "static",
+      "content_sha256": "d003f90bc10db991b76e6fb480123cfce2cbb2b2784abe687fccccfa7ecacad8",
+      "discovered_count": 1,
+      "ended_at": "2026-07-13T04:40:28.869407+00:00",
+      "error": null,
+      "final_url": "https://example.com/",
+      "requested_url": "https://example.com/",
+      "resources": {
+        "elapsed_ms": 3033,
+        "max_rss_kb": 194640
+      },
+      "source_url": "https://example.com/",
+      "started_at": "2026-07-13T04:40:25.835017+00:00",
+      "status": "success",
+      "title": "Example Domain"
+    },
+    {
+      "artifacts": [],
+      "candidate": "jina-reader",
+      "case": "crawl",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "discovered_count": 0,
+      "ended_at": "2026-07-13T04:48:00.478758+00:00",
+      "error": "recursive crawl is outside this reader baseline",
+      "final_url": "https://quotes.toscrape.com/",
+      "requested_url": "https://quotes.toscrape.com/",
+      "resources": {
+        "elapsed_ms": 870,
+        "max_rss_kb": 38368
+      },
+      "source_url": "https://quotes.toscrape.com/",
+      "started_at": "2026-07-13T04:47:59.608744+00:00",
+      "status": "unsupported",
+      "title": null
+    },
+    {
+      "artifacts": [],
+      "candidate": "jina-reader",
+      "case": "javascript",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "discovered_count": 0,
+      "ended_at": "2026-07-13T04:47:58.278609+00:00",
+      "error": "URLError: <urlopen error timed out>",
+      "final_url": "https://quotes.toscrape.com/js/",
+      "requested_url": "https://quotes.toscrape.com/js/",
+      "resources": {
+        "elapsed_ms": 45083,
+        "max_rss_kb": 37584
+      },
+      "source_url": "https://quotes.toscrape.com/js/",
+      "started_at": "2026-07-13T04:47:13.195473+00:00",
+      "status": "error",
+      "title": null
+    },
+    {
+      "artifacts": [],
+      "candidate": "jina-reader",
+      "case": "static",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "discovered_count": 0,
+      "ended_at": "2026-07-13T04:47:11.891709+00:00",
+      "error": "URLError: <urlopen error timed out>",
+      "final_url": "https://example.com/",
+      "requested_url": "https://example.com/",
+      "resources": {
+        "elapsed_ms": 45086,
+        "max_rss_kb": 37248
+      },
+      "source_url": "https://example.com/",
+      "started_at": "2026-07-13T04:46:26.805656+00:00",
+      "status": "error",
+      "title": null
+    },
+    {
+      "artifacts": [],
+      "candidate": "scrapy-trafilatura",
+      "case": "crawl",
+      "content_sha256": "a2ce92d0845647418e5d3c8083edf6f84bd81e25220c66fa6e76ca050e9b6cd2",
+      "discovered_count": 9,
+      "ended_at": "2026-07-13T04:36:59.796441+00:00",
+      "error": null,
+      "final_url": "https://quotes.toscrape.com/",
+      "requested_url": "https://quotes.toscrape.com/",
+      "resources": {
+        "elapsed_ms": 15721,
+        "max_rss_kb": 130288
+      },
+      "source_url": "https://quotes.toscrape.com/",
+      "started_at": "2026-07-13T04:36:44.075316+00:00",
+      "status": "success",
+      "title": "Quotes to Scrape"
+    },
+    {
+      "artifacts": [],
+      "candidate": "scrapy-trafilatura",
+      "case": "javascript",
+      "content_sha256": "c4e077c9e82a99e180e3bad84ddca597b66f607478d49276596f4da1d3410244",
+      "discovered_count": 1,
+      "ended_at": "2026-07-13T04:31:55.307704+00:00",
+      "error": null,
+      "final_url": "https://quotes.toscrape.com/js/",
+      "requested_url": "https://quotes.toscrape.com/js/",
+      "resources": {
+        "elapsed_ms": 2660,
+        "max_rss_kb": 126464
+      },
+      "source_url": "https://quotes.toscrape.com/js/",
+      "started_at": "2026-07-13T04:31:52.647409+00:00",
+      "status": "success",
+      "title": "Quotes to Scrape"
+    },
+    {
+      "artifacts": [],
+      "candidate": "scrapy-trafilatura",
+      "case": "static",
+      "content_sha256": "2c449548824ba3e1537e581fa1e79269d4594ce1d8ca66d4678ee3316fa6f0a7",
+      "discovered_count": 1,
+      "ended_at": "2026-07-13T04:31:51.301462+00:00",
+      "error": null,
+      "final_url": "https://example.com/",
+      "requested_url": "https://example.com/",
+      "resources": {
+        "elapsed_ms": 2617,
+        "max_rss_kb": 125184
+      },
+      "source_url": "https://example.com/",
+      "started_at": "2026-07-13T04:31:48.684663+00:00",
+      "status": "success",
+      "title": "Example Domain"
+    },
+    {
+      "artifacts": [
+        "results/m1/firecrawl-static.json"
+      ],
+      "candidate": "firecrawl",
+      "case": "static",
+      "content_sha256": "0d5b5fc7d10dd33d9a1669bc8d5e37f4562d3125cc98ad153ee8abe909b8e364",
+      "discovered_count": 1,
+      "ended_at": "2026-07-13T17:31:24.901925+00:00",
+      "error": null,
+      "final_url": "https://example.com/",
+      "requested_url": "https://example.com/",
+      "resources": {
+        "elapsed_ms": 781,
+        "max_rss_kb": 36800
+      },
+      "source_url": "https://example.com/",
+      "started_at": "2026-07-13T17:31:24.120516+00:00",
+      "status": "success",
+      "title": "Example Domain"
+    },
+    {
+      "artifacts": [
+        "results/m1/firecrawl-javascript.json"
+      ],
+      "candidate": "firecrawl",
+      "case": "javascript",
+      "content_sha256": "3b909d2a7c59e21a8dc3fc09142fcad7e10cbaec12daf85e4a26a8efd7e5d04a",
+      "discovered_count": 1,
+      "ended_at": "2026-07-13T17:31:27.656758+00:00",
+      "error": null,
+      "final_url": "https://quotes.toscrape.com/js/",
+      "requested_url": "https://quotes.toscrape.com/js/",
+      "resources": {
+        "elapsed_ms": 2609,
+        "max_rss_kb": 37504
+      },
+      "source_url": "https://quotes.toscrape.com/js/",
+      "started_at": "2026-07-13T17:31:25.047392+00:00",
+      "status": "success",
+      "title": "Quotes to Scrape"
+    },
+    {
+      "artifacts": [
+        "results/m1/firecrawl-crawl.json"
+      ],
+      "candidate": "firecrawl",
+      "case": "crawl",
+      "content_sha256": "a1a6cc5b9ccb4ef93e472a3ace015d7d1837fab5c309ea6af765dda966e71072",
+      "discovered_count": 10,
+      "ended_at": "2026-07-13T17:32:04.806729+00:00",
+      "error": null,
+      "final_url": "https://quotes.toscrape.com/",
+      "requested_url": "https://quotes.toscrape.com/",
+      "resources": {
+        "elapsed_ms": 37060,
+        "max_rss_kb": 38032
+      },
+      "source_url": "https://quotes.toscrape.com/",
+      "started_at": "2026-07-13T17:31:27.745419+00:00",
+      "status": "success",
+      "title": "Quotes to Scrape"
+    }
+  ],
+  "schema": "agentic-web-ingestion-framework-benchmark-v2",
+  "scope": {
+    "boundaries": [
+      "no Hermes/Open WebUI/MCP/RAG integration",
+      "no existing Redis/Postgres reuse",
+      "no authenticated or private targets"
+    ],
+    "data_retention": "Normalized metadata, content SHA-256 digests, metrics, and redacted errors only. No response bodies are stored.",
+    "workload": {
+      "crawl": "https://quotes.toscrape.com/ (max 10 pages, one request at a time)",
+      "javascript": "https://quotes.toscrape.com/js/",
+      "static": "https://example.com/"
+    }
+  },
+  "summary": {
+    "crawl4ai": {
+      "discovered_count_by_case": {
+        "crawl": 10,
+        "javascript": 1,
+        "static": 1
+      },
+      "elapsed_ms_by_case": {
+        "crawl": 32001,
+        "javascript": 6788,
+        "static": 8825
+      },
+      "errors": {},
+      "js_expected_marker_found": true,
+      "rss_kb_by_case": {
+        "crawl": 140272,
+        "javascript": 134608,
+        "static": 139408
+      },
+      "status_by_case": {
+        "crawl": "success",
+        "javascript": "success",
+        "static": "success"
+      }
+    },
+    "crawlee": {
+      "discovered_count_by_case": {
+        "crawl": 10,
+        "javascript": 1,
+        "static": 1
+      },
+      "elapsed_ms_by_case": {
+        "crawl": 34804,
+        "javascript": 5196,
+        "static": 3033
+      },
+      "errors": {},
+      "js_expected_marker_found": true,
+      "rss_kb_by_case": {
+        "crawl": 173568,
+        "javascript": 172656,
+        "static": 194640
+      },
+      "status_by_case": {
+        "crawl": "success",
+        "javascript": "success",
+        "static": "success"
+      }
+    },
+    "firecrawl": {
+      "discovered_count_by_case": {
+        "crawl": 10,
+        "javascript": 1,
+        "static": 1
+      },
+      "elapsed_ms_by_case": {
+        "crawl": 37060,
+        "javascript": 2609,
+        "static": 781
+      },
+      "errors": {},
+      "js_expected_marker_found": true,
+      "rss_kb_by_case": {
+        "crawl": 38032,
+        "javascript": 37504,
+        "static": 36800
+      },
+      "security": {
+        "service_loopback_ssrf_rejected": true,
+        "ssrf_status_code": 400
+      },
+      "service_resource_sample": {
+        "api_memory": "1.276GiB / 4GiB",
+        "playwright_memory": "183.2MiB / 2GiB",
+        "postgres_memory": "132.9MiB / 1GiB"
+      },
+      "status_by_case": {
+        "crawl": "success",
+        "javascript": "success",
+        "static": "success"
+      }
+    },
+    "jina-reader": {
+      "discovered_count_by_case": {
+        "crawl": 0,
+        "javascript": 0,
+        "static": 0
+      },
+      "elapsed_ms_by_case": {
+        "crawl": 870,
+        "javascript": 45083,
+        "static": 45086
+      },
+      "errors": {
+        "crawl": "recursive crawl is outside this reader baseline",
+        "javascript": "URLError: <urlopen error timed out>",
+        "static": "URLError: <urlopen error timed out>"
+      },
+      "js_expected_marker_found": null,
+      "rss_kb_by_case": {
+        "crawl": 38368,
+        "javascript": 37584,
+        "static": 37248
+      },
+      "status_by_case": {
+        "crawl": "unsupported",
+        "javascript": "error",
+        "static": "error"
+      }
+    },
+    "scrapy-trafilatura": {
+      "discovered_count_by_case": {
+        "crawl": 9,
+        "javascript": 1,
+        "static": 1
+      },
+      "elapsed_ms_by_case": {
+        "crawl": 15721,
+        "javascript": 2660,
+        "static": 2617
+      },
+      "errors": {},
+      "js_expected_marker_found": false,
+      "rss_kb_by_case": {
+        "crawl": 130288,
+        "javascript": 126464,
+        "static": 125184
+      },
+      "status_by_case": {
+        "crawl": "success",
+        "javascript": "success",
+        "static": "success"
+      }
+    }
+  },
+  "supply_chain": {
+    "firecrawl_fallback": "recorded as approved official GitHub source fallback",
+    "firecrawl_preflight": "fallback_exception_required; no Homebrew formula/cask",
+    "firecrawl_source": {
+      "commit": "ef12eb36b2f3382838dfe0a0c1a5add3d5df7fe5",
+      "tag": "v2.11.0"
+    },
+    "python": {
+      "baseline": "Homebrew Python 3.14.6",
+      "compatibility_matrix": [
+        "3.12.13",
+        "3.13.14",
+        "3.14.6"
+      ],
+      "metadata_requires_python": ">=3.12"
+    }
+  }
+}

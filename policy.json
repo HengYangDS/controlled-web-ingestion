@@ -1,0 +1,46 @@
+{
+  "schema_version": "web-ingestion-policy-v1",
+  "scope": "isolated admission benchmark only",
+  "network": {
+    "allowed_schemes": ["http", "https"],
+    "resolve_before_fetch": true,
+    "reject_non_global_ip_addresses": true,
+    "validate_every_redirect_hop": true,
+    "per_origin_concurrency": 1,
+    "request_timeout_seconds": 45,
+    "cancellation_required": true
+  },
+  "robots": {
+    "required_before_recursive_crawl": true,
+    "respect_disallow": true,
+    "respect_crawl_delay": true,
+    "user_agent": "AgenticWebIngestionBenchmark/0.1"
+  },
+  "content": {
+    "allowed_media_types": ["text/html", "text/plain", "application/pdf"],
+    "persist_raw_body": false,
+    "provenance_required": [
+      "source_url",
+      "fetched_at",
+      "content_sha256",
+      "parser_version",
+      "robots_decision",
+      "policy_decision"
+    ]
+  },
+  "data_flow": {
+    "default_state": "staged",
+    "promotion_requires_explicit_confirmation": true,
+    "direct_rag_write": false,
+    "register_as_mcp": false,
+    "register_as_default_agent_tool": false,
+    "register_as_open_webui_pipe": false,
+    "hermes_dashboard_capability": false
+  },
+  "adapters": {
+    "crawl4ai": "on_demand_library",
+    "crawlee": "on_demand_library_with_crawl_delay_condition",
+    "scrapy-trafilatura": "on_demand_static_library",
+    "firecrawl": "isolated_benchmark_service_only"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "firecrawl-isolated-image-provenance-v1",
+  "source_repository": "https://github.com/firecrawl/firecrawl",
+  "source_tag": "v2.11.0",
+  "source_tarball_sha256": "2278c44de7a189390f039bac88377c64c087e4a4cc6555b581e1e19a2d15bcac",
+  "runtime_image_release": "2.10.19",
+  "platform": "linux/arm64",
+  "images": {
+    "api": {
+      "reference": "ghcr.io/firecrawl/firecrawl:2.10.19",
+      "manifest_digest": "sha256:e6860ab406e738b632cc41b02a54085575909a1da1fbe4b3577b8339257fee70",
+      "local_image_id": "sha256:1f5943fa898d85dc9e5c975a29630b1215b897ef6105e3defb9aa711fa9d4550",
+      "verified_at": "2026-07-13T15:15:00+08:00",
+      "verification": "official GHCR tag API and platform manifest"
+    },
+    "playwright_service": {
+      "reference": "ghcr.io/firecrawl/playwright-service:latest",
+      "manifest_digest": "sha256:3f21958ad289a7c7ed7d1f2598847a37582d723559e4efb7069d1754ac009852",
+      "local_image_id": "sha256:790a8fb87d5171d29bdd4a466d36317587e0ab6e345735d6cf38052e9bd49db4",
+      "verified_at": "2026-07-13T15:00:00+08:00",
+      "verification": "official GHCR platform manifest"
+    },
+    "nuq_postgres": {
+      "reference": "ghcr.io/firecrawl/nuq-postgres:latest",
+      "manifest_digest": "sha256:ee30cebf9afb6648f5406ac3e7505e21be30fd2f11c2067bd98a53e7542ecbac",
+      "local_image_id": "sha256:bf62aacd3ff0062482ff7ddf7cfa4eb7e9c652937156b116b3684b02376fa65e",
+      "verified_at": "2026-07-13T15:00:00+08:00",
+      "verification": "official GHCR platform manifest"
+    }
+  },
+  "constraint": "Tag and digest are both retained because the package version and source tag are not asserted to be identical. Runtime execution remains blocked until all pinned official blobs fully import."
+}

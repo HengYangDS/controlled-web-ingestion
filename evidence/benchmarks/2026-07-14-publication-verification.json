@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "gitleaks": "passed",
+    "locked_python_matrix": {
+      "3.12.13": {
+        "elapsed_seconds": 3.887,
+        "status": "passed",
+        "tests": 52
+      },
+      "3.13.14": {
+        "elapsed_seconds": 4.032,
+        "status": "passed",
+        "tests": 52
+      },
+      "3.14.6": {
+        "elapsed_seconds": 4.123,
+        "status": "passed",
+        "tests": 52
+      }
+    },
+    "m2_m5_runtime_validation": {
+      "browser": "success",
+      "crawl_discovered_count": 10,
+      "duplicate_static": "duplicate",
+      "private_loopback_recovery": "rejected_and_cleaned",
+      "promotion": "promoted",
+      "provenance": "verified",
+      "rag_bridge_sink": null,
+      "static": "success"
+    },
+    "shell_syntax": "passed",
+    "source_compile": "passed"
+  },
+  "limits": [
+    "GitLab CI validates source contracts only; live Firecrawl runtime validation remains an explicit local acceptance task.",
+    "This verification does not authorize a standing service, MCP/default tool, Hermes/Open WebUI integration, or direct RAG delivery."
+  ],
+  "retention": {
+    "raw_runtime_bodies": "not persisted",
+    "raw_test_logs": "not published; summarized here to avoid host-local temporary-path leakage"
+  },
+  "runtime_cleanup": {
+    "containers": 0,
+    "listeners": {
+      "13002": "free",
+      "15672": "free",
+      "16379": "free",
+      "25672": "free",
+      "43691": "free"
+    },
+    "networks": 0,
+    "volumes": 0
+  },
+  "schema": "web-ingestion-publication-verification-v1",
+  "scope": "standalone repository verification before initial GitLab publication",
+  "verified_at": "2026-07-14T01:22:51.226461+00:00"
+}

@@ -1,0 +1,259 @@
+{
+  "excluded": [
+    "local agentic sandbox runtime, secrets, and mutable state",
+    "raw per-run results directory",
+    "virtual environments, bytecode caches, and editor residue",
+    "host-local temporary test logs"
+  ],
+  "file_count": 48,
+  "files": [
+    {
+      "bytes": 325,
+      "path": ".gitignore",
+      "sha256": "19f1b8138463c5ca4df16a1d884b1649f432a7354dc3a4932e6959507e039b43"
+    },
+    {
+      "bytes": 781,
+      "path": ".gitlab-ci.yml",
+      "sha256": "d224f29f1599ddfbeec64ac55e36925f7c8c5a8f5c6c3833ee4ab4aa906b765b"
+    },
+    {
+      "bytes": 1406,
+      "path": "AGENTS.md",
+      "sha256": "79fbdcfcf6ca208e1bd9ec1b650a298e93afa1ae4cbb4fa8838de67ee5d95ac1"
+    },
+    {
+      "bytes": 6345,
+      "path": "README.md",
+      "sha256": "6e37d6a435a0f42a78714678d726b3788f322835fd66f681475ad2c5c57db938"
+    },
+    {
+      "bytes": 9821,
+      "path": "admission.py",
+      "sha256": "7aba7f4d499bd78d0898ddc80345905d1a555340e1b4021008ccd0f74d71fde9"
+    },
+    {
+      "bytes": 18809,
+      "path": "benchmark.py",
+      "sha256": "73c7ab97725ad561bab69f5a5829aeaf99ef7f50cdb3670a523582ac5e7d24fe"
+    },
+    {
+      "bytes": 296,
+      "path": "cases.json",
+      "sha256": "6108d646b874eeb25a80cf09c00d8b88578cd52bb2b4ca8a2a2749ea6e9175b9"
+    },
+    {
+      "bytes": 726,
+      "path": "docs/PUBLICATION.md",
+      "sha256": "cb44060729550701e45b2933b7561df2f28b8e52f6865e309c10be98233b25ef"
+    },
+    {
+      "bytes": 5053,
+      "path": "docs/benchmarks/2026-07-14-web-ingestion-firecrawl-m1-closeout.md",
+      "sha256": "0f4024bc157afc54ea07e13b9bb73f80940cb2dc39fced433cd97df8b6a9c7e2"
+    },
+    {
+      "bytes": 8362,
+      "path": "docs/benchmarks/2026-07-14-web-ingestion-m2-m5-closeout-retrospective.md",
+      "sha256": "1450073365d7129b2aa2eb8b545abed8d4a5e78ccb709833dc318c63cd8f1a49"
+    },
+    {
+      "bytes": 4676,
+      "path": "docs/benchmarks/2026-07-14-web-ingestion-m2-m5-runbook.md",
+      "sha256": "0693afc4fad3ddceffdba7a8758ca75e915ed0dfe00271e27726e350c56a1e0c"
+    },
+    {
+      "bytes": 4143,
+      "path": "docs/design/2026-07-14-web-ingestion-m2-m5-design.md",
+      "sha256": "9e4aa55ad8bb1e034293bca8ec7a574318970b4074934ee6f288e69e31139f6f"
+    },
+    {
+      "bytes": 7224,
+      "path": "docs/plans/2026-07-14-web-ingestion-m2-m5-implementation.md",
+      "sha256": "0aea94a8fa802dc2b061e4f57c7ef3f14c4aa22d6ca86003be21b4116e6bbfba"
+    },
+    {
+      "bytes": 1659,
+      "path": "evidence/benchmarks/2026-07-14-publication-verification.json",
+      "sha256": "54474601ca7b96d83bd3f502fe2a31b6158fc0a5ddfb067e4bd15dd9491196f4"
+    },
+    {
+      "bytes": 916,
+      "path": "evidence/benchmarks/2026-07-14-python-compatibility-matrix.json",
+      "sha256": "41bd774b3e78b2e6167696750d6a44f7604d9d1b6eda172dd82059c13d251bc4"
+    },
+    {
+      "bytes": 2827,
+      "path": "evidence/benchmarks/2026-07-14-web-ingestion-firecrawl-m1-runtime.json",
+      "sha256": "9e6fa185c770731971496acee96d621328506d9bbe4f5db47008688f4b2fd1be"
+    },
+    {
+      "bytes": 17374,
+      "path": "evidence/benchmarks/2026-07-14-web-ingestion-framework-benchmark-v2.json",
+      "sha256": "cd8fa6b06745d1207eb404e21e8a4a383cd1f2b2178fde4f518763e2290e3f39"
+    },
+    {
+      "bytes": 5506,
+      "path": "evidence/benchmarks/2026-07-14-web-ingestion-m2-m5-validation.json",
+      "sha256": "311d79f8c02d1a343071e28646d02dfc98d47ec9fb1a602e1182ef55faa33f63"
+    },
+    {
+      "bytes": 6122,
+      "path": "firecrawl_client.py",
+      "sha256": "84e2d62039d16e267496ec6fba772f0053e919d044d0fbd1a848998997c6dec2"
+    },
+    {
+      "bytes": 1727,
+      "path": "firecrawl_provenance.py",
+      "sha256": "674589199b1fe5b1d9b29b0540247d4fd1ffe0392645ffa771cb27e7b0582f8d"
+    },
+    {
+      "bytes": 2984,
+      "path": "ghcr_image_archive.py",
+      "sha256": "983953b739d2006756f705004f78235fb6120fc9526b26ac5bfe969b3873128a"
+    },
+    {
+      "bytes": 4218,
+      "path": "ghcr_range.py",
+      "sha256": "575f465815fc873a1e70a6e9173c2e0340255a7d7fbae1014fc7fdf3bc57c6bf"
+    },
+    {
+      "bytes": 7866,
+      "path": "ghcr_registry.py",
+      "sha256": "6ff9989589e7c3bb9753f7c1faa1de54a78ca48e2b702eedb1117fd4d3a36f85"
+    },
+    {
+      "bytes": 741,
+      "path": "ops/firecrawl-images.json",
+      "sha256": "beff903776444759f8077dfdb386e27e497f953462a9ed893129cb86335863ca"
+    },
+    {
+      "bytes": 2311,
+      "path": "ops/firecrawl-isolated-compose.yaml",
+      "sha256": "0c9a98eaaa6f8982aa5e27fbd04e50ac910142f49497a6203b3121dffe0ece11"
+    },
+    {
+      "bytes": 1733,
+      "path": "ops/firecrawl-provenance.json",
+      "sha256": "8d070a80029b531918d5bc7f080caa6ea37f69a620de46b0ef2047ff57f36aa1"
+    },
+    {
+      "bytes": 851,
+      "path": "ops/web-ingestion-authorized-workloads.json",
+      "sha256": "47fedf8aab8675e9f0f401d53a4611be642cb69abfed04bb46656ed4df4e9fe7"
+    },
+    {
+      "bytes": 911,
+      "path": "ops/web-ingestion-routing.json",
+      "sha256": "94d9998087974dd934d58b001cfcebe8e43ce65ede85dea3096116cd5e334a3c"
+    },
+    {
+      "bytes": 1381,
+      "path": "policy.json",
+      "sha256": "61db89f42980548810fd8b9dd85d32af6b09d6c9f0823915c2e5e9f1b316e69d"
+    },
+    {
+      "bytes": 316,
+      "path": "pyproject.toml",
+      "sha256": "c35bbb34cf1cceb5f57f3c6641dc01694583d32e9a8670e36fb2713c62cea5b2"
+    },
+    {
+      "bytes": 3217,
+      "path": "rag_bridge.py",
+      "sha256": "2ac71b6d5ceb7fd4fe0ed7204f0f37e58a51694811fffd25f0b4a359d68f61fb"
+    },
+    {
+      "bytes": 7940,
+      "path": "scripts/firecrawl-isolated-benchmark.sh",
+      "sha256": "6ee0af567b08a589c123317d1ae13636923598b8bf4680ab210f12db31ab97aa"
+    },
+    {
+      "bytes": 2914,
+      "path": "scripts/import-pinned-firecrawl-images.py",
+      "sha256": "e14a34dc5b2c58b24972130815d6a9bcb8480426367e6d87e865d25b666464c5"
+    },
+    {
+      "bytes": 1016,
+      "path": "scripts/verify-firecrawl-provenance.py",
+      "sha256": "7ca94a885a9b9b202c6bd0f9eb83424cfb45cbe9cb3d9231575edc62661d5d5d"
+    },
+    {
+      "bytes": 12087,
+      "path": "scripts/web-ingestion-m2-m5-validate.sh",
+      "sha256": "22d278209453fe7440bf86e385dca35b6fe01659a46cb3f64e7096a34a3bfa4a"
+    },
+    {
+      "bytes": 5547,
+      "path": "tests/test_admission.py",
+      "sha256": "ef2a10493e672eaab03ee9db8888efbb59f3f1f982bfb5e0c5e4638adde92b25"
+    },
+    {
+      "bytes": 6420,
+      "path": "tests/test_benchmark.py",
+      "sha256": "a483076e6c05d705176f0c64f3346d6dc92e97312ab4b1168caedd43f475534c"
+    },
+    {
+      "bytes": 4931,
+      "path": "tests/test_firecrawl_client.py",
+      "sha256": "a9fdd3829826b2091b14ac7a7b1b3d86265c0e7770daa6e3648eb570e13103dc"
+    },
+    {
+      "bytes": 1740,
+      "path": "tests/test_firecrawl_provenance.py",
+      "sha256": "66942e4041cf338650128581d4972a4c398e564759e378568b1248d4c98028da"
+    },
+    {
+      "bytes": 2658,
+      "path": "tests/test_ghcr_image_archive.py",
+      "sha256": "8772f105153422ca5c0764775ef4ae6030015de60f4e3b178a0e872047b0a85e"
+    },
+    {
+      "bytes": 4307,
+      "path": "tests/test_ghcr_range.py",
+      "sha256": "84c116bc6c7aad08efbdff6c5828ff8e3f533823507713c5fea5788adba973cd"
+    },
+    {
+      "bytes": 3865,
+      "path": "tests/test_ghcr_registry.py",
+      "sha256": "d37bac523036190bc5b4b4c0fad69b78972cfb5150ffc39f3d3eefc14dc17cb3"
+    },
+    {
+      "bytes": 2580,
+      "path": "tests/test_rag_bridge.py",
+      "sha256": "905e1e693335073cc9b8d659bf623f92e012d668e4e79012a4fcc82aa3ea5685"
+    },
+    {
+      "bytes": 3068,
+      "path": "tests/test_web_ingest_cli.py",
+      "sha256": "14516bf040095c49c55cdad90d46759b083fe1d6df5d27cb9fc00a4aaff69c01"
+    },
+    {
+      "bytes": 8801,
+      "path": "tests/test_web_ingestion.py",
+      "sha256": "678c02bf6c9a0ee9a7ce629157a6fd7e505a4db05ff1c2b884d63ff2c83ab3a6"
+    },
+    {
+      "bytes": 622095,
+      "path": "uv.lock",
+      "sha256": "0b4449c17a2e28510f50b6f6165908b85e9625819aa1e63bb944f965c26b93a2"
+    },
+    {
+      "bytes": 6205,
+      "path": "web_ingest.py",
+      "sha256": "e7974fd9f7ddd9c22fd2751e84c9c42ad5db534a5c11f394e49c89e2a7e81280"
+    },
+    {
+      "bytes": 12245,
+      "path": "web_ingestion.py",
+      "sha256": "79521d36637022b90475de0c8a8d78c92fe6c07a41c9d028d46222d6f0afa17c"
+    }
+  ],
+  "generated_at": "2026-07-14T01:40:11.135502+00:00",
+  "integrity": {
+    "body_redacted_evidence_only": true,
+    "gitleaks_verified_before_manifest": true,
+    "portable_paths_only": true
+  },
+  "schema": "web-ingestion-publication-manifest-v1",
+  "scope": "sanitized standalone GitLab publication package"
+}

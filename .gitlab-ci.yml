@@ -1,0 +1,23 @@
+stages:
+  - verify
+
+python-contracts:
+  stage: verify
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.12", "3.13", "3.14"]
+  image: "python:${PYTHON_VERSION}-slim"
+  variables:
+    UV_NO_MANAGED_PYTHON: "1"
+    UV_PROJECT_ENVIRONMENT: "$CI_PROJECT_DIR/.venv"
+    PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  before_script:
+    - python -m pip install --no-cache-dir "uv==0.11.28"
+  script:
+    - uv run --locked --python python python -m unittest discover -s tests -v
+    - bash -n scripts/firecrawl-isolated-benchmark.sh
+    - bash -n scripts/web-ingestion-m2-m5-validate.sh
+
+# The runtime Firecrawl validation is deliberately omitted from CI: it needs
+# reviewed local GHCR image identities and must prove loopback teardown rather
+# than borrow a shared runner's Docker environment.

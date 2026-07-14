@@ -1,0 +1,5 @@
+{
+  "static": {"url": "https://example.com/", "max_pages": 1, "per_origin_concurrency": 1},
+  "javascript": {"url": "https://quotes.toscrape.com/js/", "max_pages": 1, "per_origin_concurrency": 1},
+  "crawl": {"url": "https://quotes.toscrape.com/", "max_pages": 10, "per_origin_concurrency": 1}
+}

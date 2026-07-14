@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    "results/m1/firecrawl-static.json",
+    "results/m1/firecrawl-javascript.json",
+    "results/m1/firecrawl-crawl.json",
+    "results/m1/firecrawl-ssrf.json",
+    "results/m1/firecrawl-listeners.txt",
+    "results/m1/firecrawl-services.json",
+    "results/m1/firecrawl-resources.jsonl",
+    "results/m1/firecrawl-image-inspect.json"
+  ],
+  "captured_at": "2026-07-14T01:32:04+08:00",
+  "cleanup": {
+    "benchmark_listeners": 0,
+    "compose_containers": 0,
+    "compose_networks": 0,
+    "compose_volumes": 0,
+    "project_virtualenvs": 0
+  },
+  "decision": {
+    "boundary": "on-demand, explicitly invoked, disposable loopback-only ingestion service; not a standing daemon and not an MCP/default Agent/Hermes/Open WebUI/RAG integration",
+    "qualification": "reuse requires the reviewed pinned manifest set, policy/staging adapter, same loopback isolation, fresh supporting stores, successful teardown, and a re-run after any image or operating-model change",
+    "state": "admit-as-service"
+  },
+  "project": ".",
+  "resource_sample": {
+    "api_memory": "1.276GiB / 4GiB",
+    "playwright_memory": "183.2MiB / 2GiB",
+    "postgres_memory": "132.9MiB / 1GiB"
+  },
+  "runtime": {
+    "api": "ghcr.io/firecrawl/firecrawl:2.10.19",
+    "image_import": "official GHCR signed-URL range retrieval; each manifest blob SHA-256 verified before docker load; no Docker daemon or mirror modification",
+    "official_platform_manifest": "sha256:e6860ab406e738b632cc41b02a54085575909a1da1fbe4b3577b8339257fee70",
+    "platform": "linux/arm64",
+    "published_listener": "127.0.0.1:13002 only",
+    "removed_after_run": true,
+    "support_services": "fresh Homebrew Redis and RabbitMQ on loopback plus isolated Firecrawl nuq-postgres container; no existing Redis or Postgres reused"
+  },
+  "schema": "agentic-web-ingestion-firecrawl-m1-runtime-v2",
+  "scope": "disposable isolated Firecrawl service admission run; body-redacted evidence only",
+  "security": {
+    "adapter_public_target_and_redirect_validation": "covered by admission tests",
+    "listener_evidence": "127.0.0.1:13002, 127.0.0.1:16379, 127.0.0.1:15672, 127.0.0.1:25672, and localhost-only EPMD",
+    "no_mcp_rag_default_tool_open_webui_or_hermes_registration": true,
+    "no_raw_bodies": true,
+    "service_loopback_scrape_attempt": {
+      "rejected": true,
+      "status_code": 400,
+      "target": "127.0.0.1"
+    }
+  },
+  "workload": {
+    "crawl": {
+      "discovered_count": 10,
+      "elapsed_ms": 37060,
+      "max_concurrency": 1,
+      "max_discovery_depth": 1,
+      "sitemap": "disabled",
+      "status": "success"
+    },
+    "javascript": {
+      "discovered_count": 1,
+      "elapsed_ms": 2609,
+      "status": "success"
+    },
+    "static": {
+      "discovered_count": 1,
+      "elapsed_ms": 781,
+      "status": "success"
+    }
+  }
+}

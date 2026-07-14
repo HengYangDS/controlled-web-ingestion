@@ -1,0 +1,81 @@
+name: web-ingestion-firecrawl-bench
+
+services:
+  playwright-service:
+    image: ghcr.io/firecrawl/playwright-service:latest
+    pull_policy: never
+    environment:
+      PORT: "3000"
+      MAX_CONCURRENT_PAGES: "1"
+      BLOCK_MEDIA: "true"
+    networks: [backend]
+    cpus: 1.0
+    mem_limit: 2g
+    memswap_limit: 2g
+    tmpfs:
+      - /tmp/.cache:noexec,nosuid,size=512m
+
+  nuq-postgres:
+    image: ghcr.io/firecrawl/nuq-postgres:latest
+    pull_policy: never
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres
+    networks: [backend]
+    tmpfs:
+      - /var/lib/postgresql/data:rw,nosuid,nodev,size=512m
+    mem_limit: 1g
+
+  api:
+    image: ghcr.io/firecrawl/firecrawl:2.10.19
+    pull_policy: never
+    command: ["node", "dist/src/harness.js", "--start-docker"]
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "3002"
+      EXTRACT_WORKER_PORT: "3004"
+      WORKER_PORT: "3005"
+      ENV: "local"
+      USE_DB_AUTHENTICATION: "false"
+      REDIS_URL: redis://host.docker.internal:16379
+      REDIS_RATE_LIMIT_URL: redis://host.docker.internal:16379
+      NUQ_RABBITMQ_URL: amqp://guest:guest@host.docker.internal:15672
+      PLAYWRIGHT_MICROSERVICE_URL: http://playwright-service:3000/scrape
+      POSTGRES_HOST: nuq-postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres
+      BULL_AUTH_KEY: ${BULL_AUTH_KEY}
+      # Firecrawl 2.10.19's harness reads this documented runtime knob and
+      # launches exactly one NuQ scrape worker. The request adapter also sets
+      # maxConcurrency=1, so the service and request layers agree.
+      NUQ_WORKER_COUNT: "1"
+      HARNESS_STARTUP_TIMEOUT_MS: "90000"
+      OPENAI_API_KEY: ""
+      OPENAI_BASE_URL: ""
+      OLLAMA_BASE_URL: ""
+      PROXY_SERVER: ""
+      PROXY_USERNAME: ""
+      PROXY_PASSWORD: ""
+      SEARXNG_ENDPOINT: ""
+      NUQ_BACKEND: ""
+    depends_on:
+      - playwright-service
+      - nuq-postgres
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    ports:
+      - 127.0.0.1:13002:3002
+    networks: [backend]
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    cpus: 2.0
+    mem_limit: 4g
+    memswap_limit: 4g
+
+networks:
+  backend: {}

@@ -1,0 +1,25 @@
+{
+  "command": "UV_NO_MANAGED_PYTHON=1 UV_PROJECT_ENVIRONMENT=<temporary-venv> uv run --locked --python <python> python -m unittest discover -s tests -v",
+  "results": {
+    "3.12.13": {
+      "elapsed_seconds": 2.379,
+      "source_log_sha256": "090b1315b0529517dcca4a84422474af950c43d380b2a1c038aa769c8a00bc12",
+      "status": "passed",
+      "tests": 52
+    },
+    "3.13.14": {
+      "elapsed_seconds": 2.839,
+      "source_log_sha256": "4d40ac13eb442a9358305b335c0ee3166ab61bfa584fa7154b1781c55418799e",
+      "status": "passed",
+      "tests": 52
+    },
+    "3.14.6": {
+      "elapsed_seconds": 2.288,
+      "source_log_sha256": "171b5d76378aec9124339b1c6321d7cd52bda31c311fdcced95376d50f73606f",
+      "status": "passed",
+      "tests": 52
+    }
+  },
+  "schema": "web-ingestion-python-compatibility-matrix-v1",
+  "scope": "portable summary of local locked test evidence; host-local temporary paths omitted"
+}

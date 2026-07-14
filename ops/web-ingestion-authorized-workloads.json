@@ -1,0 +1,30 @@
+{
+  "schema": "web-ingestion-authorized-workloads-v1",
+  "scope": "public, credential-free, body-redacted M2-M5 verification only",
+  "workloads": [
+    {
+      "id": "static-example-domain",
+      "url": "https://example.com/",
+      "purpose": "verify controlled static HTML extraction",
+      "mode": "static",
+      "max_pages": 1,
+      "timeout_seconds": 45
+    },
+    {
+      "id": "browser-quotes-js",
+      "url": "https://quotes.toscrape.com/js/",
+      "purpose": "verify controlled browser-rendered public page extraction",
+      "mode": "browser",
+      "max_pages": 1,
+      "timeout_seconds": 45
+    },
+    {
+      "id": "crawl-quotes",
+      "url": "https://quotes.toscrape.com/",
+      "purpose": "verify bounded public crawl routing and cleanup",
+      "mode": "crawl",
+      "max_pages": 10,
+      "timeout_seconds": 60
+    }
+  ]
+}

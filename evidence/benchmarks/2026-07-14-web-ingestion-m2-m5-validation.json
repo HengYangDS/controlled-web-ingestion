@@ -1,0 +1,175 @@
+{
+  "authorized_workloads": [
+    {
+      "id": "static-example-domain",
+      "max_pages": 1,
+      "mode": "static",
+      "purpose": "verify controlled static HTML extraction",
+      "timeout_seconds": 45,
+      "url": "https://example.com/"
+    },
+    {
+      "id": "browser-quotes-js",
+      "max_pages": 1,
+      "mode": "browser",
+      "purpose": "verify controlled browser-rendered public page extraction",
+      "timeout_seconds": 45,
+      "url": "https://quotes.toscrape.com/js/"
+    },
+    {
+      "id": "crawl-quotes",
+      "max_pages": 10,
+      "mode": "crawl",
+      "purpose": "verify bounded public crawl routing and cleanup",
+      "timeout_seconds": 60,
+      "url": "https://quotes.toscrape.com/"
+    }
+  ],
+  "cleanup": {
+    "benchmark_listeners": 0,
+    "containers": 0,
+    "networks": 0,
+    "project_virtualenvs": 0,
+    "volumes": 0
+  },
+  "executed_at": "2026-07-14T01:21:04.405184+00:00",
+  "limits": [
+    "body_html_markdown_and_raw_response_not_persisted",
+    "rag_bridge_sink_is_null",
+    "firecrawl_is_on_demand_and_loopback_only",
+    "no_mcp_default_agent_hermes_or_open_webui_integration"
+  ],
+  "promotion": {
+    "content_sha256": "2c449548824ba3e1537e581fa1e79269d4594ce1d8ca66d4678ee3316fa6f0a7",
+    "promotion_state": "promoted",
+    "purpose": "verify controlled static HTML extraction",
+    "route": "trafilatura",
+    "source_url": "https://example.com/",
+    "status": "success"
+  },
+  "provenance": {
+    "status": "verified"
+  },
+  "rag_bridge": {
+    "bridge_state": "prepared",
+    "content_sha256": "2c449548824ba3e1537e581fa1e79269d4594ce1d8ca66d4678ee3316fa6f0a7",
+    "purpose": "verify controlled static HTML extraction",
+    "sink": null,
+    "source_url": "https://example.com/"
+  },
+  "receipts": {
+    "browser": {
+      "budget": {
+        "max_pages": 1,
+        "timeout_seconds": 45.0
+      },
+      "content_sha256": "3b909d2a7c59e21a8dc3fc09142fcad7e10cbaec12daf85e4a26a8efd7e5d04a",
+      "content_type": "text/html; charset=utf-8",
+      "dedupe_decision": "unique",
+      "final_url": "https://quotes.toscrape.com/js/",
+      "policy_decision": "admitted",
+      "promotion_state": "staged",
+      "purpose": "verify controlled browser-rendered public page extraction",
+      "quality": {
+        "characters": 1574,
+        "discovered_count": 1,
+        "title_present": true
+      },
+      "redirect_chain": [
+        "https://quotes.toscrape.com/js/"
+      ],
+      "request_id": "cdad226bfa08dc6586309e45",
+      "requested_url": "https://quotes.toscrape.com/js/",
+      "robots_decision": "allowed",
+      "route": "firecrawl",
+      "source_url": "https://quotes.toscrape.com/js/",
+      "status": "success"
+    },
+    "crawl": {
+      "budget": {
+        "max_pages": 10,
+        "timeout_seconds": 60.0
+      },
+      "content_sha256": "a1a6cc5b9ccb4ef93e472a3ace015d7d1837fab5c309ea6af765dda966e71072",
+      "content_type": "text/html; charset=utf-8",
+      "dedupe_decision": "unique",
+      "final_url": "https://quotes.toscrape.com/",
+      "policy_decision": "admitted",
+      "promotion_state": "staged",
+      "purpose": "verify bounded public crawl routing and cleanup",
+      "quality": {
+        "characters": 4318,
+        "discovered_count": 10,
+        "title_present": true
+      },
+      "redirect_chain": [
+        "https://quotes.toscrape.com/"
+      ],
+      "request_id": "3abc2e913487f4f457185410",
+      "requested_url": "https://quotes.toscrape.com/",
+      "robots_decision": "allowed",
+      "route": "firecrawl",
+      "source_url": "https://quotes.toscrape.com/",
+      "status": "success"
+    },
+    "duplicate_static": {
+      "budget": {
+        "max_pages": 1,
+        "timeout_seconds": 45.0
+      },
+      "content_sha256": "2c449548824ba3e1537e581fa1e79269d4594ce1d8ca66d4678ee3316fa6f0a7",
+      "content_type": "text/html",
+      "dedupe_decision": "duplicate",
+      "final_url": "https://example.com/",
+      "policy_decision": "admitted",
+      "promotion_state": "staged",
+      "purpose": "verify controlled static HTML extraction",
+      "quality": {
+        "characters": 112,
+        "discovered_count": 1,
+        "title_present": false
+      },
+      "redirect_chain": [
+        "https://example.com/"
+      ],
+      "request_id": "2eb4b233b9c76b55faab95fc",
+      "requested_url": "https://example.com/",
+      "robots_decision": "allowed",
+      "route": "trafilatura",
+      "source_url": "https://example.com/",
+      "status": "duplicate"
+    },
+    "static": {
+      "budget": {
+        "max_pages": 1,
+        "timeout_seconds": 45.0
+      },
+      "content_sha256": "2c449548824ba3e1537e581fa1e79269d4594ce1d8ca66d4678ee3316fa6f0a7",
+      "content_type": "text/html",
+      "dedupe_decision": "unique",
+      "final_url": "https://example.com/",
+      "policy_decision": "admitted",
+      "promotion_state": "staged",
+      "purpose": "verify controlled static HTML extraction",
+      "quality": {
+        "characters": 112,
+        "discovered_count": 1,
+        "title_present": false
+      },
+      "redirect_chain": [
+        "https://example.com/"
+      ],
+      "request_id": "2eb4b233b9c76b55faab95fc",
+      "requested_url": "https://example.com/",
+      "robots_decision": "allowed",
+      "route": "trafilatura",
+      "source_url": "https://example.com/",
+      "status": "success"
+    }
+  },
+  "recovery": {
+    "cleanup_after_failure_verified": true,
+    "private_loopback_runner_exit_nonzero": true
+  },
+  "schema": "web-ingestion-m2-m5-validation-v1"
+}
