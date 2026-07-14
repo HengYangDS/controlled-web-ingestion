@@ -7,6 +7,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .schema import require_valid_named
 from .policy import (
     FORBIDDEN_PERSISTENCE_FIELDS,
     STAGE_OPERATIONAL_FIELDS,
@@ -52,6 +53,7 @@ class StageStore:
         persisted = dict(record)
         persisted["promotion_state"] = "staged"
         persisted["staged_at"] = utc_now()
+        require_valid_named(persisted, "stage-receipt")
         normalized = json.dumps(persisted, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         path = self.staging_dir / f"{hashlib.sha256(normalized.encode('utf-8')).hexdigest()}.json"
         path.write_text(json.dumps(persisted, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -82,6 +84,7 @@ class StageStore:
         self.promotion_dir.mkdir(parents=True, exist_ok=True)
         record["promotion_state"] = "promoted"
         record["promoted_at"] = utc_now()
+        require_valid_named(record, "promotion-receipt")
         output = self.promotion_dir / stage_path.name
         output.write_text(json.dumps(record, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         return output

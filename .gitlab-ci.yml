@@ -14,10 +14,19 @@ python-contracts:
   before_script:
     - python -m pip install --no-cache-dir "uv==0.11.28"
   script:
-    - uv run --locked --python python python -m unittest discover -s tests -v
-    - bash -n scripts/firecrawl-isolated-benchmark.sh
-    - bash -n scripts/web-ingestion-m2-m5-validate.sh
+    - uv run --locked --python python python tools/ci/run_tests.py --python python
+    - uv run --locked --python python python tools/ci/validate_schemas.py
+    - uv run --locked --python python python tools/ci/check_documentation.py
+    - uv run --locked --python python python tools/ci/check_source_topology.py
 
-# The runtime Firecrawl validation is deliberately omitted from CI: it needs
-# reviewed local GHCR image identities and must prove loopback teardown rather
-# than borrow a shared runner's Docker environment.
+security:
+  stage: verify
+  image:
+    name: "zricethezav/gitleaks:v8.30.0"
+    entrypoint: [""]
+  script:
+    - sh tools/ci/run_security_checks.sh
+
+# Explicit runtime Firecrawl validation is omitted from hosted CI. It needs
+# reviewed local GHCR identities and must prove loopback teardown rather than
+# borrow shared runner Docker state.

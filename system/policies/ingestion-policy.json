@@ -1,8 +1,11 @@
 {
   "schema_version": "web-ingestion-policy-v1",
-  "scope": "isolated admission benchmark only",
+  "scope": "controlled web-ingestion capability; public, explicit, body-redacted only",
   "network": {
-    "allowed_schemes": ["http", "https"],
+    "allowed_schemes": [
+      "http",
+      "https"
+    ],
     "resolve_before_fetch": true,
     "reject_non_global_ip_addresses": true,
     "validate_every_redirect_hop": true,
@@ -14,10 +17,14 @@
     "required_before_recursive_crawl": true,
     "respect_disallow": true,
     "respect_crawl_delay": true,
-    "user_agent": "AgenticWebIngestionBenchmark/0.1"
+    "user_agent": "ControlledWebIngestion/1.0"
   },
   "content": {
-    "allowed_media_types": ["text/html", "text/plain", "application/pdf"],
+    "allowed_media_types": [
+      "text/html",
+      "text/plain",
+      "application/pdf"
+    ],
     "persist_raw_body": false,
     "provenance_required": [
       "source_url",

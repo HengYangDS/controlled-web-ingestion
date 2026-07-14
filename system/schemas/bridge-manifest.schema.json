@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sinkless bridge preparation manifest",
+  "type": "object",
+  "required": ["bridge_state", "prepared_at", "promotion_receipt", "content_sha256", "source_url", "purpose", "sink"],
+  "properties": {
+    "bridge_state": {"type": "string", "const": "prepared"}, "prepared_at": {"type": "string"}, "promotion_receipt": {"type": "string"}, "content_sha256": {"type": "string", "pattern": "[0-9a-f]{64}"}, "source_url": {"type": "string"}, "purpose": {"type": "string", "pattern": ".+"}, "sink": {"type": "null"}
+  },
+  "x-forbidden-recursive-keys": ["body", "content", "html", "markdown", "raw_response", "credentials", "authorization", "cookie", "private_target"]
+}

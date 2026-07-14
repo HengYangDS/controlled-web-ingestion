@@ -81,6 +81,9 @@ class StagingPromotionTests(unittest.TestCase):
             store = StageStore(Path(directory))
             record = {
                 "candidate": "crawl4ai",
+                "request_id": "a" * 24,
+                "purpose": "verify explicit promotion remains separate",
+                "route": "trafilatura",
                 "requested_url": "https://example.com/",
                 "final_url": "https://example.com/",
                 "source_url": "https://example.com/",
@@ -91,6 +94,10 @@ class StagingPromotionTests(unittest.TestCase):
                 "parser_version": "crawl4ai@fixture",
                 "robots_decision": "allowed",
                 "policy_decision": "admitted",
+                "redirect_chain": ["https://example.com/"],
+                "dedupe_decision": "unique",
+                "budget": {"max_pages": 1, "timeout_seconds": 30},
+                "quality": {"characters": 26, "title_present": False, "discovered_count": 1},
             }
             stage_path = store.stage(record)
             staged = json.loads(stage_path.read_text())

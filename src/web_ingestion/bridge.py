@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
+from .schema import require_valid_named
+
 
 class BridgeError(ValueError):
     """A record may not cross the promotion-to-delivery boundary."""
@@ -40,6 +42,7 @@ class RagBridge:
             raise BridgeError("explicit confirmation is required for bridge preparation")
         record = self._load_promoted(receipt)
         manifest = {"bridge_state": "prepared", "prepared_at": utc_now(), "promotion_receipt": receipt.name, "content_sha256": record["content_sha256"], "source_url": record.get("source_url"), "purpose": record.get("purpose"), "sink": None}
+        require_valid_named(manifest, "bridge-manifest")
         self.manifest_dir.mkdir(parents=True, exist_ok=True)
         output = self.manifest_dir / f"{receipt.stem}.json"
         output.write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
