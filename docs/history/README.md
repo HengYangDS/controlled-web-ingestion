@@ -12,3 +12,5 @@ This directory retains the dated M1–M5 design, runbook and retrospective that
 preceded the Controlled Web Ingestion topology. They remain evidence of the
 admission experiment; they do not override the current position, contracts or
 runtime boundary.
+
+- [Topology migration map — 2026-07-15](2026-07-15-topology-migration.md)

@@ -1,2 +1,14 @@
 schema: spec-driven
-mode: adopter-overlay
+context: |
+  Controlled Web Ingestion is a policy-bound, body-redacted public-web ingress
+  capability. OpenSpec carries bounded delivery changes; repository-owned
+  policy, schemas, evidence, and runtime controls remain authoritative.
+rules:
+  proposal:
+    - Explain the problem, intended change, evidence boundary, and explicit non-goals.
+  specs:
+    - Use Requirement sections and Scenarios with WHEN and THEN clauses.
+  tasks:
+    - Track implementation, tests, documentation, evidence, and closeout as checkable items.
+  design:
+    - Record authority boundaries, delivery topology, tradeoffs, and rollback risks.

@@ -1,0 +1,22 @@
+family = "repository-governance"
+primary_invariant = "Closeout facts do not broaden the controlled-ingestion authority boundary."
+routing_question = "Does this change affect evidence interpretation, delivery governance, or runtime admission?"
+decision_axes = ["evidence-class", "publication-state", "authority-boundary"]
+boundary_rules = [
+  "No runtime body, credentials, or private target data enters durable evidence.",
+  "No new target, topology, service, MCP, Hermes/Open WebUI surface, or RAG sink is implied by closeout.",
+  "Hosted CI is recorded only from an eligible GitLab execution.",
+]
+
+[owner]
+package = "controlled-web-ingestion"
+scope = "repository governance, documentation, evidence, and delivery boundaries"
+
+[recommended_facets]
+evidence = ["verification", "chronicle", "closeout"]
+delivery = ["work-lane", "candidate", "protected-main"]
+
+[proof_profile]
+default_command = "ethos prove --execute --expect-head <HEAD> --json"
+executed_command = "tools/ci/run_tests.py; schema, docs, topology, security; ETHOS prove"
+required_gates = ["controlled-web-ingestion-tests", "controlled-web-ingestion-static", "controlled-web-ingestion-schemas", "controlled-web-ingestion-docs", "controlled-web-ingestion-security"]

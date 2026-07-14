@@ -11,5 +11,6 @@ relations:
 - [CLI](cli.md)
 - [Contracts](contracts.md)
 - [Runtime validation](runtime-validation.md)
+- [Future admission packet](admission.md)
 - [Research contract](research-contract.md)
 - [Publication boundary](publication.md)

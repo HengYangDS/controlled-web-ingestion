@@ -1,0 +1,104 @@
+{
+  "schema": "controlled-web-ingestion-governance-closeout-v1",
+  "observed_at": "2026-07-15T07:31:00+08:00",
+  "work_lane": {
+    "branch": "work/controlled-web-ingestion-governance-closeout-20260715",
+    "base_head": "c26c0f46cec801b6486204d2a8d0a7eaec39cd76",
+    "delivery_train": {
+      "release": "main",
+      "accepted": "accepted/controlled-web-ingestion",
+      "candidate": "candidate/controlled-web-ingestion"
+    },
+    "state": "locally_verified_unpublished"
+  },
+  "acceptance": [
+    {
+      "id": "topology_and_cli_boundary",
+      "state": "verified",
+      "evidence": "tools/ci/check_source_topology.py; tests/contract/test_cli.py; tests/unit/test_import_boundary.py",
+      "limit": "local code and contract proof only"
+    },
+    {
+      "id": "declaration_and_redaction_contract",
+      "state": "verified",
+      "evidence": "tools/ci/validate_schemas.py; tests/contract/test_schema_contracts.py",
+      "limit": "validates committed declarations and evidence; it does not fetch content"
+    },
+    {
+      "id": "python_matrix",
+      "state": "verified",
+      "evidence": "tools/ci/run_tests.py under /opt/homebrew/bin/python3.12, python3.13 and python3.14; 67 tests each",
+      "limit": "local 2026-07-15 matrix only"
+    },
+    {
+      "id": "security_and_documentation",
+      "state": "verified",
+      "evidence": "tools/ci/check_documentation.py; tools/ci/run_security_checks.sh; git diff --check",
+      "limit": "local repository validation only"
+    },
+    {
+      "id": "firecrawl_runtime",
+      "state": "historical",
+      "evidence": "evidence/verification/2026-07-14-controlled-web-ingestion-runtime-validation.json",
+      "verified_head": "3e7691ab5ccc4d3cd9f3974243000460db0de5c1",
+      "limit": "explicit runtime was not re-run for this governance-only change; it covers only the exact allowlisted, disposable loopback workload"
+    },
+    {
+      "id": "ethos_adopter_proof",
+      "state": "historical",
+      "evidence": "docs/evidence/chronicle/2026-07-14/ethos-adopter-proof.md",
+      "verified_head": "60b1d4615251ccf9450c68836d6ffd910a6b0cd4",
+      "limit": "historical adopter proof is not proof of this work-lane head"
+    },
+    {
+      "id": "hosted_gitlab_ci",
+      "state": "historical",
+      "evidence": "evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json",
+      "pipeline_id": 2673,
+      "pipeline_head": "68760e252781a6b1149a27f748df26a5df4804f8",
+      "runner_id": 34,
+      "limit": "the historical runner was removed; this is not evidence of current runner availability or this work-lane head"
+    },
+    {
+      "id": "protected_main_publication",
+      "state": "historical",
+      "evidence": "git commit 423bf95522c70267362c869c86233b24be4759d3; merge request !2",
+      "published_head": "423bf95522c70267362c869c86233b24be4759d3",
+      "limit": "proves the 2026-07-14 topology merge only; this closeout has not been published"
+    },
+    {
+      "id": "current_gitlab_reachability_and_runner",
+      "state": "blocked",
+      "evidence": "three HTTP health probes to 192.168.64.101:18086 and one SSH probe to port 1122 timed out on 2026-07-15",
+      "limit": "no current project, runner, pipeline, merge-request, or protected-branch API state could be read; no runner state was changed"
+    }
+  ],
+  "governance": {
+    "openspec_change": "openspec/specs/governance-closeout/spec.md",
+    "openspec_validation": "passed before and after archive",
+    "runtime_change_scope": "no runtime or authorized-workload path changed from the historical runtime-proof head; delivery-only changes since that head are .gitlab-ci.yml and CI/bootstrap tests",
+    "new_admission": "docs/reference/admission.md",
+    "openspec_archive": "openspec/changes/archive/2026-07-14-2026-07-15-governance-closeout"
+  },
+  "housekeeping": {
+    "removed_current_turn_scratch": [
+      "bootstrap worktree .venv",
+      "bootstrap worktree build runtime scratch"
+    ],
+    "retained": [
+      "historical verification receipts",
+      "historical benchmark evidence",
+      "active work-lane build scratch pending proof completion"
+    ],
+    "runtime_started": false
+  },
+  "decision": "Local governance closeout is verified and ready to land into the local candidate train. Hosted verification and protected-main publication remain externally blocked until the configured GitLab endpoint is reachable and an eligible runner executes the current candidate pipeline.",
+  "limits": [
+    "no_body_html_markdown_raw_response_credentials_or_private_target_persisted",
+    "no_allowlist_data_class_runtime_topology_or_sink_expansion",
+    "no_mcp_default_agent_hermes_open_webui_or_direct_rag_integration",
+    "no_runner_registration_reuse_modification_or_removal",
+    "no_direct_push_to_main",
+    "historical_evidence_is_not_projected_to_current_remote_state"
+  ]
+}

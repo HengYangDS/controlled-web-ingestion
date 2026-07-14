@@ -260,13 +260,14 @@ relations:
 ### Task 13: Evidence-led closeout and goal completion
 
 **Files:**
-- Create: `evidence/verification/2026-07-14-controlled-web-ingestion-closeout.json`
-- Create: `docs/evidence/2026-07-14-controlled-web-ingestion-closeout.md`
-- Create: `docs/history/2026-07-14-topology-migration.md`
+- Create: `evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json`
+- Create: `docs/evidence/chronicle/2026-07-15/governance-closeout.md`
+- Create: `docs/history/2026-07-15-topology-migration.md`
+- Create: `docs/reference/admission.md`
 
-- [ ] Reconcile every acceptance-map row against a command/API/evidence path and label it `verified`, `blocked`, or `not-run`.
-- [ ] Separate facts from conclusions: local proof, runtime proof, ETHOS proof, hosted CI and protected-main merge must each have their own evidence reference.
-- [ ] Record lessons: adapter products cannot own the capability identity; policy/schema/evidence boundary precedes runtime convenience; runner shortage cannot be solved by weakening gates.
-- [ ] Only mark the Codex goal complete after all required acceptance rows are `verified` and `main` contains the merge.
+- [x] Reconcile each acceptance-map row against a command, API observation, or evidence path and label it `verified`, `historical`, `blocked`, or `not-run`.
+- [x] Separate local proof, runtime proof, ETHOS proof, hosted CI, protected-main publication, and current runner reachability into independent evidence classes.
+- [x] Record lessons: adapter products cannot own the capability identity; policy/schema/evidence boundary precedes runtime convenience; runner shortage cannot be solved by weakening gates.
+- [ ] Mark the Codex goal complete only after fresh hosted verification has passed and protected `main` contains this closeout merge.
 
-**Verifier:** closeout receipt schema validation, clean worktree, GitLab `main` evidence and final acceptance audit.
+**Verifier:** closeout receipt schema validation, clean proven Work Lane, current GitLab `main` evidence, and final acceptance audit.

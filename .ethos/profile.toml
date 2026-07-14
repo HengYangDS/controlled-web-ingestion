@@ -23,6 +23,21 @@ claims = "evidence/claims"
 agent_skills = ".agents/skills"
 local_state = ".ethos/state"
 
+[openspec]
+material_paths = [
+  "evidence/verification/**",
+  "evidence/claims/**",
+  "docs/evidence/**",
+  "docs/history/**",
+  "docs/reference/**",
+  "docs/plans/**",
+  "docs/decisions/**",
+  ".ethos/profile.toml",
+  ".ethos/workspace.toml",
+  "tests/contract/**",
+  "openspec/**",
+]
+
 # Native gates remain repository-owned; ETHOS only compiles and records them.
 [proof]
 code_correctness_gates = ["controlled-web-ingestion-tests", "controlled-web-ingestion-static"]

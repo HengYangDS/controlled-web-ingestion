@@ -1,0 +1,41 @@
+[claim]
+id = "controlled-web-ingestion-governance-closeout-20260715"
+subject = "controlled-web-ingestion:governance-closeout"
+change_id = "2026-07-15-governance-closeout"
+state = "historical"
+summary = "The dated closeout records the corrected local delivery train, independently bounded proof classes, the current GitLab reachability observation, and the conditions required before a future admission or protected publication."
+
+[evidence]
+dated = "evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json"
+sha256 = "9b08474ca70de908af20cf40195aad47cd55b693b670321af9bdcf7b03920e60"
+evidence_ids = ["evidence:controlled-web-ingestion-governance-closeout-2026-07-15"]
+binding = "digest-bound closeout record with explicit delivery, runner, and runtime limits"
+verifier = "digest_only"
+tests = [
+  "tools/ci/run_tests.py under Python 3.12, 3.13 and 3.14",
+  "tools/ci/validate_schemas.py",
+  "tools/ci/check_documentation.py",
+  "tools/ci/check_source_topology.py",
+  "tools/ci/run_security_checks.sh",
+  "ethos prove --execute --expect-head <HEAD> --json",
+]
+
+[evidence.freshness]
+mode = "historical"
+
+[boundary]
+owner = "controlled-web-ingestion-maintainers"
+scope = "governance closeout and delivery readiness; no ingestion-runtime expansion"
+
+[carriers]
+openspec = "openspec/changes/archive/2026-07-14-2026-07-15-governance-closeout"
+fallback = "docs/evidence/chronicle/2026-07-15/governance-closeout.md"
+kill_signal = "A new target, runtime topology, sink, or persisted data class is proposed without a separate admission packet and proof."
+
+[promotion]
+targets = [
+  { kind = "docs", path = "docs/evidence/chronicle/2026-07-15/governance-closeout.md" },
+  { kind = "docs", path = "docs/history/2026-07-15-topology-migration.md" },
+  { kind = "docs", path = "docs/reference/admission.md" },
+  { kind = "evidence", path = "evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json" },
+]

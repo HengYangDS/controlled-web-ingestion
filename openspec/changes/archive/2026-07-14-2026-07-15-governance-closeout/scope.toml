@@ -1,0 +1,12 @@
+schema_version = 1
+paths = [
+  "evidence/verification/**",
+  "evidence/claims/**",
+  "docs/evidence/**",
+  "docs/history/**",
+  "docs/reference/**",
+  "docs/plans/**",
+  ".ethos/profile.toml",
+  "tests/contract/**",
+  "openspec/**",
+]

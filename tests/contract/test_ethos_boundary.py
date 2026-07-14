@@ -23,6 +23,34 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
         self.assertNotEqual(workspace["release_branch"], workspace["accepted_branch"])
         self.assertFalse(workspace["candidate_branch"].startswith(workspace["work_branch_prefix"]))
 
+    def test_openspec_material_paths_cover_governance_closeout_artifacts(self):
+        root = Path(__file__).resolve().parents[2]
+        profile = tomllib.loads(
+            (root / ".ethos" / "profile.toml").read_text(encoding="utf-8")
+        )
+        material_paths = set(profile["openspec"]["material_paths"])
+        self.assertTrue(
+            {
+                "evidence/verification/**",
+                "evidence/claims/**",
+                "docs/evidence/**",
+                "docs/history/**",
+                "docs/reference/**",
+                "docs/plans/**",
+                "openspec/**",
+            }
+            <= material_paths
+        )
+
+    def test_governance_closeout_capability_is_canonical_and_archive_only(self):
+        root = Path(__file__).resolve().parents[2]
+        canonical = root / "openspec" / "specs" / "governance-closeout"
+        self.assertTrue((canonical / "spec.md").is_file())
+        self.assertTrue((canonical / "capability.toml").is_file())
+        self.assertFalse(
+            (root / "openspec" / "changes" / "2026-07-15-governance-closeout").exists()
+        )
+
     def test_runtime_remains_independent_of_ethos_product_imports(self):
         root = Path(__file__).resolve().parents[2]
         runtime = "\n".join(path.read_text(encoding="utf-8") for path in (root / "src" / "web_ingestion").rglob("*.py"))
