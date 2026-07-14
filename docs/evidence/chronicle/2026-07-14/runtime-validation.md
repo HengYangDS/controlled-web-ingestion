@@ -16,5 +16,5 @@ label-bound containers, volumes, networks and benchmark listeners.
 
 The runtime gate is therefore **passed for the exact allowlisted workload**.
 It does not authorize arbitrary targets, a standing Firecrawl service, MCP,
-default-Agent, Hermes, Open WebUI, or direct RAG integration. Hosted GitLab CI
-remains a separate, currently unproven claim.
+default-Agent, Hermes, Open WebUI, or direct RAG integration. Hosted GitLab CI is a separate evidence class; it is neither run nor inferred by
+this runtime receipt.

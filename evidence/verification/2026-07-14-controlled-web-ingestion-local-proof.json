@@ -1,6 +1,12 @@
 {
   "checks": [
     {
+      "id": "tests",
+      "matrix": "Python 3.12, 3.13, 3.14; 66 tests each",
+      "result": "passed",
+      "verifier": "tools/ci/run_tests.py"
+    },
+    {
       "id": "schema",
       "result": "passed",
       "verifier": "tools/ci/validate_schemas.py"
@@ -26,45 +32,59 @@
       "verifier": "tools/runtime/verify-firecrawl-provenance.py"
     },
     {
+      "applicability": "runtime implementation unchanged between the runtime receipt and this proof head",
       "evidence": "evidence/verification/2026-07-14-controlled-web-ingestion-runtime-validation.json",
       "id": "firecrawl_runtime",
-      "result": "blocked"
+      "result": "passed",
+      "verified_runtime_head": "3e7691ab5ccc4d3cd9f3974243000460db0de5c1",
+      "verifier": "tools/runtime/validate-authorized-workloads.sh"
     },
     {
+      "applicability": "the hosted pipeline executed the unchanged CI/runtime source; a fresh hosted run remains required for this receipt head",
       "id": "hosted_gitlab_ci",
-      "reason": "requires pushed branch and eligible hosted runner",
-      "result": "not_run"
+      "jobs": [
+        "python-contracts: [3.12]",
+        "python-contracts: [3.13]",
+        "python-contracts: [3.14]",
+        "security"
+      ],
+      "pipeline_id": 2673,
+      "pipeline_sha": "68760e252781a6b1149a27f748df26a5df4804f8",
+      "result": "passed",
+      "runner_id": 34
     }
   ],
   "limits": [
-    "runtime_blocked_is_not_a_success_claim",
-    "hosted_ci_is_distinct_from_local_proof",
-    "body_html_markdown_raw_response_credentials_and_private_targets_are_not_persisted"
+    "runtime_and_hosted_ci_are_distinct_evidence_classes",
+    "hosted_pipeline_2673_predates_this_receipt_and_is_not_a_claim_of_this_head",
+    "body_html_markdown_raw_response_credentials_and_private_targets_are_not_persisted",
+    "firecrawl_remains_on_demand_disposable_loopback_and_allowlist_bound",
+    "no_mcp_default_agent_hermes_open_webui_or_direct_rag_integration"
   ],
   "python_matrix": [
     {
       "binary": "/opt/homebrew/bin/python3.12",
       "exit_code": 0,
       "python": "3.12",
-      "started_at": "2026-07-14T05:42:57Z",
-      "test_count": 62
+      "started_at": "2026-07-14T07:36:02Z",
+      "test_count": 66
     },
     {
       "binary": "/opt/homebrew/bin/python3.13",
       "exit_code": 0,
       "python": "3.13",
-      "started_at": "2026-07-14T05:43:01Z",
-      "test_count": 62
+      "started_at": "2026-07-14T07:36:09Z",
+      "test_count": 66
     },
     {
       "binary": "/opt/homebrew/bin/python3.14",
       "exit_code": 0,
       "python": "3.14",
-      "started_at": "2026-07-14T05:43:05Z",
-      "test_count": 62
+      "started_at": "2026-07-14T07:36:11Z",
+      "test_count": 66
     }
   ],
   "schema": "controlled-web-ingestion-local-proof-v1",
-  "verified_at": "2026-07-14T05:43:33.113905+00:00",
-  "verified_head": "77d19b0dda37222ede71006f512b6f58f5e657d8"
+  "verified_at": "2026-07-14T07:36:43.206258+00:00",
+  "verified_head": "97765d5cea7aedcb303293070b060135ac91dd60"
 }
