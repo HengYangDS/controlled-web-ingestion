@@ -26,3 +26,4 @@ current status belong in dated closeout documents.
 
 - [Runtime validation — 2026-07-14](chronicle/2026-07-14/runtime-validation.md)
 - [Local proof — 2026-07-14](chronicle/2026-07-14/local-proof.md)
+- [ETHOS adopter proof — 2026-07-14](chronicle/2026-07-14/ethos-adopter-proof.md)

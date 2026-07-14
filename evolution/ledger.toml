@@ -17,6 +17,7 @@ proof_refs = [
 review_refs = [
   "docs/evidence/chronicle/2026-07-14/runtime-validation.md",
   "docs/evidence/chronicle/2026-07-14/local-proof.md",
+  "docs/evidence/chronicle/2026-07-14/ethos-adopter-proof.md",
 ]
 decision_refs = [
   "docs/decisions/0000-controlled-web-ingestion-position.md",
