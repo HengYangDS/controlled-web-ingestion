@@ -15,24 +15,24 @@ python-contracts:
     UV_PROJECT_ENVIRONMENT: "$CI_PROJECT_DIR/build/runtime/venv/python-${PYTHON_VERSION}"
     PIP_DISABLE_PIP_VERSION_CHECK: "1"
   before_script:
-    - export PATH="/opt/homebrew/bin:$PATH"
-    - python_bin="$(command -v "python${PYTHON_VERSION}")"
-    - test -n "$python_bin"
-    - "$python_bin" --version
-    - uv --version
+    - 'export PATH="/opt/homebrew/bin:$PATH"'
+    - 'python_bin="$(command -v "python${PYTHON_VERSION}")"'
+    - 'test -n "$python_bin"'
+    - '"$python_bin" --version'
+    - 'uv --version'
   script:
-    - export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/run_tests.py --python "$python_bin"
-    - export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/validate_schemas.py
-    - export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/check_documentation.py
-    - export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/check_source_topology.py
+    - 'export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/run_tests.py --python "$python_bin"'
+    - 'export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/validate_schemas.py'
+    - 'export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/check_documentation.py'
+    - 'export PATH="/opt/homebrew/bin:$PATH"; python_bin="$(command -v "python${PYTHON_VERSION}")"; tools/ci/scripts/with-python-runtime.sh "$python_bin" python tools/ci/check_source_topology.py'
 
 security:
   stage: verify
   before_script:
-    - export PATH="/opt/homebrew/bin:$PATH"
-    - gitleaks version
+    - 'export PATH="/opt/homebrew/bin:$PATH"'
+    - 'gitleaks version'
   script:
-    - export PATH="/opt/homebrew/bin:$PATH"; sh tools/ci/run_security_checks.sh
+    - 'export PATH="/opt/homebrew/bin:$PATH"; sh tools/ci/run_security_checks.sh'
 
 # Explicit runtime Firecrawl validation is omitted from hosted CI. It needs
 # reviewed local GHCR identities and must prove loopback teardown rather than
