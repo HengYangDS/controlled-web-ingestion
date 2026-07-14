@@ -1,0 +1,31 @@
+{
+  "schema": "controlled-web-ingestion-runtime-validation-v1",
+  "head": "0d24b31c8d3b07e75ddb88f8c00e89635e22152b",
+  "executed_at": "2026-07-14T05:42:42Z",
+  "status": "blocked",
+  "preflight": {
+    "provenance": "verified",
+    "authorized_workload_manifest": "system/policies/authorized-workloads.json",
+    "initial_resources": {"containers": 0, "volumes": 0, "networks": 0, "benchmark_listeners": 0}
+  },
+  "observation": {
+    "phase": "browser Firecrawl startup",
+    "failure": "docker compose up --detach did not return within the 120-second bounded startup window",
+    "api_loopback_listener_observed": false,
+    "workload_validation_completed": false
+  },
+  "recovery": {
+    "runner_timeout_process_group": "terminated",
+    "label_bound_containers": 0,
+    "label_bound_volumes": 0,
+    "label_bound_networks": 0,
+    "benchmark_listeners": 0
+  },
+  "decision": "runtime gate remains open; no Firecrawl admission expansion follows from this attempt",
+  "limits": [
+    "no_body_html_markdown_or_raw_response_persisted",
+    "no_shared_service_or_listener_reused",
+    "no_docker_daemon_configuration_changed",
+    "no_hosted_ci_claim_inferred"
+  ]
+}
