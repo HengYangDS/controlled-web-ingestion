@@ -1,6 +1,6 @@
 ---
 subject: controlled-web-ingestion:ethos-governance
-role: reference
+role: how-to
 state: active
 relations:
   implements: docs/decisions/0001-ethos-adopter-boundary.md

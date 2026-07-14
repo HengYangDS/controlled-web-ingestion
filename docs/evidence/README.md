@@ -1,6 +1,6 @@
 ---
 subject: controlled-web-ingestion:evidence
-role: evidence-index
+role: evidence
 state: active
 relations:
   canonical_for: proof classification and evidence admission

@@ -1,7 +1,7 @@
 ---
 subject: controlled-web-ingestion:ethos-adopter-boundary
 role: decision
-state: accepted
+state: canonical
 relations:
   canonical_for: ETHOS adoption authority boundary
   references: docs/reference/research-contract.md

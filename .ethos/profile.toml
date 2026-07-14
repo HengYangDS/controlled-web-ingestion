@@ -17,7 +17,7 @@ root_subject = "controlled-web-ingestion"
 [roots]
 rules = "rules"
 docs = "docs"
-durable_evidence = "evidence"
+durable_evidence = "docs/evidence"
 openspec = "openspec"
 claims = "evidence/claims"
 agent_skills = ".agents/skills"
@@ -34,7 +34,7 @@ static-analysis = "controlled-web-ingestion-static"
 [[proof.gates]]
 id = "controlled-web-ingestion-tests"
 kind = "test"
-command = ["uv", "run", "--locked", "python", "tools/ci/run_tests.py"]
+command = ["tools/ci/scripts/with-python-runtime.sh", "python", "tools/ci/run_tests.py"]
 dimensions = ["test", "unit", "contract", "integration"]
 execution_mode = "subprocess"
 evidence_class = "proof"
@@ -45,7 +45,7 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-static"
 kind = "lint"
-command = ["uv", "run", "--locked", "python", "tools/ci/check_source_topology.py"]
+command = ["tools/ci/scripts/with-python-runtime.sh", "python", "tools/ci/check_source_topology.py"]
 dimensions = ["static-analysis", "architecture", "import-discipline"]
 execution_mode = "subprocess"
 evidence_class = "contract"
@@ -56,7 +56,7 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-schemas"
 kind = "schema"
-command = ["uv", "run", "--locked", "python", "tools/ci/validate_schemas.py"]
+command = ["tools/ci/scripts/with-python-runtime.sh", "python", "tools/ci/validate_schemas.py"]
 dimensions = ["schema", "redaction"]
 execution_mode = "subprocess"
 evidence_class = "contract"
@@ -67,7 +67,7 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-docs"
 kind = "documentation"
-command = ["uv", "run", "--locked", "python", "tools/ci/check_documentation.py"]
+command = ["tools/ci/scripts/with-python-runtime.sh", "python", "tools/ci/check_documentation.py"]
 dimensions = ["documentation", "topology"]
 execution_mode = "subprocess"
 evidence_class = "contract"

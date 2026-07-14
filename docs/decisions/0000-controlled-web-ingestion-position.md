@@ -1,7 +1,7 @@
 ---
 subject: controlled-web-ingestion:position
 role: decision
-state: accepted
+state: canonical
 relations:
   canonical_for: repository identity and non-goals
   implemented_by: docs/architecture/controlled-web-ingestion-topology.md

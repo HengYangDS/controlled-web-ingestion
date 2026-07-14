@@ -1,6 +1,6 @@
 ---
 subject: web-ingestion:topology
-role: design
+role: reference
 state: active
 relations:
   canonical_for: controlled-web-ingestion repository topology and ETHOS adoption boundary

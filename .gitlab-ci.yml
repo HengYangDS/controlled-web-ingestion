@@ -9,15 +9,16 @@ python-contracts:
   image: "python:${PYTHON_VERSION}-slim"
   variables:
     UV_NO_MANAGED_PYTHON: "1"
-    UV_PROJECT_ENVIRONMENT: "$CI_PROJECT_DIR/.venv"
+    UV_CACHE_DIR: "$CI_PROJECT_DIR/build/runtime/tool-cache/uv"
+    UV_PROJECT_ENVIRONMENT: "$CI_PROJECT_DIR/build/runtime/venv/python-${PYTHON_VERSION}"
     PIP_DISABLE_PIP_VERSION_CHECK: "1"
   before_script:
     - python -m pip install --no-cache-dir "uv==0.11.28"
   script:
-    - uv run --locked --python python python tools/ci/run_tests.py --python python
-    - uv run --locked --python python python tools/ci/validate_schemas.py
-    - uv run --locked --python python python tools/ci/check_documentation.py
-    - uv run --locked --python python python tools/ci/check_source_topology.py
+    - tools/ci/scripts/with-python-runtime.sh python tools/ci/run_tests.py --python python
+    - tools/ci/scripts/with-python-runtime.sh python tools/ci/validate_schemas.py
+    - tools/ci/scripts/with-python-runtime.sh python tools/ci/check_documentation.py
+    - tools/ci/scripts/with-python-runtime.sh python tools/ci/check_source_topology.py
 
 security:
   stage: verify

@@ -1,6 +1,6 @@
 ---
 subject: research:knowledge-systems:controlled-web-ingestion
-role: contract
+role: reference
 state: active
 relations:
   canonical_for: Research Knowledge Systems portfolio interface

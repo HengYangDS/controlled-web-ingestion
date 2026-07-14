@@ -1,6 +1,6 @@
 ---
 subject: controlled-web-ingestion:start
-role: start
+role: how-to
 state: active
 relations:
   canonical_for: first-run, contribution and evidence path

@@ -1,6 +1,6 @@
 ---
 subject: controlled-web-ingestion:history
-role: history-index
+role: history
 state: active
 relations:
   canonical_for: superseded benchmark and migration narrative
