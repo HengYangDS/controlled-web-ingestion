@@ -1,0 +1,14 @@
+[[package]]
+name = "root"
+path = "."
+domains = ["repository"]
+
+# This GitLab repository lands a reviewed work branch directly through an MR
+# into protected main. Map that existing train; do not invent a parallel dev
+# branch merely for ETHOS.
+[branch_roles]
+release_branch = "main"
+accepted_branch = "main"
+candidate_branch = "work/controlled-web-ingestion-topology"
+work_branch_prefix = "work/"
+submit_branch_prefix = "submit/"

@@ -1,0 +1,87 @@
+# ETHOS repository binding manifest — the adopter entrypoint.
+#
+# This minimal profile makes the repository a recognized ETHOS adopter, so `ethos
+# prove` uses the adopter proof floor instead of the product-core floor. Extend it
+# for your stack; see docs/governance/repository-profile-contract.md.
+schema_version = 1
+profile_id = "controlled-web-ingestion"
+profile_version = "1"
+ethos_contract_version = "1"
+
+[repository]
+kind = "software"
+root_subject = "controlled-web-ingestion"
+
+# Repository surface roots. These match the ETHOS defaults; override only the ones
+# your repository places elsewhere.
+[roots]
+rules = "rules"
+docs = "docs"
+durable_evidence = "evidence"
+openspec = "openspec"
+claims = "evidence/claims"
+agent_skills = ".agents/skills"
+local_state = ".ethos/state"
+
+# Native gates remain repository-owned; ETHOS only compiles and records them.
+[proof]
+code_correctness_gates = ["controlled-web-ingestion-tests", "controlled-web-ingestion-static"]
+
+[proof.code_correctness_map]
+behavior = "controlled-web-ingestion-tests"
+static-analysis = "controlled-web-ingestion-static"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-tests"
+kind = "test"
+command = ["uv", "run", "--locked", "python", "tools/ci/run_tests.py"]
+dimensions = ["test", "unit", "contract", "integration"]
+execution_mode = "subprocess"
+evidence_class = "proof"
+trust_bearing = true
+tool_adapter = "repository-native"
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-static"
+kind = "lint"
+command = ["uv", "run", "--locked", "python", "tools/ci/check_source_topology.py"]
+dimensions = ["static-analysis", "architecture", "import-discipline"]
+execution_mode = "subprocess"
+evidence_class = "contract"
+trust_bearing = true
+tool_adapter = "repository-native"
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-schemas"
+kind = "schema"
+command = ["uv", "run", "--locked", "python", "tools/ci/validate_schemas.py"]
+dimensions = ["schema", "redaction"]
+execution_mode = "subprocess"
+evidence_class = "contract"
+trust_bearing = true
+tool_adapter = "repository-native"
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-docs"
+kind = "documentation"
+command = ["uv", "run", "--locked", "python", "tools/ci/check_documentation.py"]
+dimensions = ["documentation", "topology"]
+execution_mode = "subprocess"
+evidence_class = "contract"
+trust_bearing = true
+tool_adapter = "repository-native"
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-security"
+kind = "security"
+command = ["sh", "tools/ci/run_security_checks.sh"]
+dimensions = ["security", "secrets"]
+execution_mode = "subprocess"
+evidence_class = "contract"
+trust_bearing = true
+tool_adapter = "repository-native"
+network_policy = "offline"
