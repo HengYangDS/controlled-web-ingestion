@@ -1,0 +1,23 @@
+[claim]
+id = "controlled-web-ingestion-topology-20260714"
+subject = "controlled-web-ingestion:topology-local-proof"
+change_id = "controlled-web-ingestion-topology-20260714"
+state = "historical"
+summary = "The cited local proof records a green Python 3.12-3.14 source-gate matrix while separately retaining the Firecrawl runtime blocker; it makes no hosted or runtime-success claim."
+
+[evidence]
+dated = "evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json"
+sha256 = "f32d49519e613f9229432c9643ffd9091b88ddb1b23fff89e2b134e2a9c7faa2"
+evidence_ids = ["evidence:controlled-web-ingestion-local-proof-2026-07-14"]
+binding = "digest-bound local source-gate proof with explicit runtime and hosted limits"
+verifier = "tools/ci/run_tests.py plus repository-owned local gates"
+tests = [
+  "uv run --locked python tools/ci/run_tests.py",
+  "uv run --locked python tools/ci/validate_schemas.py",
+  "uv run --locked python tools/ci/check_documentation.py",
+  "uv run --locked python tools/ci/check_source_topology.py",
+  "sh tools/ci/run_security_checks.sh",
+]
+
+[evidence.freshness]
+mode = "historical"

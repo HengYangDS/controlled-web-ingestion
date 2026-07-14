@@ -1,0 +1,4 @@
+[extension_roots]
+"docs/architecture" = ["reference"]
+"docs/plans" = ["plan"]
+"docs/start" = ["how-to"]
