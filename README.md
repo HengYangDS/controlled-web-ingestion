@@ -85,3 +85,9 @@ python3 scripts/import-pinned-firecrawl-images.py --workers 1
 ```
 
 `ops/firecrawl-images.json` contains only reviewed official GHCR repository/tag/platform-manifest digests. The importer fetches exact byte ranges from short-lived official signed GHCR URLs, verifies every blob against the manifest SHA-256 digest, builds a local `docker load` archive, then runs `docker load`. It does not set a registry mirror, change Docker configuration, or accept a replacement source. A failed transfer keeps only digest-addressed verified partial chunks in its explicit cache directory for resumption; no partial or mismatched blob is loaded.
+
+## Research Portfolio
+
+Web Ingestion Benchmark belongs to Research's **Knowledge Systems** domain. Its
+controlled acquisition boundary, admission contract, non-goals, and portfolio
+interfaces are stated in the [Research Contract](docs/research-contract.md).
