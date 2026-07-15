@@ -7,6 +7,6 @@
 
 ## 2. Local closure
 
-- [ ] Run strict OpenSpec and claim validation plus an ETHOS proof on the
+- [x] Run strict OpenSpec and claim validation plus an ETHOS proof on the
   evidence-bound local head.
-- [ ] Archive this reconciliation carrier before candidate integration.
+- [x] Archive this reconciliation carrier before candidate integration.
