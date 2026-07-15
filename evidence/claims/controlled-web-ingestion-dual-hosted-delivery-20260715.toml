@@ -23,8 +23,8 @@ tests = [
 
 [evidence.freshness]
 mode = "semantic_scope"
-head = "0907ab41db582781ce423da53f80e490df5c0d8c"
-semantic_sha256 = "de0023ad23351f4d0c51a7ff3f4db4ed8c3020761f47cbbc0ad9d209f08e2d34"
+head = "804544a389a71a38dc6df908e3ab64964aa87b2e"
+semantic_sha256 = "196bc49df115a23d787586ca351ece788e45a9982f93ff81c1f342626a7837a3"
 
 [boundary]
 owner = "controlled-web-ingestion-maintainers"
