@@ -1,0 +1,48 @@
+{
+  "schema": "controlled-web-ingestion-dual-hosted-delivery-local-proof-v1",
+  "observed_at": "2026-07-15T08:00:00+08:00",
+  "work_lane": {
+    "branch": "work/controlled-web-ingestion-governance-closeout-20260715",
+    "state": "local_proof_pending"
+  },
+  "delivery_contract": {
+    "github": "independent complete repository and GitHub Actions plane",
+    "gitlab": "independent complete repository and GitLab CI plane",
+    "shared_owner_commands": [
+      "tools/ci/run_tests.py",
+      "tools/ci/validate_schemas.py",
+      "tools/ci/check_documentation.py",
+      "tools/ci/check_source_topology.py",
+      "tools/ci/run_security_checks.sh"
+    ],
+    "candidate_parity_required": true,
+    "protected_main_required_on_each_platform": true
+  },
+  "local_checks": [
+    {
+      "id": "github_workflow_static_contract",
+      "state": "verified",
+      "evidence": "actionlint .github/workflows/verify.yml; contract tests for the workflow shape and owner-command projection",
+      "limit": "static local validation; no GitHub Actions execution"
+    }
+  ],
+  "hosted_checks": [
+    {
+      "platform": "github",
+      "state": "not_run",
+      "limit": "no GitHub repository exists yet for controlled-web-ingestion; no workflow, protection, pull request, or Actions run observed"
+    },
+    {
+      "platform": "gitlab",
+      "state": "blocked",
+      "limit": "configured GitLab HTTP health and SSH transport timed out on 2026-07-15; current runner, pipeline, protection, and merge-request state unavailable"
+    }
+  ],
+  "decision": "The dual-hosted delivery contract is locally specified but not locally proven until the full matrix and ETHOS proof run on its committed head. Hosted publication is incomplete until GitHub and GitLab independently run the same candidate head and each protected main records its own publication evidence.",
+  "limits": [
+    "no_hosted_success_inferred_from_static_workflow_validation",
+    "github_actions_and_gitlab_ci_are_independent_evidence_classes",
+    "no_personal_standing_runner_or_automatic_cross_platform_publication",
+    "no_ingestion_runtime_target_data_class_topology_or_sink_expansion"
+  ]
+}

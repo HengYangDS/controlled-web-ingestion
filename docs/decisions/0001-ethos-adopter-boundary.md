@@ -31,6 +31,7 @@ package has no ETHOS runtime import.
 
 ## Revisit trigger
 
-Revisit if ETHOS can no longer execute a fail-closed Python plus GitLab overlay,
-or if adoption asks to overwrite repository-owned contracts. A conflict in
-`ethos adopt --dry-run` is a stop condition, not a reason to force apply.
+Revisit if ETHOS can no longer execute fail-closed Python plus GitHub and
+GitLab delivery projections, or if adoption asks to overwrite repository-owned
+contracts. A conflict in `ethos adopt --dry-run` is a stop condition, not a
+reason to force apply.

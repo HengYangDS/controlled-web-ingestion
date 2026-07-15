@@ -31,6 +31,23 @@ class SourceTopologyTests(unittest.TestCase):
         self.assertNotIn("unittest discover", projection)
         self.assertNotIn("bash -n", projection)
 
+    def test_both_hosted_ci_planes_are_repository_owned(self):
+        root = Path(__file__).resolve().parents[2]
+        gitlab = root / ".gitlab-ci.yml"
+        github = root / ".github" / "workflows" / "verify.yml"
+        self.assertTrue(gitlab.is_file())
+        self.assertTrue(github.is_file())
+        for command in (
+            "tools/ci/run_tests.py",
+            "tools/ci/validate_schemas.py",
+            "tools/ci/check_documentation.py",
+            "tools/ci/check_source_topology.py",
+            "tools/ci/run_security_checks.sh",
+        ):
+            with self.subTest(command=command):
+                self.assertIn(command, gitlab.read_text(encoding="utf-8"))
+                self.assertIn(command, github.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,22 @@
+family = "repository-governance"
+primary_invariant = "Each hosted forge independently proves its own protected publication; no host result is projected across forges."
+routing_question = "Does this change affect hosted repository identity, CI/CD projection, protection, or cross-forge publication evidence?"
+decision_axes = ["hosted-plane", "candidate-parity", "publication-state"]
+boundary_rules = [
+  "GitHub and GitLab are complete repositories, not mirrors or source snapshots.",
+  "Hosted CI remains a thin projection over repository-owned owner commands.",
+  "No platform outage authorizes a personal standing runner, direct push, or automatic cross-platform publication.",
+]
+
+[owner]
+package = "controlled-web-ingestion"
+scope = "hosted repository identity, CI/CD projections, branch protection, and publication evidence"
+
+[recommended_facets]
+hosted_plane = ["github-actions", "gitlab-ci"]
+delivery = ["candidate-parity", "protected-main", "publication-receipt"]
+
+[proof_profile]
+default_command = "ethos prove --execute --expect-head <HEAD> --json"
+executed_command = "local matrix; schema, docs, topology, security; ETHOS prove; GitHub Actions; GitLab CI"
+required_gates = ["controlled-web-ingestion-tests", "controlled-web-ingestion-static", "controlled-web-ingestion-schemas", "controlled-web-ingestion-docs", "controlled-web-ingestion-security"]

@@ -1,0 +1,14 @@
+schema_version = 1
+paths = [
+  ".github/**",
+  ".gitlab-ci.yml",
+  "docs/architecture/**",
+  "docs/decisions/**",
+  "docs/evidence/**",
+  "docs/reference/**",
+  "docs/start/**",
+  "evidence/claims/**",
+  "evidence/verification/**",
+  "openspec/**",
+  "tests/contract/**",
+]

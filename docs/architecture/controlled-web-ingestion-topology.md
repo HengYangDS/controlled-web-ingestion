@@ -140,11 +140,11 @@ No secrets, runtime state, bodies, or generated result files belong here.
 
 ### 4.3 `tools/`
 
-`tools/ci/` is the owner of every CI command. `.gitlab-ci.yml` calls these
-scripts rather than duplicating Python, shell, security, or documentation
-commands inline. `tools/runtime/` owns disposable Firecrawl invocation and
-authorized workload validation. `tools/supply-chain/` owns provenance and image
-import utilities.
+`tools/ci/` is the owner of every CI command. `.github/workflows/verify.yml`
+and `.gitlab-ci.yml` are independent thin projections over those scripts rather
+than copies of Python, shell, security, or documentation logic. `tools/runtime/`
+owns disposable Firecrawl invocation and authorized workload validation.
+`tools/supply-chain/` owns provenance and image import utilities.
 
 ## 5. Documentation and Evidence Kernel
 
@@ -182,9 +182,9 @@ The retained evidence classes are:
 ## 7. ETHOS Adoption Decision
 
 The repository **should become an ETHOS adopter** after the topology exists.
-It should use a Python base profile and GitLab hosted projection, while retaining
-all domain policy, route, evidence, and adapter semantics as repository-owned
-truth.
+It should use a Python base profile and independent GitHub and GitLab hosted
+projections, while retaining all domain policy, route, evidence, and adapter
+semantics as repository-owned truth.
 
 ETHOS owns only the governance loop:
 
@@ -199,7 +199,8 @@ The repository owns its domain gates:
 - Python 3.12/3.13/3.14 matrix;
 - Firecrawl provenance;
 - authorized runtime validation and teardown;
-- GitLab hosted observation, distinct from local proof.
+- GitHub Actions and GitLab hosted observations, both distinct from local
+  proof and from each other.
 
 Adoption must be fail-closed. The present `ethos adopt --dry-run` reports
 `adoption_conflict` paths, so no apply is permitted until a fresh dry-run against
@@ -218,10 +219,11 @@ the repository does not take a runtime dependency on ETHOS.
    checks part of local and hosted proof.
 4. Recast benchmark scripts as tools and preserve only curated body-redacted
    evidence. Keep ignored runtime output outside tracked evidence.
-5. Install owner CI scripts and reduce `.gitlab-ci.yml` to projection only.
+5. Install owner CI scripts and reduce `.github/workflows/verify.yml` and
+   `.gitlab-ci.yml` to independent projections only.
 6. Write canonical documentation indexes, decisions and references; move dated
    material to evidence or history according to its lifecycle state.
-7. Run an ETHOS Python dry-run, then GitLab overlay dry-run. Reconcile only
+7. Run ETHOS Python, GitHub, and GitLab projection dry-runs. Reconcile only
    expected write-plan files; do not overwrite repository-owned contracts.
 8. Apply adoption only with explicit authorization, an exact HEAD, a reviewed
    rollback list, and a green local proof. Hosted CI remains a separate claim.
@@ -243,8 +245,9 @@ The reorganization is accepted only when all are true:
    provenance, private-loopback recovery and zero-resource teardown checks.
 6. `ethos adopt` dry-runs cleanly and the adopted repository's `orient`,
    `status`, `plan`, and `prove` produce repository-scoped evidence.
-7. `main` remains protected, local and remote evidence are reported separately,
-   and hosted CI is never claimed green before an eligible runner executes it.
+7. `main` remains protected on both independent hosted repositories; local,
+   GitHub Actions, and GitLab CI evidence are reported separately; no hosted
+   plane is claimed green before its eligible executor runs the reviewed head.
 
 ## 10. Non-Goals
 

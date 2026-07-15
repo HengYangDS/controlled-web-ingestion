@@ -3,7 +3,7 @@ id = "controlled-web-ingestion-governance-closeout-20260715"
 subject = "controlled-web-ingestion:governance-closeout"
 change_id = "2026-07-15-governance-closeout"
 state = "historical"
-summary = "The dated closeout records the corrected local delivery train, independently bounded proof classes, the current GitLab reachability observation, and the conditions required before a future admission or protected publication."
+summary = "The dated closeout records the prior single-host delivery state; subsequent dual-hosted delivery requires independent GitHub Actions and GitLab CI evidence before protected publication."
 
 [evidence]
 dated = "evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json"
@@ -25,7 +25,7 @@ mode = "historical"
 
 [boundary]
 owner = "controlled-web-ingestion-maintainers"
-scope = "governance closeout and delivery readiness; no ingestion-runtime expansion"
+scope = "historical governance closeout; dual-hosted delivery requires a successor receipt and no ingestion-runtime expansion"
 
 [carriers]
 openspec = "openspec/changes/archive/2026-07-14-2026-07-15-governance-closeout"

@@ -25,7 +25,7 @@ runtime receipt are not blanket authority.
 | Robots and MIME | Preflight robots decision, allowed MIME classes, redirect handling, and service-returned final-target revalidation. |
 | Route and sink | `static`, `browser`, or `crawl` route; staging and promotion decision; sink remains `null` unless a separately reviewed delivery adapter is admitted. |
 | Runtime topology | Exact image and provenance identity where applicable, ports, isolation, teardown, dependencies, and whether the change affects the disposable loopback runtime. |
-| Proof plan | Required policy/schema tests, route-specific verification, redacted receipt, cleanup evidence, local matrix, and hosted CI when code changes are proposed. |
+| Proof plan | Required policy/schema tests, route-specific verification, redacted receipt, cleanup evidence, local matrix, and independent GitHub Actions plus GitLab CI evidence when code changes are proposed. |
 
 ## Decision rule
 
@@ -38,8 +38,9 @@ a separate admission even when its code change appears small.
 
 The resulting proof must be proportional to the proposed change and must keep
 evidence classes distinct. A local unit test cannot substitute for a required
-runtime proof; a runtime receipt cannot substitute for hosted CI; and hosted CI
-cannot authorize a target or a new data-retention boundary. All durable
+runtime proof; a runtime receipt cannot substitute for either hosted CI plane;
+and GitHub Actions or GitLab CI cannot authorize a target or a new
+data-retention boundary. All durable
 artifacts remain body-redacted.
 
 ## Explicit non-admissions

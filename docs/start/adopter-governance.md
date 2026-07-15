@@ -17,10 +17,10 @@ ethos plan --root <repository-root>
 ethos prove --root <repository-root>
 ```
 
-Before apply, run both the Python and GitLab overlay adoption dry-runs against
+Before apply, run the Python, GitHub, and GitLab projection dry-runs against
 the exact branch HEAD. Review every proposed path. Apply only a conflict-free,
 head-bound plan with a rollback list. ETHOS proof is local governance evidence;
-GitLab hosted CI remains a separate observation.
+GitHub Actions and GitLab CI remain independent hosted observations.
 
 ## Delivery train
 
@@ -34,10 +34,11 @@ accepted/controlled-web-ingestion
 ```
 
 An owned `work/` lane is created from the clean candidate train, proven there,
-then integrated into the candidate train. The candidate is the reviewed GitLab
-MR source; publication advances only through the protected `main` merge. This
-is a delivery distinction, not a long-lived development environment and does
-not authorize a new runtime surface.
+then integrated into the candidate train. The candidate is the reviewed source
+for both the GitHub pull request and the GitLab merge request; publication
+advances only through each platform's protected `main` path. This is a delivery
+distinction, not a long-lived development environment and does not authorize a
+new runtime surface.
 
 Bootstrap the accepted and candidate refs only after the delivery-topology
 decision is merged to `main`; do not recreate a retired work branch as a

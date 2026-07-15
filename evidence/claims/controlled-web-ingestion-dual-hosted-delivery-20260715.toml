@@ -1,0 +1,47 @@
+[claim]
+id = "controlled-web-ingestion-dual-hosted-delivery-20260715"
+subject = "controlled-web-ingestion:delivery-governance"
+change_id = "dual-hosted-delivery"
+state = "active"
+summary = "The repository requires GitHub and GitLab to remain independent complete repository and CI/CD planes; neither platform's hosted evidence substitutes for the other's protected publication."
+
+[evidence]
+dated = "evidence/verification/2026-07-15-dual-hosted-delivery-local-proof.json"
+sha256 = "537d30de328017bc7a819e0e0218163527bafb6f35fbd7780b91549b24f9bf9a"
+evidence_ids = ["evidence:controlled-web-ingestion-dual-hosted-delivery-2026-07-15"]
+binding = "current local delivery contract; GitHub Actions and GitLab CI remain independently required before protected publication"
+verifier = "digest_only"
+tests = [
+  "actionlint .github/workflows/verify.yml",
+  "tools/ci/run_tests.py under Python 3.12, 3.13 and 3.14",
+  "tools/ci/validate_schemas.py",
+  "tools/ci/check_documentation.py",
+  "tools/ci/check_source_topology.py",
+  "tools/ci/run_security_checks.sh",
+  "ethos prove --execute --expect-head <HEAD> --json",
+]
+
+[evidence.freshness]
+mode = "semantic_scope"
+head = "PENDING_COMMIT_HEAD"
+semantic_sha256 = "PENDING_SCOPE_DIGEST"
+
+[boundary]
+owner = "controlled-web-ingestion-maintainers"
+scope = "independent GitHub and GitLab repository, CI/CD, protection, and publication evidence; no ingestion-runtime expansion"
+
+[carriers]
+openspec = "openspec/changes/dual-hosted-delivery"
+fallback = "docs/decisions/0003-dual-hosted-delivery.md"
+kill_signal = "Any attempt to treat GitHub or GitLab as a snapshot, mirror, substitute, personal-runner fallback, or automatic cross-platform publisher."
+
+[promotion]
+targets = [
+  { kind = "workflow", path = ".github/workflows/verify.yml" },
+  { kind = "ci", path = ".gitlab-ci.yml" },
+  { kind = "docs", path = "docs/decisions/0003-dual-hosted-delivery.md" },
+  { kind = "docs", path = "docs/reference/publication.md" },
+  { kind = "tests", path = "tests/contract/test_ci_runtime_bootstrap.py" },
+  { kind = "tests", path = "tests/contract/test_source_topology.py" },
+  { kind = "evidence", path = "evidence/verification/2026-07-15-dual-hosted-delivery-local-proof.json" },
+]

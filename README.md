@@ -19,6 +19,8 @@ intent -> policy -> route -> acquisition -> receipt -> promotion -> bridge -> ev
   account state never enter tracked receipts, evidence or Git history.
 - No default MCP/Agent tool, Hermes/Open WebUI integration, direct RAG sink,
   shared listener or persistent crawler is authorized.
+- GitHub and GitLab are independent, complete repository and CI/CD planes;
+  neither is a snapshot or substitute for the other.
 
 ## Start
 

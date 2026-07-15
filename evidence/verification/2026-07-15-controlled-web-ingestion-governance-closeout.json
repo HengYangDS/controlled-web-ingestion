@@ -27,14 +27,14 @@
     {
       "id": "python_matrix",
       "state": "verified",
-      "evidence": "tools/ci/run_tests.py under /opt/homebrew/bin/python3.12, python3.13 and python3.14; 67 tests each",
-      "limit": "local 2026-07-15 matrix only"
+      "evidence": "tools/ci/run_tests.py under /opt/homebrew/bin/python3.12, python3.13 and python3.14; 67 tests each before the dual-hosted-delivery change",
+      "limit": "historical local 2026-07-15 matrix; the GitHub Actions projection requires a new local and hosted run"
     },
     {
       "id": "security_and_documentation",
       "state": "verified",
       "evidence": "tools/ci/check_documentation.py; tools/ci/run_security_checks.sh; git diff --check",
-      "limit": "local repository validation only"
+      "limit": "historical local repository validation before the dual-hosted-delivery change"
     },
     {
       "id": "firecrawl_runtime",
@@ -49,6 +49,18 @@
       "evidence": "docs/evidence/chronicle/2026-07-14/ethos-adopter-proof.md",
       "verified_head": "60b1d4615251ccf9450c68836d6ffd910a6b0cd4",
       "limit": "historical adopter proof is not proof of this work-lane head"
+    },
+    {
+      "id": "github_repository_and_actions",
+      "state": "not_run",
+      "evidence": "docs/decisions/0003-dual-hosted-delivery.md; .github/workflows/verify.yml",
+      "limit": "GitHub repository does not yet exist for this project; no GitHub Actions workflow, protection, pull request, or hosted result has been observed"
+    },
+    {
+      "id": "github_and_gitlab_candidate_parity",
+      "state": "blocked",
+      "evidence": "docs/decisions/0003-dual-hosted-delivery.md",
+      "limit": "candidate-head parity cannot be verified until the GitHub repository exists and both remotes are reachable"
     },
     {
       "id": "hosted_gitlab_ci",
@@ -76,9 +88,10 @@
   "governance": {
     "openspec_change": "openspec/specs/governance-closeout/spec.md",
     "openspec_validation": "passed before and after archive",
-    "runtime_change_scope": "no runtime or authorized-workload path changed from the historical runtime-proof head; delivery-only changes since that head are .gitlab-ci.yml and CI/bootstrap tests",
+    "runtime_change_scope": "no runtime or authorized-workload path changed from the historical runtime-proof head; delivery changes now include .github/workflows/verify.yml, .gitlab-ci.yml, and CI/bootstrap contracts",
     "new_admission": "docs/reference/admission.md",
-    "openspec_archive": "openspec/changes/archive/2026-07-14-2026-07-15-governance-closeout"
+    "openspec_archive": "openspec/changes/archive/2026-07-14-2026-07-15-governance-closeout",
+    "hosted_delivery_model": "GitHub and GitLab are independent complete repository and CI/CD planes; each must provide current hosted evidence for its own protected-main publication."
   },
   "housekeeping": {
     "removed_current_turn_scratch": [
@@ -92,13 +105,14 @@
     ],
     "runtime_started": false
   },
-  "decision": "Local governance closeout is verified and ready to land into the local candidate train. Hosted verification and protected-main publication remain externally blocked until the configured GitLab endpoint is reachable and an eligible runner executes the current candidate pipeline.",
+  "decision": "The prior local governance closeout is historical. A dual-hosted-delivery change is in progress: GitHub must be established as an independent complete repository and CI/CD plane, and GitLab must retain equivalent ability. Fresh local proof, GitHub Actions, GitLab CI, candidate-head parity, and each protected-main publication remain required before release completion.",
   "limits": [
     "no_body_html_markdown_raw_response_credentials_or_private_target_persisted",
     "no_allowlist_data_class_runtime_topology_or_sink_expansion",
     "no_mcp_default_agent_hermes_open_webui_or_direct_rag_integration",
     "no_runner_registration_reuse_modification_or_removal",
     "no_direct_push_to_main",
-    "historical_evidence_is_not_projected_to_current_remote_state"
+    "historical_evidence_is_not_projected_to_current_remote_state",
+    "github_actions_and_gitlab_ci_are_independent_evidence_classes"
   ]
 }
