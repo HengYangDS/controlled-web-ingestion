@@ -23,8 +23,8 @@ tests = [
 
 [evidence.freshness]
 mode = "semantic_scope"
-head = "PENDING_COMMIT_HEAD"
-semantic_sha256 = "PENDING_SCOPE_DIGEST"
+head = "cbd5b63bac1bbb7d46d762c8c843cfdaa01e0240"
+semantic_sha256 = "3efb9da1c041560efb59ac721d3f0aa819f4df454ef74092bb2e5cceb58641e3"
 
 [boundary]
 owner = "controlled-web-ingestion-maintainers"
@@ -41,6 +41,7 @@ targets = [
   { kind = "ci", path = ".gitlab-ci.yml" },
   { kind = "docs", path = "docs/decisions/0003-dual-hosted-delivery.md" },
   { kind = "docs", path = "docs/reference/publication.md" },
+  { kind = "openspec", path = "openspec/specs/delivery-governance/spec.md" },
   { kind = "tests", path = "tests/contract/test_ci_runtime_bootstrap.py" },
   { kind = "tests", path = "tests/contract/test_source_topology.py" },
   { kind = "evidence", path = "evidence/verification/2026-07-15-dual-hosted-delivery-local-proof.json" },
