@@ -31,7 +31,7 @@ owner = "controlled-web-ingestion-maintainers"
 scope = "independent GitHub and GitLab repository, CI/CD, protection, and publication evidence; no ingestion-runtime expansion"
 
 [carriers]
-openspec = "openspec/changes/dual-hosted-delivery-closeout"
+openspec = "openspec/changes/dual-hosted-delivery-archive-reconciliation"
 fallback = "docs/decisions/0003-dual-hosted-delivery.md"
 kill_signal = "Any attempt to treat GitHub or GitLab as a snapshot, mirror, substitute, personal-runner fallback, or automatic cross-platform publisher."
 

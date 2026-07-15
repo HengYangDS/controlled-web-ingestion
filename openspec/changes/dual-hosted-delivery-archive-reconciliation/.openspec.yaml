@@ -1,0 +1,4 @@
+schema: spec-driven
+created: 2026-07-15
+goal: Reconcile completed local OpenSpec archive metadata and claim binding
+  without asserting unobserved GitHub or GitLab publication.
