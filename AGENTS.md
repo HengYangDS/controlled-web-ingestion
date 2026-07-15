@@ -23,3 +23,10 @@ Ingestion. It is not a standing scraping service.
 - Unit, contract and integration tests: `uv run --locked python tools/ci/run_tests.py`.
 - Schema/declaration/evidence validation: `uv run --locked python tools/ci/validate_schemas.py`.
 - Runtime validation is explicit: `tools/runtime/validate-authorized-workloads.sh`.
+
+## Text layout
+
+Follow [repository conventions](docs/reference/conventions.md): one blank line
+separates adjacent semantic units; Python module-level definitions use two;
+machine-readable files do not use decorative blank lines. Preserve final LF,
+UTF-8, and no trailing whitespace.

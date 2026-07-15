@@ -16,6 +16,9 @@ protection, or cross-forge candidate parity.
 - **delivery-governance:** Define independent hosted CI, protected-main
   publication evidence, and candidate-head parity as canonical release
   requirements; the actual hosted executions remain a subsequent evidence step.
+- **delivery-governance:** Make repository text layout explicit and verifiable:
+  one blank line separates semantic units, Python module-level definitions use
+  two, and machine-readable configuration has no decorative blank lines.
 - **delivery-governance:** Preserve the controlled-ingestion runtime boundary:
   this change does not add a target, data class, service, MCP, Hermes/Open WebUI,
   RAG sink, personal CI runner, or automatic cross-platform publication.

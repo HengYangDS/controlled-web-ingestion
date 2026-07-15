@@ -44,6 +44,7 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         self.assertIn("tools/ci/check_documentation.py", projection)
         self.assertIn("tools/ci/check_source_topology.py", projection)
         self.assertIn("tools/ci/run_security_checks.sh", projection)
+        self.assertIn("tools/ci/scripts/with-python-runtime.sh", projection)
         self.assertNotIn("unittest discover", projection)
         self.assertNotIn("bash -n", projection)
 

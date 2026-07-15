@@ -4,6 +4,8 @@
 - [x] Add a pinned GitHub Actions matrix and security projection over owner commands.
 - [x] Add contract tests preventing a missing or non-thin GitHub workflow.
 - [x] Record historical limits and update admission/publication documentation.
+- [x] Define and verify a cross-format blank-line convention without rewriting
+  serialized evidence or expanding runtime scope.
 
 ## 2. Local proof and integration readiness
 

@@ -14,4 +14,5 @@ relations:
 - [Future admission packet](admission.md)
 - [Research contract](research-contract.md)
 - [Publication boundary](publication.md)
+- [Repository conventions](conventions.md)
 - [Dual hosted-delivery decision](../decisions/0003-dual-hosted-delivery.md)

@@ -1,14 +1,22 @@
 schema_version = 1
 paths = [
+  ".editorconfig",
+  ".ethos/**",
   ".github/**",
   ".gitlab-ci.yml",
+  "AGENTS.md",
+  "CONTRIBUTING.md",
+  "README.md",
   "docs/architecture/**",
   "docs/decisions/**",
   "docs/evidence/**",
+  "docs/history/**",
+  "docs/plans/**",
   "docs/reference/**",
   "docs/start/**",
   "evidence/claims/**",
   "evidence/verification/**",
   "openspec/**",
   "tests/contract/**",
+  "tools/ci/**",
 ]

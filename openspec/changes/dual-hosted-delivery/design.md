@@ -17,6 +17,17 @@ shell checks. The action-native Gitleaks scan remains its detector; a temporary
 shim lets the repository security-command contract run without pretending that
 the shim performed the scan.
 
+## Text layout policy
+
+The delivery planes consume the same tracked text, so whitespace is a shared
+review and maintenance concern rather than editor preference. `.editorconfig`
+establishes UTF-8, LF, final-newline, and trailing-whitespace rules. The
+repository documentation checker enforces the stable blank-line contract:
+single blank lines separate semantic units; Python uses two blank lines only
+between module-level definitions; JSON and JSONL prohibit decorative blanks;
+all other tracked text rejects runs of three or more blanks. The check avoids
+parsing or rewriting evidence values, code fences, and shell heredocs.
+
 ## Failure and rollback
 
 A missing GitHub repository, unavailable GitLab, missing eligible runner,

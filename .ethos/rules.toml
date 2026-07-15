@@ -6,6 +6,10 @@ user_config = "TOML"
 machine_output = "JSON"
 append_only_events = "JSONL"
 local_state = "SQLite"
+text_encoding = "UTF-8"
+line_endings = "LF"
+trailing_whitespace = "forbidden"
+blank_line_policy = "semantic-single; python-module-double; machine-readable-none"
 
 [artifacts]
 state_path = ".ethos/state/state.sqlite"

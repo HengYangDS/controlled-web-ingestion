@@ -13,3 +13,7 @@ ethos report
 
 Mutating operations such as `ethos land` and `ethos publish` require explicit
 authorization and expected HEAD binding.
+
+Follow [repository conventions](docs/reference/conventions.md) before committing:
+semantic units use one blank line, Python module-level definitions use two, and
+machine-readable configurations contain no decorative blank lines.
