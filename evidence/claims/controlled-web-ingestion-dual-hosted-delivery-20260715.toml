@@ -7,7 +7,7 @@ summary = "The repository requires GitHub and GitLab to remain independent compl
 
 [evidence]
 dated = "evidence/verification/2026-07-15-dual-hosted-delivery-local-proof.json"
-sha256 = "537d30de328017bc7a819e0e0218163527bafb6f35fbd7780b91549b24f9bf9a"
+sha256 = "9c34683ec848e8af00a9ba4b0b60fe9689825989e3fee2117bd62f7e2cc39426"
 evidence_ids = ["evidence:controlled-web-ingestion-dual-hosted-delivery-2026-07-15"]
 binding = "current local delivery contract; GitHub Actions and GitLab CI remain independently required before protected publication"
 verifier = "digest_only"
