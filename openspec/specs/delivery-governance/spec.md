@@ -19,3 +19,44 @@ boundaries when it changes a hosted delivery projection.
   protection boundary, and evidence limitation
 - **AND** it does not widen ingestion targets, data classes, runtime topology,
   persistent storage, or integration surfaces by implication
+
+### Requirement: Hosted delivery planes remain independent and complete
+
+The repository SHALL treat GitHub and GitLab as independent complete repository
+and CI/CD planes, and SHALL use repository-owned owner commands through a thin
+workflow projection on each platform.
+
+#### Scenario: a candidate is prepared for hosted publication
+
+- **WHEN** a candidate is presented for release
+- **THEN** the same reviewed candidate head is pushed to both hosted repositories
+- **AND** GitHub Actions and GitLab CI execute their independent required jobs
+- **AND** neither platform's result is treated as proof of the other
+
+### Requirement: Protected publication requires current platform evidence
+
+The repository SHALL require current hosted CI and protected-main evidence for
+each platform before declaring a dual-hosted implementation release complete.
+
+#### Scenario: one hosted platform is unavailable
+
+- **WHEN** GitHub or GitLab repository, protection, runner, or network state is
+  unavailable
+- **THEN** the affected publication remains blocked
+- **AND** historical evidence, direct pushes, personal runners, and automatic
+  cross-platform merges do not substitute for current platform evidence
+
+### Requirement: Delivery projections preserve reviewable text layout
+
+The repository SHALL define a single cross-format text-layout convention for
+reviewed source, documentation, and configuration. The convention SHALL use
+one blank line between adjacent semantic units, reserve two blank lines for
+Python module-level definitions, and prohibit decorative blank lines in JSON
+and JSONL.
+
+#### Scenario: tracked documentation or configuration is verified
+
+- **WHEN** repository-owned documentation verification runs
+- **THEN** it rejects missing final newlines, trailing whitespace, three or
+  more consecutive blank lines, and blank lines in JSON or JSONL
+- **AND** it does not mutate serialized evidence or runtime outputs

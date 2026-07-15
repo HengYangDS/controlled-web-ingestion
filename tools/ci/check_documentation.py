@@ -186,7 +186,8 @@ def main() -> int:
                     f"broken local link in {path.relative_to(ROOT)}: {href}"
                 )
     for path in tracked_text_paths():
-        failures.extend(text_layout_failures(path))
+        if path.exists():
+            failures.extend(text_layout_failures(path))
     if failures:
         print("\n".join(failures), file=sys.stderr)
         return 1
