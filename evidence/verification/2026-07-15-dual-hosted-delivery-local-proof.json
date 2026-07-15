@@ -1,10 +1,10 @@
 {
   "schema": "controlled-web-ingestion-dual-hosted-delivery-local-proof-v1",
-  "observed_at": "2026-07-15T08:05:00+08:00",
+  "observed_at": "2026-07-15T08:31:02+08:00",
   "work_lane": {
     "branch": "work/controlled-web-ingestion-governance-closeout-20260715",
     "state": "locally_verified_pending_evidence_commit",
-    "head": "a97d0c2b5d181c6cd684bf915e84b04757bbf7ce"
+    "head": "0ecf6a1f6b1882b31efba7411342e003d4845528"
   },
   "delivery_contract": {
     "github": "independent complete repository and GitHub Actions plane",
@@ -23,32 +23,44 @@
     {
       "id": "python_matrix",
       "state": "passed",
-      "evidence": "tools/ci/run_tests.py under /opt/homebrew/bin/python3.12, python3.13 and python3.14; 70 tests each",
+      "evidence": "tools/ci/run_tests.py under /opt/homebrew/bin/python3.12 (3.12.13), python3.13 (3.13.14), and python3.14 (3.14.6); 75 tests passed per interpreter",
       "limit": "local verification only"
     },
     {
-      "id": "schema_and_documentation",
+      "id": "schema_documentation_and_topology",
       "state": "passed",
       "evidence": "tools/ci/validate_schemas.py; tools/ci/check_documentation.py; tools/ci/check_source_topology.py",
       "limit": "local verification only"
     },
     {
+      "id": "text_layout",
+      "state": "passed",
+      "evidence": ".editorconfig; docs/reference/conventions.md; contract coverage for single non-Python blank lines, PEP 8 Python module spacing, JSON blank-line prohibition, UTF-8, LF final newline, and no trailing whitespace",
+      "limit": "repository-owned tracked-text policy only; it does not rewrite evidence values, code fences, or shell heredocs"
+    },
+    {
       "id": "security",
       "state": "passed",
-      "evidence": "tools/ci/run_security_checks.sh; Gitleaks reported no leaks",
+      "evidence": "tools/ci/run_security_checks.sh; Gitleaks 8.30.1 reported no leaks",
       "limit": "local verification only"
     },
     {
       "id": "github_workflow_static_contract",
       "state": "passed",
-      "evidence": "actionlint .github/workflows/verify.yml; GitHub workflow contract tests",
+      "evidence": "actionlint .github/workflows/verify.yml; yamllint on both hosted projections; Taplo checks; GitHub workflow contract tests; workflow routes Python execution through tools/ci/scripts/with-python-runtime.sh",
       "limit": "static local validation; no GitHub Actions execution"
     },
     {
       "id": "openspec",
       "state": "passed",
       "evidence": "openspec validate --all --strict --json",
-      "limit": "active delivery carrier remains unarchived until both protected publications"
+      "limit": "the active delivery carrier remains subject to local archive and later independent hosted evidence"
+    },
+    {
+      "id": "ethos_generated_artifacts",
+      "state": "passed",
+      "evidence": "ethos quality generated-artifacts --json reported no entrypoint blockers after the GitHub workflow was bound to the repository runtime bootstrap",
+      "limit": "local governance proof only"
     }
   ],
   "hosted_checks": [
@@ -63,11 +75,12 @@
       "limit": "configured GitLab HTTP health and SSH transport timed out on 2026-07-15; current runner, pipeline, protection, and merge-request state unavailable"
     }
   ],
-  "decision": "The dual-hosted delivery contract is locally verified on the stated source head. Hosted publication remains incomplete until GitHub and GitLab independently execute the same candidate head and each protected main records its own publication evidence.",
+  "decision": "The dual-hosted delivery contract and repository text-layout policy are locally verified on the stated source head. Hosted publication remains incomplete until GitHub and GitLab independently execute the same candidate head and each protected main records its own publication evidence.",
   "limits": [
     "no_hosted_success_inferred_from_static_workflow_validation",
     "github_actions_and_gitlab_ci_are_independent_evidence_classes",
     "no_personal_standing_runner_or_automatic_cross_platform_publication",
-    "no_ingestion_runtime_target_data_class_topology_or_sink_expansion"
+    "no_ingestion_runtime_target_data_class_topology_or_sink_expansion",
+    "text_layout_rule_does_not_mutate_serialized_evidence_or_runtime_outputs"
   ]
 }

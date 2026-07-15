@@ -7,7 +7,7 @@ summary = "The repository requires GitHub and GitLab to remain independent compl
 
 [evidence]
 dated = "evidence/verification/2026-07-15-dual-hosted-delivery-local-proof.json"
-sha256 = "9c34683ec848e8af00a9ba4b0b60fe9689825989e3fee2117bd62f7e2cc39426"
+sha256 = "4376ff64576cb25382f5caafadcf00b20632b13bb5bf48683a550defc19e89d2"
 evidence_ids = ["evidence:controlled-web-ingestion-dual-hosted-delivery-2026-07-15"]
 binding = "current local delivery contract; GitHub Actions and GitLab CI remain independently required before protected publication"
 verifier = "digest_only"
@@ -23,8 +23,8 @@ tests = [
 
 [evidence.freshness]
 mode = "semantic_scope"
-head = "cbd5b63bac1bbb7d46d762c8c843cfdaa01e0240"
-semantic_sha256 = "3efb9da1c041560efb59ac721d3f0aa819f4df454ef74092bb2e5cceb58641e3"
+head = "d31d6ea7f24903a7ba97f718522fdf4ad6af803a"
+semantic_sha256 = "37b7b7905e2acf83eda0ec05f3a9dfc80709ab9fe65b670a6462c8d698a4c5b0"
 
 [boundary]
 owner = "controlled-web-ingestion-maintainers"
@@ -37,12 +37,18 @@ kill_signal = "Any attempt to treat GitHub or GitLab as a snapshot, mirror, subs
 
 [promotion]
 targets = [
+  { kind = "config", path = ".editorconfig" },
+  { kind = "config", path = ".ethos/profile.toml" },
+  { kind = "config", path = ".ethos/rules.toml" },
   { kind = "workflow", path = ".github/workflows/verify.yml" },
   { kind = "ci", path = ".gitlab-ci.yml" },
   { kind = "docs", path = "docs/decisions/0003-dual-hosted-delivery.md" },
+  { kind = "docs", path = "docs/reference/conventions.md" },
   { kind = "docs", path = "docs/reference/publication.md" },
   { kind = "openspec", path = "openspec/specs/delivery-governance/spec.md" },
   { kind = "tests", path = "tests/contract/test_ci_runtime_bootstrap.py" },
+  { kind = "tests", path = "tests/contract/test_documentation_format.py" },
   { kind = "tests", path = "tests/contract/test_source_topology.py" },
+  { kind = "tools", path = "tools/ci/check_documentation.py" },
   { kind = "evidence", path = "evidence/verification/2026-07-15-dual-hosted-delivery-local-proof.json" },
 ]
