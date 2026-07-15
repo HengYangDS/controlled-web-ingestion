@@ -1,9 +1,10 @@
 {
   "schema": "controlled-web-ingestion-dual-hosted-delivery-local-proof-v1",
-  "observed_at": "2026-07-15T08:00:00+08:00",
+  "observed_at": "2026-07-15T08:05:00+08:00",
   "work_lane": {
     "branch": "work/controlled-web-ingestion-governance-closeout-20260715",
-    "state": "local_proof_pending"
+    "state": "locally_verified_pending_evidence_commit",
+    "head": "a97d0c2b5d181c6cd684bf915e84b04757bbf7ce"
   },
   "delivery_contract": {
     "github": "independent complete repository and GitHub Actions plane",
@@ -20,10 +21,34 @@
   },
   "local_checks": [
     {
+      "id": "python_matrix",
+      "state": "passed",
+      "evidence": "tools/ci/run_tests.py under /opt/homebrew/bin/python3.12, python3.13 and python3.14; 70 tests each",
+      "limit": "local verification only"
+    },
+    {
+      "id": "schema_and_documentation",
+      "state": "passed",
+      "evidence": "tools/ci/validate_schemas.py; tools/ci/check_documentation.py; tools/ci/check_source_topology.py",
+      "limit": "local verification only"
+    },
+    {
+      "id": "security",
+      "state": "passed",
+      "evidence": "tools/ci/run_security_checks.sh; Gitleaks reported no leaks",
+      "limit": "local verification only"
+    },
+    {
       "id": "github_workflow_static_contract",
-      "state": "verified",
-      "evidence": "actionlint .github/workflows/verify.yml; contract tests for the workflow shape and owner-command projection",
+      "state": "passed",
+      "evidence": "actionlint .github/workflows/verify.yml; GitHub workflow contract tests",
       "limit": "static local validation; no GitHub Actions execution"
+    },
+    {
+      "id": "openspec",
+      "state": "passed",
+      "evidence": "openspec validate --all --strict --json",
+      "limit": "active delivery carrier remains unarchived until both protected publications"
     }
   ],
   "hosted_checks": [
@@ -38,7 +63,7 @@
       "limit": "configured GitLab HTTP health and SSH transport timed out on 2026-07-15; current runner, pipeline, protection, and merge-request state unavailable"
     }
   ],
-  "decision": "The dual-hosted delivery contract is locally specified but not locally proven until the full matrix and ETHOS proof run on its committed head. Hosted publication is incomplete until GitHub and GitLab independently run the same candidate head and each protected main records its own publication evidence.",
+  "decision": "The dual-hosted delivery contract is locally verified on the stated source head. Hosted publication remains incomplete until GitHub and GitLab independently execute the same candidate head and each protected main records its own publication evidence.",
   "limits": [
     "no_hosted_success_inferred_from_static_workflow_validation",
     "github_actions_and_gitlab_ci_are_independent_evidence_classes",
