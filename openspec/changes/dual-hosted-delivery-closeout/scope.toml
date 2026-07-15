@@ -1,9 +1,12 @@
 schema_version = 1
 paths = [
+  ".ethos/profile.toml",
   ".github/**",
   ".gitlab-ci.yml",
   "docs/decisions/**",
   "docs/evidence/**",
+  "docs/history/**",
+  "docs/plans/**",
   "docs/reference/**",
   "evidence/claims/**",
   "evidence/parity/**",
