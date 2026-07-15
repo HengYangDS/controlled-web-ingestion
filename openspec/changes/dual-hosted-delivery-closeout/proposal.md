@@ -18,16 +18,11 @@ tracks those remaining facts without treating local proof as a substitute.
   job as a platform-specific block; do not recover by using a personal
   standing runner, direct push, mirror semantics, or cross-platform automation.
 
-## Capabilities
+## Affected capabilities
 
-### New Capabilities
-
-None.
-
-### Modified Capabilities
-
-- `delivery-governance`: clarify that archiving a local delivery carrier does
-  not discharge independently required hosted publication evidence.
+- `delivery-governance`: subject=controlled-web-ingestion:delivery-governance;
+  reuse=extend; change=modify; facet:lifecycle=publication;
+  facet:surface=github-actions-and-gitlab-ci; facet:authority=repository-governance
 
 ## Impact
 
@@ -35,3 +30,13 @@ The change affects OpenSpec lifecycle carriers, claim/evidence bindings, hosted
 delivery documentation, and CI projections only. It does not expand targets,
 data classes, Firecrawl runtime topology, persistence, MCP, Hermes/Open WebUI,
 or RAG surfaces.
+
+## Out of Scope
+
+- No Firecrawl runtime execution, image change, daemon, target expansion, or
+  direct RAG delivery.
+- No direct push to either protected `main`, automatic mirror, or automatic
+  cross-platform publication.
+- No registration, modification, reuse, or removal of a personal GitLab runner.
+- No GitHub or GitLab hosted success is claimed until that platform's own
+  repository, protection, candidate, and execution evidence has been observed.
