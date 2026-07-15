@@ -53,6 +53,30 @@ class DocumentationFormatTests(unittest.TestCase):
         )
         self.assertEqual(CHECK_DOCUMENTATION.text_layout_failures(scratch), [])
 
+    def test_python_policy_rejects_single_blank_line_between_module_definitions(self):
+        scratch = ROOT / "build" / "runtime" / "work" / "format-policy-fixture.py"
+        scratch.parent.mkdir(parents=True, exist_ok=True)
+        self.addCleanup(scratch.unlink, missing_ok=True)
+        scratch.write_text(
+            "def first():\n    return 1\n\ndef second():\n    return 2\n",
+            encoding="utf-8",
+        )
+        failures = CHECK_DOCUMENTATION.text_layout_failures(scratch)
+        self.assertIn(
+            "Python module-level definitions require two blank lines: build/runtime/work/format-policy-fixture.py:4",
+            failures,
+        )
+
+    def test_python_policy_permits_a_standalone_main_guard_between_definitions(self):
+        scratch = ROOT / "build" / "runtime" / "work" / "format-policy-fixture.py"
+        scratch.parent.mkdir(parents=True, exist_ok=True)
+        self.addCleanup(scratch.unlink, missing_ok=True)
+        scratch.write_text(
+            'class First:\n    pass\n\n\nif __name__ == "__main__":\n    unittest.main()\n\nclass Second:\n    pass\n',
+            encoding="utf-8",
+        )
+        self.assertEqual(CHECK_DOCUMENTATION.text_layout_failures(scratch), [])
+
     def test_json_policy_rejects_decorative_blank_lines(self):
         scratch = ROOT / "build" / "runtime" / "work" / "format-policy-fixture.json"
         scratch.parent.mkdir(parents=True, exist_ok=True)

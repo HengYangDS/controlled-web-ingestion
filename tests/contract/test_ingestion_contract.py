@@ -37,7 +37,10 @@ class RequestContractTests(unittest.TestCase):
         from web_ingestion import IngestionError, IngestionRequest
 
         for mode in ("static", "browser"):
-            with self.subTest(mode=mode), self.assertRaisesRegex(IngestionError, "max_pages_for_mode"):
+            with (
+                self.subTest(mode=mode),
+                self.assertRaisesRegex(IngestionError, "max_pages_for_mode"),
+            ):
                 IngestionRequest(
                     url="https://example.com/",
                     purpose="fixture",
@@ -76,7 +79,11 @@ class _FakeHttpClient:
         from web_ingestion.policy import RobotsDecision
         from web_ingestion import HttpFetch
 
-        self.robots = RobotsDecision(robots_allowed, "robots_allowed" if robots_allowed else "robots_disallow", None)
+        self.robots = RobotsDecision(
+            robots_allowed,
+            "robots_allowed" if robots_allowed else "robots_disallow",
+            None,
+        )
         self.response = HttpFetch(
             requested_url="https://example.com/",
             final_url="https://example.com/final",
@@ -120,7 +127,10 @@ class ControllerReceiptTests(unittest.TestCase):
         self.assertEqual(persisted["status"], "success")
         self.assertEqual(persisted["purpose"], "validate the controlled static route")
         self.assertEqual(persisted["dedupe_decision"], "unique")
-        self.assertEqual(persisted["redirect_chain"], ["https://example.com/", "https://example.com/final"])
+        self.assertEqual(
+            persisted["redirect_chain"],
+            ["https://example.com/", "https://example.com/final"],
+        )
         self.assertNotIn("body", persisted)
         self.assertNotIn("content", persisted)
         self.assertNotIn("html", persisted)
@@ -143,13 +153,17 @@ class ControllerReceiptTests(unittest.TestCase):
             self.assertEqual(persisted["status"], "duplicate")
             self.assertEqual(persisted["dedupe_decision"], "duplicate")
             with self.assertRaises(PromotionError):
-                StageStore(root).promote(duplicate.stage_receipt, explicit_confirmation=True)
+                StageStore(root).promote(
+                    duplicate.stage_receipt, explicit_confirmation=True
+                )
 
     def test_robots_denial_and_unapproved_content_type_fail_closed(self):
         from web_ingestion import IngestionController, IngestionError
 
         denied = IngestionController(http_client=_FakeHttpClient(robots_allowed=False))
-        wrong_type = IngestionController(http_client=_FakeHttpClient(content_type="application/octet-stream"))
+        wrong_type = IngestionController(
+            http_client=_FakeHttpClient(content_type="application/octet-stream")
+        )
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaisesRegex(IngestionError, "robots_disallow"):
                 denied.ingest(self._request(), stage_root=Path(directory))
@@ -168,10 +182,17 @@ class ControllerReceiptTests(unittest.TestCase):
         )
         controller = IngestionController(
             http_client=_FakeHttpClient(),
-            browser_handler=lambda _: ("fixture content", "Fixture", "http://127.0.0.1/private", 1),
+            browser_handler=lambda _: (
+                "fixture content",
+                "Fixture",
+                "http://127.0.0.1/private",
+                1,
+            ),
         )
         with tempfile.TemporaryDirectory() as directory:
-            with self.assertRaisesRegex(IngestionError, "firecrawl_result_target:blocked_ip"):
+            with self.assertRaisesRegex(
+                IngestionError, "firecrawl_result_target:blocked_ip"
+            ):
                 controller.ingest(request, stage_root=Path(directory))
 
     def test_firecrawl_result_cannot_exceed_the_approved_page_budget(self):
@@ -186,23 +207,37 @@ class ControllerReceiptTests(unittest.TestCase):
         )
         controller = IngestionController(
             http_client=_FakeHttpClient(),
-            browser_handler=lambda _: ("fixture content", "Fixture", "https://example.com/final", 2),
+            browser_handler=lambda _: (
+                "fixture content",
+                "Fixture",
+                "https://example.com/final",
+                2,
+            ),
         )
         with tempfile.TemporaryDirectory() as directory:
-            with self.assertRaisesRegex(IngestionError, "discovered_count_exceeds_page_budget"):
+            with self.assertRaisesRegex(
+                IngestionError, "discovered_count_exceeds_page_budget"
+            ):
                 controller.ingest(request, stage_root=Path(directory))
 
 
 if __name__ == "__main__":
     unittest.main()
 
+
 class RoutingManifestTests(unittest.TestCase):
     def test_routing_manifest_preserves_the_expected_disposable_boundary(self):
         root = Path(__file__).resolve().parents[2]
-        routing = json.loads((root / "system" / "projections" / "routing.json").read_text(encoding="utf-8"))
+        routing = json.loads(
+            (root / "system" / "projections" / "routing.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
         self.assertEqual(routing["modes"]["static"]["route"], "trafilatura")
-        self.assertEqual(routing["modes"]["browser"]["service"], "disposable_loopback_only")
+        self.assertEqual(
+            routing["modes"]["browser"]["service"], "disposable_loopback_only"
+        )
         self.assertEqual(routing["modes"]["crawl"]["max_pages"], 10)
         self.assertIn("direct_rag_write", routing["excluded"])
 
@@ -210,8 +245,14 @@ class RoutingManifestTests(unittest.TestCase):
 class AuthorizedWorkloadTimingTests(unittest.TestCase):
     def test_ten_page_serial_firecrawl_workload_reserves_the_full_bounded_runtime(self):
         root = Path(__file__).resolve().parents[2]
-        workloads = json.loads((root / "system" / "policies" / "authorized-workloads.json").read_text(encoding="utf-8"))
-        crawl = next(item for item in workloads["workloads"] if item["id"] == "crawl-quotes")
+        workloads = json.loads(
+            (root / "system" / "policies" / "authorized-workloads.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        crawl = next(
+            item for item in workloads["workloads"] if item["id"] == "crawl-quotes"
+        )
 
         self.assertEqual(crawl["mode"], "crawl")
         self.assertEqual(crawl["max_pages"], 10)

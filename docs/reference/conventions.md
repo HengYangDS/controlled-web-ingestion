@@ -23,9 +23,9 @@ Blank lines express structure; they do not decorate it.
   Markdown paragraphs, lists, tables, code fences, YAML mapping blocks, TOML
   tables, shell command blocks, and Python definitions within one module.
 - **Two blank lines** separate Python module-level definitions, as required by
-  PEP 8. A top-level section in a plain-text operational document may also use
-  two only when it is otherwise not marked by a heading; canonical Markdown
-  uses headings plus one blank line instead.
+  PEP 8. A standalone `if __name__ == "__main__"` guard may sit between
+  definition groups without changing that boundary. Canonical Markdown uses
+  headings plus one blank line instead.
 - **No empty separator** is used inside a compact machine-readable collection
   unless its format requires it. JSON and JSONL never use decorative blank
   lines. YAML and TOML use one blank line only to separate logical blocks.

@@ -6,6 +6,7 @@ from __future__ import annotations
 import re
 import subprocess
 import sys
+import tokenize
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -72,6 +73,8 @@ def text_layout_failures(path: Path) -> list[str]:
                 failures.append(
                     f"decorative blank line in machine-readable file: {relative}:{number}"
                 )
+    if path.suffix == ".py":
+        failures.extend(_python_module_spacing_failures(path, lines))
     return failures
 
 
@@ -79,6 +82,70 @@ def _requires_single_blank_lines(path: Path) -> bool:
     return (
         path.suffix in SINGLE_BLANK_LINE_SUFFIXES
         or path.name in SINGLE_BLANK_LINE_FILENAMES
+    )
+
+
+def _python_module_spacing_failures(path: Path, lines: list[str]) -> list[str]:
+    top_level_starts = _python_module_definition_starts(path, lines)
+    failures: list[str] = []
+    for previous, current in zip(top_level_starts, top_level_starts[1:]):
+        if not _has_two_blank_lines_before(lines, previous, current):
+            relative = path.relative_to(ROOT)
+            failures.append(
+                f"Python module-level definitions require two blank lines: {relative}:{current}"
+            )
+    return failures
+
+
+def _python_module_definition_starts(path: Path, lines: list[str]) -> list[int]:
+    try:
+        with tokenize.open(path) as source:
+            tokens = tokenize.generate_tokens(source.readline)
+            indent = 0
+            starts: list[int] = []
+            for token in tokens:
+                if token.type == tokenize.INDENT:
+                    indent += 1
+                elif token.type == tokenize.DEDENT:
+                    indent -= 1
+                elif (
+                    indent == 0
+                    and token.type == tokenize.NAME
+                    and token.string in {"class", "def"}
+                ):
+                    starts.append(_module_definition_start(lines, token.start[0]))
+            return starts
+    except (SyntaxError, tokenize.TokenError, UnicodeDecodeError):
+        return []
+
+
+def _has_two_blank_lines_before(lines: list[str], previous: int, current: int) -> bool:
+    between = lines[previous : current - 1]
+    if len(between) >= 2 and not between[-1].strip() and not between[-2].strip():
+        return True
+    return _is_standalone_main_guard(lines, previous, current)
+
+
+def _module_definition_start(lines: list[str], definition_line: int) -> int:
+    previous_line = definition_line - 2
+    while previous_line >= 0 and not lines[previous_line].strip():
+        previous_line -= 1
+    if previous_line < 0 or not lines[previous_line].lstrip().startswith("@"):
+        return definition_line
+    while previous_line > 0 and lines[previous_line - 1].lstrip().startswith("@"):
+        previous_line -= 1
+    return previous_line + 1
+
+
+def _is_standalone_main_guard(lines: list[str], previous: int, current: int) -> bool:
+    intervening = lines[previous - 1 : current - 1]
+    return (
+        len(intervening) == 7
+        and not intervening[2].strip()
+        and not intervening[3].strip()
+        and intervening[4].strip() == 'if __name__ == "__main__":'
+        and intervening[5].strip() == "unittest.main()"
+        and not intervening[6].strip()
     )
 
 

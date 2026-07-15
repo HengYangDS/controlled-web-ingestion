@@ -31,9 +31,20 @@ class RecordContractTests(unittest.TestCase):
         self.assertEqual(
             REQUIRED_FIELDS,
             {
-                "candidate", "case", "requested_url", "final_url", "started_at",
-                "ended_at", "status", "content_sha256", "title", "source_url",
-                "discovered_count", "error", "resources", "artifacts",
+                "candidate",
+                "case",
+                "requested_url",
+                "final_url",
+                "started_at",
+                "ended_at",
+                "status",
+                "content_sha256",
+                "title",
+                "source_url",
+                "discovered_count",
+                "error",
+                "resources",
+                "artifacts",
             },
         )
 
@@ -57,6 +68,7 @@ class RecordContractTests(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
+
 class NormalizationTests(unittest.TestCase):
     def test_normalizes_content_without_persisting_it(self):
         from tools.benchmark.run_framework_comparison import normalized_record
@@ -74,7 +86,10 @@ class NormalizationTests(unittest.TestCase):
             resources={"elapsed_ms": 1000},
         )
 
-        self.assertEqual(record["content_sha256"], hashlib.sha256(b"secret page body must not be written").hexdigest())
+        self.assertEqual(
+            record["content_sha256"],
+            hashlib.sha256(b"secret page body must not be written").hexdigest(),
+        )
         self.assertNotIn("content", record)
         self.assertNotIn("body", record)
         self.assertEqual(validate_record(record), [])
@@ -101,30 +116,44 @@ class NormalizationTests(unittest.TestCase):
         self.assertEqual(record["status"], "unsupported")
         self.assertEqual(validate_record(record), [])
 
+
 class CrawlBudgetTests(unittest.TestCase):
     def test_schedules_only_same_origin_unique_links_within_page_budget(self):
         from tools.benchmark.run_framework_comparison import bounded_same_origin_links
 
         links = bounded_same_origin_links(
             base_url="https://quotes.toscrape.com/",
-            hrefs=["/page/2/", "/page/2/#fragment", "https://example.com/", "/page/3/", "/page/4/"],
+            hrefs=[
+                "/page/2/",
+                "/page/2/#fragment",
+                "https://example.com/",
+                "/page/3/",
+                "/page/4/",
+            ],
             already_requested={"https://quotes.toscrape.com/"},
             remaining=2,
         )
 
         self.assertEqual(
             links,
-            ["https://quotes.toscrape.com/page/2/", "https://quotes.toscrape.com/page/3/"],
+            [
+                "https://quotes.toscrape.com/page/2/",
+                "https://quotes.toscrape.com/page/3/",
+            ],
         )
+
 
 class CrawleeConfigurationTests(unittest.TestCase):
     def test_uses_explicit_single_request_concurrency_settings(self):
-        from tools.benchmark.run_framework_comparison import crawlee_concurrency_settings
+        from tools.benchmark.run_framework_comparison import (
+            crawlee_concurrency_settings,
+        )
 
         settings = crawlee_concurrency_settings()
         self.assertEqual(settings.min_concurrency, 1)
         self.assertEqual(settings.max_concurrency, 1)
         self.assertEqual(settings.desired_concurrency, 1)
+
 
 class RuntimeBoundTests(unittest.TestCase):
     def test_times_out_a_slow_async_operation(self):
@@ -145,7 +174,9 @@ class FirecrawlAdapterTests(unittest.TestCase):
 
         with patch.dict(os.environ, {}, clear=True):
             with self.assertRaisesRegex(RuntimeError, "FIRECRAWL_ENDPOINT"):
-                run_firecrawl({"name": "static", "url": "https://example.com/", "max_pages": 1})
+                run_firecrawl(
+                    {"name": "static", "url": "https://example.com/", "max_pages": 1}
+                )
 
     def test_maps_crawl_case_to_the_client_page_budget(self):
         from tools.benchmark.run_framework_comparison import run_firecrawl
@@ -160,8 +191,13 @@ class FirecrawlAdapterTests(unittest.TestCase):
                 self.max_pages = max_pages
                 return FirecrawlResult("# fixture", "Fixture", url, max_pages)
 
-        with patch("web_ingestion.adapters.firecrawl.FirecrawlClient", StubClient), patch.dict(os.environ, {"FIRECRAWL_ENDPOINT": "http://127.0.0.1:13002"}):
-            content, title, final_url, count = run_firecrawl({"name": "crawl", "url": "https://example.com/", "max_pages": 3})
+        with (
+            patch("web_ingestion.adapters.firecrawl.FirecrawlClient", StubClient),
+            patch.dict(os.environ, {"FIRECRAWL_ENDPOINT": "http://127.0.0.1:13002"}),
+        ):
+            content, title, final_url, count = run_firecrawl(
+                {"name": "crawl", "url": "https://example.com/", "max_pages": 3}
+            )
 
         self.assertEqual(content, "# fixture")
         self.assertEqual(title, "Fixture")
