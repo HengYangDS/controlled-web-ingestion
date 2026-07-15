@@ -1,7 +1,7 @@
 [claim]
 id = "controlled-web-ingestion-dual-hosted-delivery-20260715"
 subject = "controlled-web-ingestion:delivery-governance"
-change_id = "dual-hosted-delivery"
+change_id = "dual-hosted-delivery-closeout"
 state = "active"
 summary = "The repository requires GitHub and GitLab to remain independent complete repository and CI/CD planes; neither platform's hosted evidence substitutes for the other's protected publication."
 

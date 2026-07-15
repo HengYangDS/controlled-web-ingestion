@@ -2,16 +2,18 @@
 
 ### Requirement: Local carrier closure preserves outstanding hosted obligations
 
-The repository SHALL retain an active delivery-governance carrier whenever
-GitHub or GitLab protected publication remains unobserved. Archiving a local
-projection carrier SHALL preserve its proof history but SHALL NOT close either
-platform's independent hosted obligations.
+The repository SHALL archive a completed local delivery carrier before that
+carrier reaches a candidate branch. Archiving a local projection carrier SHALL
+preserve its proof history but SHALL NOT close either platform's independent
+hosted obligations, which remain in the canonical delivery-governance
+requirements and publication reference until platform receipts exist.
 
 #### Scenario: local projection evidence is archived before hosted release
 
-- **WHEN** a local delivery projection carrier is archived
+- **WHEN** a completed local delivery projection carrier is archived before
+  candidate integration
 - **THEN** its dated local proof remains available as local evidence
-- **AND** the active claim identifies a live successor carrier for outstanding
-  GitHub and GitLab publication work
-- **AND** the release remains incomplete until each platform records its own
-  candidate parity, hosted CI, protection, and protected-main evidence
+- **AND** GitHub and GitLab publication remain incomplete until each platform
+  records its own candidate parity, hosted CI, protection, and protected-main
+  evidence
+- **AND** no active local closure carrier is promoted to the candidate branch

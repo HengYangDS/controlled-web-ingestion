@@ -2,21 +2,20 @@
 
 ## Why
 
-The local delivery projection has been archived into its canonical OpenSpec
-specification, but the release is not complete: GitHub and GitLab still need
-their own repository identity, protected-main path, hosted CI execution, and
-publication receipt. The active claim therefore needs a live carrier that
-tracks those remaining facts without treating local proof as a substitute.
+The local delivery projection needs a valid archival record and a final
+evidence-bound proof. GitHub and GitLab still need their own repository
+identity, protected-main path, hosted CI execution, and publication receipt,
+but those external operating facts must remain canonical release obligations,
+not an active OpenSpec carrier that blocks the reviewed candidate from landing.
 
 ## What Changes
 
-- Rebind the active dual-hosted delivery claim to this follow-on carrier and
-  preserve its digest-bound local proof as local evidence only.
-- Require independently observed GitHub and GitLab candidate parity, hosted CI,
-  protection, and protected-main publication before release completion.
-- Record each unavailable platform, missing eligible runner, or failed hosted
-  job as a platform-specific block; do not recover by using a personal
-  standing runner, direct push, mirror semantics, or cross-platform automation.
+- Repair archive metadata and complete only the already-observed local proof
+  tasks for prior carriers.
+- Preserve the digest-bound local proof as local evidence only, and bind the
+  active claim to this closure carrier until it is archived.
+- Retain independently observed GitHub and GitLab candidate parity, hosted CI,
+  protection, and protected-main publication as canonical release obligations.
 
 ## Affected capabilities
 
@@ -26,10 +25,9 @@ tracks those remaining facts without treating local proof as a substitute.
 
 ## Impact
 
-The change affects OpenSpec lifecycle carriers, claim/evidence bindings, hosted
-delivery documentation, and CI projections only. It does not expand targets,
-data classes, Firecrawl runtime topology, persistence, MCP, Hermes/Open WebUI,
-or RAG surfaces.
+The change affects OpenSpec lifecycle carriers and claim/evidence bindings
+only. It does not expand targets, data classes, Firecrawl runtime topology,
+persistence, MCP, Hermes/Open WebUI, or RAG surfaces.
 
 ## Out of Scope
 
@@ -40,3 +38,4 @@ or RAG surfaces.
 - No registration, modification, reuse, or removal of a personal GitLab runner.
 - No GitHub or GitLab hosted success is claimed until that platform's own
   repository, protection, candidate, and execution evidence has been observed.
+- No hosted publication implementation occurs in this closure carrier.

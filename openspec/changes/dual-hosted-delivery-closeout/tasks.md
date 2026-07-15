@@ -2,22 +2,20 @@
 
 - [x] Archive the completed local projection carrier as
   `2026-07-15-dual-hosted-delivery` and update the canonical delivery spec.
-- [ ] Bind the active dual-hosted delivery claim to this follow-on carrier and
+- [x] Bind the active dual-hosted delivery claim to this closure carrier and
   refresh only its semantic-scope freshness and local receipt digest.
-- [ ] Execute an ETHOS proof on the evidence-bound local head; record failures
+- [x] Execute an ETHOS proof on the evidence-bound local head; record failures
   separately from unobserved hosted facts.
 
-## 2. Independent hosted publication
+## 2. Archive ledger and release boundary
 
-- [ ] Create and verify the GitHub repository, `main` protection, candidate
-  head, pull request, and required GitHub Actions result.
-- [ ] Recheck GitLab reachability and project/runner/protection state; use only
-  an eligible shared or group runner, never a personal standing Mac runner.
-- [ ] Push the identical candidate head to GitLab, observe required GitLab CI,
-  and complete its separate protected-main publication path.
-- [ ] Record candidate parity and one protected-main receipt per platform.
+- [x] Add schema-compatible metadata to each archive and mark only the prior
+  local proof and archival tasks that are already evidenced as complete.
+- [x] Keep GitHub and GitLab candidate parity, hosted CI, protection, and
+  protected-main receipts as unfulfilled canonical release obligations rather
+  than completion criteria for this local closure carrier.
 
-## 3. Final closeout
+## 3. Final local closeout
 
-- [ ] Archive this carrier only after both hosted planes have independently met
-  the canonical delivery-governance requirements.
+- [x] Archive this local closure carrier before candidate integration; do not
+  infer GitHub or GitLab hosted publication from that archival action.

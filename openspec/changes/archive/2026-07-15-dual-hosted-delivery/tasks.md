@@ -10,8 +10,8 @@
 ## 2. Local proof and integration readiness
 
 - [x] Run the full Python 3.12, 3.13 and 3.14 matrix plus schema, docs, topology, security, workflow syntax, and OpenSpec validation on the dual-plane source commit.
-- [ ] Run ETHOS proof on the evidence-bound dual-plane head.
-- [ ] Archive this local projection carrier after proof; the canonical requirement remains in force for later hosted evidence work.
+- [x] Run ETHOS proof on the evidence-bound dual-plane head.
+- [x] Archive this local projection carrier after proof; the canonical requirement remains in force for later hosted evidence work.
 
 ## 3. Subsequent external evidence (not completion criteria for this carrier)
 
