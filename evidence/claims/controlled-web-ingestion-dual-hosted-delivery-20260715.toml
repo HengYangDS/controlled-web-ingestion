@@ -23,15 +23,15 @@ tests = [
 
 [evidence.freshness]
 mode = "semantic_scope"
-head = "d31d6ea7f24903a7ba97f718522fdf4ad6af803a"
-semantic_sha256 = "37b7b7905e2acf83eda0ec05f3a9dfc80709ab9fe65b670a6462c8d698a4c5b0"
+head = "0907ab41db582781ce423da53f80e490df5c0d8c"
+semantic_sha256 = "de0023ad23351f4d0c51a7ff3f4db4ed8c3020761f47cbbc0ad9d209f08e2d34"
 
 [boundary]
 owner = "controlled-web-ingestion-maintainers"
 scope = "independent GitHub and GitLab repository, CI/CD, protection, and publication evidence; no ingestion-runtime expansion"
 
 [carriers]
-openspec = "openspec/changes/dual-hosted-delivery"
+openspec = "openspec/changes/dual-hosted-delivery-closeout"
 fallback = "docs/decisions/0003-dual-hosted-delivery.md"
 kill_signal = "Any attempt to treat GitHub or GitLab as a snapshot, mirror, substitute, personal-runner fallback, or automatic cross-platform publisher."
 
