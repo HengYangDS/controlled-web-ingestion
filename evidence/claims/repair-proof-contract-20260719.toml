@@ -7,7 +7,7 @@ summary = "Digest-bound local repair record for portable declared proof commands
 
 [evidence]
 dated = "evidence/verification/2026-07-19-proof-contract-repair.json"
-sha256 = "1553fb7b37057a6d8d7aaa8d1f632b44c8435e1339035e89bb055a759643d11f"
+sha256 = "969e0cca6151d2f06622334b63d4dd88bdc6820e917bd91987c88721005fc02f"
 evidence_ids = ["evidence:repair-proof-contract-20260719"]
 binding = "Digest-bound local proof receipt, portable python3 gate declaration, fixture-only DNS seam, repository-native gates, and bounded generated-artifact cleanup."
 verifier = "digest_only"
@@ -23,8 +23,8 @@ tests = [
 
 [evidence.freshness]
 mode = "semantic_scope"
-head = "977becb2ac1f46e27526400577c7fbd62657c211"
-semantic_sha256 = "33710b02d5f452a7f2ac69100426bc471cb575986d6ef7285e6f1c81d9fe4af0"
+head = "6498ee05e3844d347b44aa4b62c3b433ccdc8173"
+semantic_sha256 = "9be53d8251a1e384806c71c0ac2798454b2cce8e605bbe711ee1b68521757000"
 
 [boundary]
 owner = "controlled-web-ingestion-maintainers"
@@ -40,7 +40,6 @@ targets = [
   { kind = "config", path = ".ethos/profile.toml" },
   { kind = "tests", path = "tests/contract/test_ci_runtime_bootstrap.py" },
   { kind = "tests", path = "tests/integration/test_benchmark_lane.py" },
-  { kind = "openspec", path = "openspec/changes/repair-proof-contract-20260719" },
   { kind = "evidence", path = "evidence/claims/repair-proof-contract-20260719.toml" },
   { kind = "evidence", path = "evidence/verification/2026-07-19-proof-contract-repair.json" },
 ]

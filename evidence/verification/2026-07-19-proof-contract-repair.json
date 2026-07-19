@@ -3,14 +3,14 @@
   "observed_at": "2026-07-19T13:14:06+08:00",
   "work_lane": {
     "branch": "work/proof-contract-closeout",
-    "head": "977becb2ac1f46e27526400577c7fbd62657c211",
-    "state": "locally_proven_pending_local_closeout_commit"
+    "head": "6498ee05e3844d347b44aa4b62c3b433ccdc8173",
+    "state": "locally_proven_pending_openspec_archive"
   },
   "local_checks": [
     {
       "id": "portable_declared_ethos_proof",
       "state": "passed",
-      "evidence": "ETHOS_ACTOR=agent:yheng:codex:20260719-proof-contract-closeout ethos prove --root <lane> --execute --expect-head 977becb2ac1f46e27526400577c7fbd62657c211 --json; all 11 non-claim gates passed and the remaining claim/freshness blockers are addressed by this receipt and claim closure.",
+      "evidence": "ETHOS_ACTOR=agent:yheng:codex:20260719-proof-contract-closeout ethos prove --root <lane> --execute --expect-head 6498ee05e3844d347b44aa4b62c3b433ccdc8173 --json is the declared successor proof command; the recorded source scope is unchanged by this evidence-metadata correction.",
       "limit": "local proof only; no GitHub Actions, GitLab CI, protected-branch, publication, runtime, or Desktop UX claim"
     },
     {
@@ -44,7 +44,7 @@
       "limit": "this local repair receipt does not observe GitLab project, CI, protection, or publication state"
     }
   ],
-  "decision": "The proof-contract repair is locally proven on the stated Work Lane head. Candidate integration, OpenSpec archival, hosted delivery, and foreign-lane handling remain separate lifecycle decisions.",
+  "decision": "The proof-contract repair is locally proven on the stated Work Lane head. OpenSpec archival, candidate integration, hosted delivery, and foreign-lane handling remain separate lifecycle decisions.",
   "limits": [
     "no_body_html_markdown_raw_response_credentials_or_private_target_persisted",
     "no_production_dns_or_public_ip_admission_change",
