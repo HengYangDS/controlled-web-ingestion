@@ -5,6 +5,7 @@ paths = [
   "evidence/claims/repair-proof-contract-20260719.toml",
   "evidence/verification/2026-07-19-proof-contract-repair.json",
   "openspec/changes/repair-proof-contract-20260719/**",
+  "openspec/specs/governance-closeout/spec.md",
   "tests/contract/test_ci_runtime_bootstrap.py",
   "tests/integration/test_benchmark_lane.py",
 ]

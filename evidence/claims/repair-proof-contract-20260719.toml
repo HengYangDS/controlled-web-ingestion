@@ -7,7 +7,7 @@ summary = "Digest-bound local repair record for portable declared proof commands
 
 [evidence]
 dated = "evidence/verification/2026-07-19-proof-contract-repair.json"
-sha256 = "969e0cca6151d2f06622334b63d4dd88bdc6820e917bd91987c88721005fc02f"
+sha256 = "df732209326afec1b46f58cdb885ee518c50aa696c24481902de54f1c2d643c7"
 evidence_ids = ["evidence:repair-proof-contract-20260719"]
 binding = "Digest-bound local proof receipt, portable python3 gate declaration, fixture-only DNS seam, repository-native gates, and bounded generated-artifact cleanup."
 verifier = "digest_only"
