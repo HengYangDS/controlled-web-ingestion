@@ -191,8 +191,14 @@ class FirecrawlAdapterTests(unittest.TestCase):
                 self.max_pages = max_pages
                 return FirecrawlResult("# fixture", "Fixture", url, max_pages)
 
+        # Pin DNS only at the policy resolver boundary so this fixture is
+        # deterministic; production keeps its fail-closed public-IP check.
         with (
             patch("web_ingestion.adapters.firecrawl.FirecrawlClient", StubClient),
+            patch(
+                "web_ingestion.policy.socket.getaddrinfo",
+                return_value=[(None, None, None, None, ("93.184.216.34", 0))],
+            ),
             patch.dict(os.environ, {"FIRECRAWL_ENDPOINT": "http://127.0.0.1:13002"}),
         ):
             content, title, final_url, count = run_firecrawl(

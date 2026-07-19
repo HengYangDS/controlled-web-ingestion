@@ -54,7 +54,7 @@ id = "controlled-web-ingestion-tests"
 kind = "test"
 command = [
   "tools/ci/scripts/with-python-runtime.sh",
-  "python",
+  "python3",
   "tools/ci/run_tests.py",
 ]
 dimensions = ["test", "unit", "contract", "integration"]
@@ -69,7 +69,7 @@ id = "controlled-web-ingestion-static"
 kind = "lint"
 command = [
   "tools/ci/scripts/with-python-runtime.sh",
-  "python",
+  "python3",
   "tools/ci/check_source_topology.py",
 ]
 dimensions = ["static-analysis", "architecture", "import-discipline"]
@@ -84,7 +84,7 @@ id = "controlled-web-ingestion-schemas"
 kind = "schema"
 command = [
   "tools/ci/scripts/with-python-runtime.sh",
-  "python",
+  "python3",
   "tools/ci/validate_schemas.py",
 ]
 dimensions = ["schema", "redaction"]
@@ -99,7 +99,7 @@ id = "controlled-web-ingestion-docs"
 kind = "documentation"
 command = [
   "tools/ci/scripts/with-python-runtime.sh",
-  "python",
+  "python3",
   "tools/ci/check_documentation.py",
 ]
 dimensions = ["documentation", "topology"]

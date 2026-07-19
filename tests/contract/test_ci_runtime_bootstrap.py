@@ -1,5 +1,6 @@
 import unittest
 from pathlib import Path
+import tomllib
 
 
 class CiRuntimeBootstrapTests(unittest.TestCase):
@@ -15,6 +16,16 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         runner_text = runner.read_text(encoding="utf-8")
         self.assertIn("sys.executable", runner_text)
         self.assertNotIn('[args.python, "-m", "unittest"', runner_text)
+        profile = tomllib.loads(
+            (root / ".ethos" / "profile.toml").read_text(encoding="utf-8")
+        )
+        python_gates = [
+            gate
+            for gate in profile["proof"]["gates"]
+            if gate["command"][0] == "tools/ci/scripts/with-python-runtime.sh"
+        ]
+        self.assertEqual(len(python_gates), 4)
+        self.assertTrue(all(gate["command"][1] == "python3" for gate in python_gates))
         projection = (root / ".gitlab-ci.yml").read_text(encoding="utf-8")
         self.assertIn("tools/ci/scripts/with-python-runtime.sh", projection)
         self.assertNotIn('image: "python:${PYTHON_VERSION}-slim"', projection)
