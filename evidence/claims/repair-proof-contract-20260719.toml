@@ -31,7 +31,7 @@ owner = "controlled-web-ingestion-maintainers"
 scope = "Portable local proof declaration and deterministic benchmark fixture only; delivery, runtime, targets, data classes, and integration surfaces remain unchanged."
 
 [carriers]
-openspec = "openspec/changes/repair-proof-contract-20260719"
+openspec = "openspec/changes/archive/2026-07-19-repair-proof-contract-20260719"
 fallback = "Revert the bounded repair commit if the repository-native proof contract cannot execute with python3 or the fixture no longer isolates only its DNS seam."
 kill_signal = "A repair changes production DNS resolution, public-IP admission, target authorization, runtime topology, retained data, or hosted-delivery authority."
 
