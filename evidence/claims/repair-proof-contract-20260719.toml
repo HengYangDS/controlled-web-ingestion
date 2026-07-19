@@ -1,0 +1,46 @@
+[claim]
+id = "repair-proof-contract-20260719"
+subject = "controlled-web-ingestion:governance-closeout:proof-contract-repair"
+change_id = "repair-proof-contract-20260719"
+state = "active"
+summary = "Digest-bound local repair record for portable declared proof commands and deterministic benchmark-fixture DNS isolation."
+
+[evidence]
+dated = "evidence/verification/2026-07-19-proof-contract-repair.json"
+sha256 = "1553fb7b37057a6d8d7aaa8d1f632b44c8435e1339035e89bb055a759643d11f"
+evidence_ids = ["evidence:repair-proof-contract-20260719"]
+binding = "Digest-bound local proof receipt, portable python3 gate declaration, fixture-only DNS seam, repository-native gates, and bounded generated-artifact cleanup."
+verifier = "digest_only"
+tests = [
+  "tools/ci/scripts/with-python-runtime.sh python3 tools/ci/run_tests.py",
+  "tools/ci/scripts/with-python-runtime.sh python3 tools/ci/validate_schemas.py",
+  "tools/ci/scripts/with-python-runtime.sh python3 tools/ci/check_source_topology.py",
+  "tools/ci/scripts/with-python-runtime.sh python3 tools/ci/check_documentation.py",
+  "sh tools/ci/run_security_checks.sh",
+  "ethos quality generated-artifacts --root <lane> --json",
+  "ethos prove --root <lane> --execute --expect-head 977becb2ac1f46e27526400577c7fbd62657c211 --json",
+]
+
+[evidence.freshness]
+mode = "semantic_scope"
+head = "977becb2ac1f46e27526400577c7fbd62657c211"
+semantic_sha256 = "33710b02d5f452a7f2ac69100426bc471cb575986d6ef7285e6f1c81d9fe4af0"
+
+[boundary]
+owner = "controlled-web-ingestion-maintainers"
+scope = "Portable local proof declaration and deterministic benchmark fixture only; delivery, runtime, targets, data classes, and integration surfaces remain unchanged."
+
+[carriers]
+openspec = "openspec/changes/repair-proof-contract-20260719"
+fallback = "Revert the bounded repair commit if the repository-native proof contract cannot execute with python3 or the fixture no longer isolates only its DNS seam."
+kill_signal = "A repair changes production DNS resolution, public-IP admission, target authorization, runtime topology, retained data, or hosted-delivery authority."
+
+[promotion]
+targets = [
+  { kind = "config", path = ".ethos/profile.toml" },
+  { kind = "tests", path = "tests/contract/test_ci_runtime_bootstrap.py" },
+  { kind = "tests", path = "tests/integration/test_benchmark_lane.py" },
+  { kind = "openspec", path = "openspec/changes/repair-proof-contract-20260719" },
+  { kind = "evidence", path = "evidence/claims/repair-proof-contract-20260719.toml" },
+  { kind = "evidence", path = "evidence/verification/2026-07-19-proof-contract-repair.json" },
+]

@@ -14,8 +14,8 @@
 
 - [x] 3.1 Run strict OpenSpec validation and focused contract/integration
   tests.
-- [ ] 3.2 Run repository schema, test, static, documentation, security, and
+- [x] 3.2 Run repository schema, test, static, documentation, security, and
   declared ETHOS proof gates against the exact lane head.
-- [ ] 3.3 Commit only the reviewed lane changes; leave candidate integration,
+- [x] 3.3 Commit the reviewed local closeout; leave candidate integration,
   publication, and foreign-lane retirement to their independent lifecycle
   gates.

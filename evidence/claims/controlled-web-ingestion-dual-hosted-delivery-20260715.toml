@@ -2,14 +2,14 @@
 id = "controlled-web-ingestion-dual-hosted-delivery-20260715"
 subject = "controlled-web-ingestion:delivery-governance"
 change_id = "dual-hosted-delivery-closeout"
-state = "active"
-summary = "The repository requires GitHub and GitLab to remain independent complete repository and CI/CD planes; neither platform's hosted evidence substitutes for the other's protected publication."
+state = "historical"
+summary = "Historical 2026-07-15 local delivery-contract record; GitHub and GitLab remain independent publication and CI/CD authority planes under the canonical delivery-governance specification."
 
 [evidence]
 dated = "evidence/verification/2026-07-15-dual-hosted-delivery-local-proof.json"
 sha256 = "4376ff64576cb25382f5caafadcf00b20632b13bb5bf48683a550defc19e89d2"
 evidence_ids = ["evidence:controlled-web-ingestion-dual-hosted-delivery-2026-07-15"]
-binding = "current local delivery contract; GitHub Actions and GitLab CI remain independently required before protected publication"
+binding = "dated local delivery-contract record; GitHub Actions and GitLab CI remain independently required before protected publication"
 verifier = "digest_only"
 tests = [
   "actionlint .github/workflows/verify.yml",
@@ -20,11 +20,6 @@ tests = [
   "tools/ci/run_security_checks.sh",
   "ethos prove --execute --expect-head <HEAD> --json",
 ]
-
-[evidence.freshness]
-mode = "semantic_scope"
-head = "804544a389a71a38dc6df908e3ab64964aa87b2e"
-semantic_sha256 = "196bc49df115a23d787586ca351ece788e45a9982f93ff81c1f342626a7837a3"
 
 [boundary]
 owner = "controlled-web-ingestion-maintainers"
