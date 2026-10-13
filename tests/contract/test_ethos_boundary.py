@@ -11,11 +11,20 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
         profile_data = tomllib.loads(profile)
         project = (root / ".ethos" / "project.toml").read_text(encoding="utf-8")
         self.assertIn('profile_id = "controlled-web-ingestion"', profile)
-        self.assertIn('root_subject = "controlled-web-ingestion"', profile)
         self.assertIn('name = "controlled-web-ingestion"', project)
+        self.assertFalse(
+            {
+                "schema_version",
+                "profile_version",
+                "ethos_contract_version",
+                "repository",
+                "roots",
+            }
+            & set(profile_data)
+        )
         self.assertEqual(
             profile_data["proof"]["code_correctness_gates"],
-            ["controlled-web-ingestion-tests", "controlled-web-ingestion-static"],
+            [gate["id"] for gate in profile_data["proof"]["gates"]],
         )
         self.assertIn('behavior = "controlled-web-ingestion-tests"', profile)
         self.assertIn('static-analysis = "controlled-web-ingestion-static"', profile)
@@ -29,6 +38,8 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
         self.assertEqual(
             workspace["candidate_branch"], "candidate/controlled-web-ingestion"
         )
+        self.assertEqual(workspace["proposal_branch_prefix"], "submit/")
+        self.assertNotIn("submit_branch_prefix", workspace)
         self.assertNotEqual(workspace["release_branch"], workspace["accepted_branch"])
         self.assertFalse(
             workspace["candidate_branch"].startswith(workspace["work_branch_prefix"])

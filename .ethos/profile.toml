@@ -3,25 +3,7 @@
 # This minimal profile makes the repository a recognized ETHOS adopter, so `ethos
 # prove` uses the adopter proof floor instead of the product-core floor. Extend it
 # for your stack; see docs/governance/repository-profile-contract.md.
-schema_version = 1
 profile_id = "controlled-web-ingestion"
-profile_version = "1"
-ethos_contract_version = "1"
-
-[repository]
-kind = "software"
-root_subject = "controlled-web-ingestion"
-
-# Repository surface roots. These match the ETHOS defaults; override only the ones
-# your repository places elsewhere.
-[roots]
-rules = "rules"
-docs = "docs"
-durable_evidence = "docs/evidence"
-openspec = "openspec"
-claims = "evidence/claims"
-agent_skills = ".agents/skills"
-local_state = ".ethos/state"
 
 [openspec]
 material_paths = [
@@ -43,6 +25,9 @@ material_paths = [
 code_correctness_gates = [
   "controlled-web-ingestion-tests",
   "controlled-web-ingestion-static",
+  "controlled-web-ingestion-schemas",
+  "controlled-web-ingestion-docs",
+  "controlled-web-ingestion-security",
 ]
 
 [proof.code_correctness_map]
