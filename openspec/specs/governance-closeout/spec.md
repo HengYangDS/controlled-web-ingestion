@@ -5,7 +5,9 @@
 Governance closeout keeps controlled-ingestion evidence, delivery readiness,
 and future admission decisions auditable without broadening the runtime,
 persistence, target, or integration authority boundary.
+
 ## Requirements
+
 ### Requirement: Closeout records evidence classes independently
 
 The repository SHALL record topology closeout as body-redacted evidence, shall
@@ -60,3 +62,21 @@ while retaining the production resolver and fail-closed admission policy.
 - **AND** the production public-IP admission implementation remains unchanged
 - **AND** a documentation-range or non-public answer remains rejected outside
   that fixture patch
+
+### Requirement: The ETHOS binding follows the governing ETHOS contract
+
+The repository SHALL keep `.ethos/profile.toml` and `.ethos/workspace.toml`
+within the strict binding schema of the ETHOS release that governs it, and
+SHALL name every declared native proof gate in the proof floor.
+
+#### Scenario: current ETHOS reads the binding
+
+- **WHEN** `ethos status` reads the repository binding
+- **THEN** the profile and branch roles validate without unknown fields
+- **AND** the proof floor names exactly the declared native gates
+
+#### Scenario: delivery roles are preserved
+
+- **WHEN** the binding is migrated to a new ETHOS contract
+- **THEN** the release, accepted and candidate branches and the work and
+  proposal prefixes keep their reviewed values
