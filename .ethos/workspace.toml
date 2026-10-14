@@ -16,3 +16,5 @@ accepted_branch = "accepted/controlled-web-ingestion"
 candidate_branch = "candidate/controlled-web-ingestion"
 work_branch_prefix = "work/"
 proposal_branch_prefix = "submit/"
+release_mirror = "independent"
+canonical_sibling_worktrees = false
