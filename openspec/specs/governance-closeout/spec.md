@@ -155,3 +155,24 @@ movement with the repository's own roles instead of product defaults.
 - **WHEN** ETHOS moves the candidate train to a proven Work Lane head
 - **THEN** it reads the repository's complete branch-role table
 - **AND** it classifies the candidate branch by its declared role
+
+### Requirement: The ETHOS binding holds only runtime-defined files
+
+The repository SHALL keep only the ETHOS binding files whose schemas the governing runtime defines,
+and SHALL NOT track ETHOS state.
+
+#### Scenario: ETHOS reports the repository paradigm
+
+- **WHEN** ETHOS audits the binding file set
+- **THEN** `.ethos/` holds only `profile.toml`, `workspace.toml`, `release.toml` and `rules.toml`
+- **AND** no tracked file declares a state directory under `.ethos/`
+- **AND** no tracked copy of ETHOS runtime policy remains under `.config/ethos/`
+
+### Requirement: Tracked text is normalized to LF
+
+The repository SHALL end `.gitattributes` with the catch-all `* text=auto eol=lf`.
+
+#### Scenario: Git normalizes a text file
+
+- **WHEN** a text file is added without a narrower attribute
+- **THEN** Git stores it with LF line endings
