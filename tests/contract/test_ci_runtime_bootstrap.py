@@ -1,3 +1,4 @@
+import re
 import tomllib
 import unittest
 from pathlib import Path
@@ -19,13 +20,21 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         ]
         self.assertEqual(len(python_gates), 4)
         projection = (root / ".gitlab-ci.yml").read_text(encoding="utf-8")
-        self.assertEqual(projection.count('uv run --locked --python "$python_bin" python'), 4)
-        self.assertIn('UV_CACHE_DIR: "$CI_PROJECT_DIR/build/runtime/tool-cache/uv"', projection)
-        self.assertNotIn('image: "python:${PYTHON_VERSION}-slim"', projection)
-        self.assertNotIn("zricethezav/gitleaks:v8.30.0", projection)
-        self.assertGreaterEqual(projection.count('command -v "python${PYTHON_VERSION}"'), 2)
-        self.assertIn('export PATH="/opt/homebrew/bin:$PATH"', projection)
+        self.assertEqual(
+            projection.count('uv run --locked --python "python${PYTHON_VERSION}" python'), 4
+        )
+        self.assertIn("UV_PYTHON_DOWNLOADS: never", projection)
+        images = re.findall(r"(?m)^\s+(?:image|name): (\S+)$", projection)
+        self.assertEqual(len(images), 4)
+        pinned = re.compile(r"ghcr\.io/\S+@sha256:[0-9a-f]{64}")
+        self.assertTrue(all(pinned.fullmatch(image) for image in images))
+        self.assertIn('if: $CI_COMMIT_REF_PROTECTED == "true"', projection)
+        self.assertIn("WIB_CI_RUNNER_TAG: ci-linux-arm64-container-protected", projection)
+        self.assertIn("WIB_CI_RUNNER_TAG: ci-linux-arm64-container\n", projection)
+        self.assertIn("    - $WIB_CI_RUNNER_TAG", projection)
+        self.assertNotIn("/opt/homebrew", projection)
         self.assertIn("gitleaks version", projection)
+        self.assertIn("gitleaks git --no-banner --redact=100 --exit-code 1 .", projection)
 
     def test_github_actions_is_an_independent_pinned_ci_plane(self):
         root = Path(__file__).resolve().parents[2]

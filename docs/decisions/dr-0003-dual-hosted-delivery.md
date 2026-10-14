@@ -61,6 +61,13 @@ advance only through its own reviewed change path and current hosted evidence.
 - A platform outage is an external block for that platform. It is not a reason
   to weaken gates, create a personal permanent runner, or substitute historical
   proof.
+- GitLab CI runs only on the project-locked runner pair `ci-p473-linux-arm64-docker-review` and
+  `ci-p473-linux-arm64-docker-protected` on the dedicated CI Linux ARM64 host. Ref protection
+  selects the runner, and every job runs in a digest-pinned image from the runners' allowlist,
+  without privileged mode or the host Docker socket. This pair is the declared GitLab runner
+  contract while the organization offers no instance or group runner, and such a runner replaces
+  it. A runner in a person's login session, such as a shell executor on a workstation account, is
+  a personal runner and is not eligible.
 
 ## Revisit trigger
 
