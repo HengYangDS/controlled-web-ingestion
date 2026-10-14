@@ -12,9 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CANONICAL = ("architecture", "decisions", "evidence", "reference", "start", "plans")
 LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
-TEXT_SUFFIXES = frozenset(
-    {".json", ".jsonl", ".md", ".py", ".sh", ".toml", ".yaml", ".yml"}
-)
+TEXT_SUFFIXES = frozenset({".json", ".jsonl", ".md", ".py", ".sh", ".toml", ".yaml", ".yml"})
 TEXT_FILENAMES = frozenset(
     {".gitignore", "AGENTS.md", "CHANGELOG.md", "CONTRIBUTING.md", "README.md"}
 )
@@ -36,8 +34,7 @@ def tracked_text_paths() -> list[Path]:
     return [
         ROOT / path
         for path in paths
-        if path
-        and (Path(path).suffix in TEXT_SUFFIXES or Path(path).name in TEXT_FILENAMES)
+        if path and (Path(path).suffix in TEXT_SUFFIXES or Path(path).name in TEXT_FILENAMES)
     ]
 
 
@@ -62,9 +59,7 @@ def text_layout_failures(path: Path) -> list[str]:
                     f"multiple consecutive blank lines outside Python: {relative}:{number - 1}"
                 )
             if blank_run == 3:
-                failures.append(
-                    f"three or more consecutive blank lines: {relative}:{number - 2}"
-                )
+                failures.append(f"three or more consecutive blank lines: {relative}:{number - 2}")
         else:
             blank_run = 0
     if path.suffix in {".json", ".jsonl"}:
@@ -79,16 +74,13 @@ def text_layout_failures(path: Path) -> list[str]:
 
 
 def _requires_single_blank_lines(path: Path) -> bool:
-    return (
-        path.suffix in SINGLE_BLANK_LINE_SUFFIXES
-        or path.name in SINGLE_BLANK_LINE_FILENAMES
-    )
+    return path.suffix in SINGLE_BLANK_LINE_SUFFIXES or path.name in SINGLE_BLANK_LINE_FILENAMES
 
 
 def _python_module_spacing_failures(path: Path, lines: list[str]) -> list[str]:
     top_level_starts = _python_module_definition_starts(path, lines)
     failures: list[str] = []
-    for previous, current in zip(top_level_starts, top_level_starts[1:]):
+    for previous, current in zip(top_level_starts, top_level_starts[1:], strict=False):
         if not _has_two_blank_lines_before(lines, previous, current):
             relative = path.relative_to(ROOT)
             failures.append(
@@ -109,9 +101,7 @@ def _python_module_definition_starts(path: Path, lines: list[str]) -> list[int]:
                 elif token.type == tokenize.DEDENT:
                     indent -= 1
                 elif (
-                    indent == 0
-                    and token.type == tokenize.NAME
-                    and token.string in {"class", "def"}
+                    indent == 0 and token.type == tokenize.NAME and token.string in {"class", "def"}
                 ):
                     starts.append(_module_definition_start(lines, token.start[0]))
             return starts
@@ -182,9 +172,7 @@ def main() -> int:
                 continue
             target_path = (path.parent / target).resolve()
             if not target_path.exists():
-                failures.append(
-                    f"broken local link in {path.relative_to(ROOT)}: {href}"
-                )
+                failures.append(f"broken local link in {path.relative_to(ROOT)}: {href}")
     for path in tracked_text_paths():
         if path.exists():
             failures.extend(text_layout_failures(path))

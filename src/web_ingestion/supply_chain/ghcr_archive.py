@@ -59,8 +59,12 @@ def build_docker_archive(
             (layer_dir / "VERSION").write_text("1.0\n", encoding="utf-8")
             (layer_dir / "json").write_text("{}\n", encoding="utf-8")
             layer_names.append(f"{layer_dir.name}/layer.tar")
-        manifest = [{"Config": config_name, "RepoTags": [f"{repository}:{tag}"], "Layers": layer_names}]
-        (work / "manifest.json").write_text(json.dumps(manifest, separators=(",", ":")) + "\n", encoding="utf-8")
+        manifest = [
+            {"Config": config_name, "RepoTags": [f"{repository}:{tag}"], "Layers": layer_names}
+        ]
+        (work / "manifest.json").write_text(
+            json.dumps(manifest, separators=(",", ":")) + "\n", encoding="utf-8"
+        )
         output.parent.mkdir(parents=True, exist_ok=True)
         temporary = output.with_suffix(output.suffix + ".tmp")
         with tarfile.open(temporary, mode="w") as archive:

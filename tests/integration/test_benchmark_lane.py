@@ -1,7 +1,7 @@
 import hashlib
 import os
 import unittest
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import patch
 
 from tools.benchmark.run_framework_comparison import REQUIRED_FIELDS, validate_record
@@ -13,8 +13,8 @@ def valid_record():
         "case": "static",
         "requested_url": "https://example.com/",
         "final_url": "https://example.com/",
-        "started_at": datetime.now(timezone.utc).isoformat(),
-        "ended_at": datetime.now(timezone.utc).isoformat(),
+        "started_at": datetime.now(UTC).isoformat(),
+        "ended_at": datetime.now(UTC).isoformat(),
         "status": "success",
         "content_sha256": hashlib.sha256(b"fixture").hexdigest(),
         "title": "Example Domain",
@@ -158,6 +158,7 @@ class CrawleeConfigurationTests(unittest.TestCase):
 class RuntimeBoundTests(unittest.TestCase):
     def test_times_out_a_slow_async_operation(self):
         import asyncio
+
         from tools.benchmark.run_framework_comparison import run_with_timeout
 
         async def slow() -> str:
@@ -174,9 +175,7 @@ class FirecrawlAdapterTests(unittest.TestCase):
 
         with patch.dict(os.environ, {}, clear=True):
             with self.assertRaisesRegex(RuntimeError, "FIRECRAWL_ENDPOINT"):
-                run_firecrawl(
-                    {"name": "static", "url": "https://example.com/", "max_pages": 1}
-                )
+                run_firecrawl({"name": "static", "url": "https://example.com/", "max_pages": 1})
 
     def test_maps_crawl_case_to_the_client_page_budget(self):
         from tools.benchmark.run_framework_comparison import run_firecrawl

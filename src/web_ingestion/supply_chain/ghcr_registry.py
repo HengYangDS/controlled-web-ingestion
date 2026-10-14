@@ -25,10 +25,16 @@ MANIFEST_ACCEPT = (
 )
 
 
-def select_platform_manifest(index: dict[str, Any], *, architecture: str, os_name: str = "linux") -> str:
+def select_platform_manifest(
+    index: dict[str, Any], *, architecture: str, os_name: str = "linux"
+) -> str:
     for descriptor in index.get("manifests", []):
         platform = descriptor.get("platform") if isinstance(descriptor, dict) else None
-        if isinstance(platform, dict) and platform.get("os") == os_name and platform.get("architecture") == architecture:
+        if (
+            isinstance(platform, dict)
+            and platform.get("os") == os_name
+            and platform.get("architecture") == architecture
+        ):
             digest = descriptor.get("digest")
             if isinstance(digest, str):
                 return digest
@@ -42,7 +48,11 @@ def manifest_blobs(manifest: dict[str, Any]) -> tuple[tuple[str, int], list[tupl
         raise RegistryError("expected a single-platform Docker manifest")
 
     def descriptor(value: Any) -> tuple[str, int]:
-        if not isinstance(value, dict) or not isinstance(value.get("digest"), str) or not isinstance(value.get("size"), int):
+        if (
+            not isinstance(value, dict)
+            or not isinstance(value.get("digest"), str)
+            or not isinstance(value.get("size"), int)
+        ):
             raise RegistryError("manifest blob descriptor is invalid")
         return value["digest"], value["size"]
 
@@ -85,7 +95,9 @@ class GhcrRegistry:
             raise RegistryError("GHCR manifest is not an object")
         return data
 
-    def verify_tag_platform_digest(self, *, tag: str, platform_digest: str, architecture: str = "arm64") -> None:
+    def verify_tag_platform_digest(
+        self, *, tag: str, platform_digest: str, architecture: str = "arm64"
+    ) -> None:
         """Bind a human-readable release tag to its reviewed platform digest."""
         resolved = select_platform_manifest(self.manifest(tag), architecture=architecture)
         if resolved != platform_digest:
@@ -101,7 +113,10 @@ class GhcrRegistry:
             def redirect_request(self, req, fp, code, msg, headers, newurl):  # type: ignore[override]
                 return None
 
-        request = Request(f"https://ghcr.io/v2/{self.repository}/blobs/{digest}", headers={"Authorization": f"Bearer {self.token}"})
+        request = Request(
+            f"https://ghcr.io/v2/{self.repository}/blobs/{digest}",
+            headers={"Authorization": f"Bearer {self.token}"},
+        )
         try:
             response = build_opener(NoRedirect).open(request, timeout=self.timeout_seconds)  # noqa: S310 - trusted registry origin
         except HTTPError as exc:
@@ -110,14 +125,24 @@ class GhcrRegistry:
             location = exc.headers.get("Location")
         else:
             location = response.headers.get("Location")
-        if not isinstance(location, str) or not location.startswith("https://pkg-containers.githubusercontent.com/"):
+        if not isinstance(location, str) or not location.startswith(
+            "https://pkg-containers.githubusercontent.com/"
+        ):
             raise RegistryError("GHCR did not issue an expected signed package URL")
         return location
 
     def blob_bytes(self, digest: str) -> bytes:
         return self._open(f"https://ghcr.io/v2/{self.repository}/blobs/{digest}")
 
-    def blob_to_path(self, *, digest: str, size: int, destination: Path, chunk_bytes: int = 1 << 20, workers: int = 4) -> Path:
+    def blob_to_path(
+        self,
+        *,
+        digest: str,
+        size: int,
+        destination: Path,
+        chunk_bytes: int = 1 << 20,
+        workers: int = 4,
+    ) -> Path:
         def get_range(start: int, end: int) -> bytes:
             # GHCR package URLs are signed and short-lived. Refreshing for every
             # chunk makes a resumable import survive expiration during large
@@ -170,7 +195,9 @@ class GhcrRegistry:
         cache_dir.mkdir(parents=True, exist_ok=True)
         for digest, size in layers:
             path = cache_dir / f"{digest.removeprefix('sha256:')}.gz"
-            self.blob_to_path(digest=digest, size=size, destination=path, chunk_bytes=chunk_bytes, workers=workers)
+            self.blob_to_path(
+                digest=digest, size=size, destination=path, chunk_bytes=chunk_bytes, workers=workers
+            )
             layer_paths.append((digest, path))
         return build_docker_archive(
             config_bytes=config,

@@ -76,8 +76,8 @@ class SafeTransportTests(unittest.TestCase):
 
 class _FakeHttpClient:
     def __init__(self, *, robots_allowed=True, content_type="text/html"):
-        from web_ingestion.policy import RobotsDecision
         from web_ingestion import HttpFetch
+        from web_ingestion.policy import RobotsDecision
 
         self.robots = RobotsDecision(
             robots_allowed,
@@ -89,7 +89,10 @@ class _FakeHttpClient:
             final_url="https://example.com/final",
             status_code=200,
             headers={"Content-Type": content_type},
-            body=b"<html><title>Fixture</title><body>Useful fixture body with sufficient quality.</body></html>",
+            body=(
+                b"<html><title>Fixture</title>"
+                b"<body>Useful fixture body with sufficient quality.</body></html>"
+            ),
             redirect_chain=("https://example.com/", "https://example.com/final"),
         )
 
@@ -136,9 +139,9 @@ class ControllerReceiptTests(unittest.TestCase):
         self.assertNotIn("html", persisted)
 
     def test_duplicate_content_is_staged_but_cannot_be_promoted(self):
+        from web_ingestion import IngestionController
         from web_ingestion.policy import PromotionError
         from web_ingestion.staging import StageStore
-        from web_ingestion import IngestionController
 
         controller = IngestionController(
             http_client=_FakeHttpClient(),
@@ -153,9 +156,7 @@ class ControllerReceiptTests(unittest.TestCase):
             self.assertEqual(persisted["status"], "duplicate")
             self.assertEqual(persisted["dedupe_decision"], "duplicate")
             with self.assertRaises(PromotionError):
-                StageStore(root).promote(
-                    duplicate.stage_receipt, explicit_confirmation=True
-                )
+                StageStore(root).promote(duplicate.stage_receipt, explicit_confirmation=True)
 
     def test_robots_denial_and_unapproved_content_type_fail_closed(self):
         from web_ingestion import IngestionController, IngestionError
@@ -190,9 +191,7 @@ class ControllerReceiptTests(unittest.TestCase):
             ),
         )
         with tempfile.TemporaryDirectory() as directory:
-            with self.assertRaisesRegex(
-                IngestionError, "firecrawl_result_target:blocked_ip"
-            ):
+            with self.assertRaisesRegex(IngestionError, "firecrawl_result_target:blocked_ip"):
                 controller.ingest(request, stage_root=Path(directory))
 
     def test_firecrawl_result_cannot_exceed_the_approved_page_budget(self):
@@ -215,9 +214,7 @@ class ControllerReceiptTests(unittest.TestCase):
             ),
         )
         with tempfile.TemporaryDirectory() as directory:
-            with self.assertRaisesRegex(
-                IngestionError, "discovered_count_exceeds_page_budget"
-            ):
+            with self.assertRaisesRegex(IngestionError, "discovered_count_exceeds_page_budget"):
                 controller.ingest(request, stage_root=Path(directory))
 
 
@@ -229,15 +226,11 @@ class RoutingManifestTests(unittest.TestCase):
     def test_routing_manifest_preserves_the_expected_disposable_boundary(self):
         root = Path(__file__).resolve().parents[2]
         routing = json.loads(
-            (root / "system" / "projections" / "routing.json").read_text(
-                encoding="utf-8"
-            )
+            (root / "system" / "projections" / "routing.json").read_text(encoding="utf-8")
         )
 
         self.assertEqual(routing["modes"]["static"]["route"], "trafilatura")
-        self.assertEqual(
-            routing["modes"]["browser"]["service"], "disposable_loopback_only"
-        )
+        self.assertEqual(routing["modes"]["browser"]["service"], "disposable_loopback_only")
         self.assertEqual(routing["modes"]["crawl"]["max_pages"], 10)
         self.assertIn("direct_rag_write", routing["excluded"])
 
@@ -246,13 +239,9 @@ class AuthorizedWorkloadTimingTests(unittest.TestCase):
     def test_ten_page_serial_firecrawl_workload_reserves_the_full_bounded_runtime(self):
         root = Path(__file__).resolve().parents[2]
         workloads = json.loads(
-            (root / "system" / "policies" / "authorized-workloads.json").read_text(
-                encoding="utf-8"
-            )
+            (root / "system" / "policies" / "authorized-workloads.json").read_text(encoding="utf-8")
         )
-        crawl = next(
-            item for item in workloads["workloads"] if item["id"] == "crawl-quotes"
-        )
+        crawl = next(item for item in workloads["workloads"] if item["id"] == "crawl-quotes")
 
         self.assertEqual(crawl["mode"], "crawl")
         self.assertEqual(crawl["max_pages"], 10)

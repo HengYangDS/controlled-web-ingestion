@@ -5,7 +5,7 @@ from __future__ import annotations
 import time
 import urllib.error
 import urllib.request
-from typing import Callable, Iterable
+from collections.abc import Callable, Iterable
 from urllib.parse import urljoin, urlsplit
 
 from .contracts import HttpFetch, IngestionError, RawHttpResponse
@@ -25,15 +25,22 @@ def default_transport(url: str, *, timeout_seconds: float, max_bytes: int) -> Ra
         response = exc
     with response:
         return RawHttpResponse(
-            url=response.geturl(), status_code=response.status,
-            headers={key: value for key, value in response.headers.items()}, body=response.read(max_bytes + 1),
+            url=response.geturl(),
+            status_code=response.status,
+            headers={key: value for key, value in response.headers.items()},
+            body=response.read(max_bytes + 1),
         )
 
 
 class SafeHttpClient:
     """Fetch public HTTP(S) targets one hop at a time after policy admission."""
 
-    def __init__(self, *, resolver: Callable[[str], Iterable[str]] | None = None, transport: Callable[..., RawHttpResponse] = default_transport) -> None:
+    def __init__(
+        self,
+        *,
+        resolver: Callable[[str], Iterable[str]] | None = None,
+        transport: Callable[..., RawHttpResponse] = default_transport,
+    ) -> None:
         self.resolver = resolver
         self.transport = transport
 
@@ -66,7 +73,14 @@ class SafeHttpClient:
                 continue
             if response.status_code >= 400:
                 raise IngestionError(f"http_status:{response.status_code}")
-            return HttpFetch(chain[0], current, response.status_code, response.headers, response.body, tuple(chain))
+            return HttpFetch(
+                chain[0],
+                current,
+                response.status_code,
+                response.headers,
+                response.body,
+                tuple(chain),
+            )
         raise IngestionError("redirect_limit_exceeded")
 
     def fetch_robots(self, url: str, *, timeout_seconds: float):
@@ -78,4 +92,6 @@ class SafeHttpClient:
             if str(exc) == "http_status:404":
                 return evaluate_robots("", url, user_agent=INGESTION_AGENT)
             raise IngestionError(f"robots_unavailable:{exc}") from exc
-        return evaluate_robots(response.body.decode("utf-8", errors="replace"), url, user_agent=INGESTION_AGENT)
+        return evaluate_robots(
+            response.body.decode("utf-8", errors="replace"), url, user_agent=INGESTION_AGENT
+        )

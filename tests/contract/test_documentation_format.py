@@ -2,7 +2,6 @@ import importlib.util
 import unittest
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location(
     "check_documentation", ROOT / "tools" / "ci" / "check_documentation.py"
@@ -39,7 +38,8 @@ class DocumentationFormatTests(unittest.TestCase):
         scratch.write_text("first\n\n\nsecond\n", encoding="utf-8")
         failures = CHECK_DOCUMENTATION.text_layout_failures(scratch)
         self.assertIn(
-            "multiple consecutive blank lines outside Python: build/runtime/work/format-policy-fixture.md:2",
+            "multiple consecutive blank lines outside Python: "
+            "build/runtime/work/format-policy-fixture.md:2",
             failures,
         )
 
@@ -63,7 +63,8 @@ class DocumentationFormatTests(unittest.TestCase):
         )
         failures = CHECK_DOCUMENTATION.text_layout_failures(scratch)
         self.assertIn(
-            "Python module-level definitions require two blank lines: build/runtime/work/format-policy-fixture.py:4",
+            "Python module-level definitions require two blank lines: "
+            "build/runtime/work/format-policy-fixture.py:4",
             failures,
         )
 
@@ -72,7 +73,9 @@ class DocumentationFormatTests(unittest.TestCase):
         scratch.parent.mkdir(parents=True, exist_ok=True)
         self.addCleanup(scratch.unlink, missing_ok=True)
         scratch.write_text(
-            'class First:\n    pass\n\n\nif __name__ == "__main__":\n    unittest.main()\n\nclass Second:\n    pass\n',
+            "class First:\n    pass\n\n\n"
+            'if __name__ == "__main__":\n    unittest.main()\n\n'
+            "class Second:\n    pass\n",
             encoding="utf-8",
         )
         self.assertEqual(CHECK_DOCUMENTATION.text_layout_failures(scratch), [])
@@ -84,7 +87,8 @@ class DocumentationFormatTests(unittest.TestCase):
         scratch.write_text('{\n\n  "key": "value"\n}\n', encoding="utf-8")
         failures = CHECK_DOCUMENTATION.text_layout_failures(scratch)
         self.assertIn(
-            "decorative blank line in machine-readable file: build/runtime/work/format-policy-fixture.json:2",
+            "decorative blank line in machine-readable file: "
+            "build/runtime/work/format-policy-fixture.json:2",
             failures,
         )
 

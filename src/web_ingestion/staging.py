@@ -4,10 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
-from .schema import require_valid_named
 from .policy import (
     FORBIDDEN_PERSISTENCE_FIELDS,
     STAGE_OPERATIONAL_FIELDS,
@@ -15,10 +14,11 @@ from .policy import (
     PromotionError,
     is_allowed_content_type,
 )
+from .schema import require_valid_named
 
 
 def utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def validate_stage_record(record: dict[str, object]) -> None:
@@ -29,12 +29,18 @@ def validate_stage_record(record: dict[str, object]) -> None:
     if forbidden:
         raise PromotionError(f"stage record has forbidden fields: {', '.join(forbidden)}")
     digest = record.get("content_sha256")
-    if not isinstance(digest, str) or len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
+    if (
+        not isinstance(digest, str)
+        or len(digest) != 64
+        or any(char not in "0123456789abcdef" for char in digest)
+    ):
         raise PromotionError("stage record needs a lowercase SHA-256 content digest")
     if "route" in record:
         operational_missing = sorted(STAGE_OPERATIONAL_FIELDS - record.keys())
         if operational_missing:
-            raise PromotionError(f"operational stage record missing fields: {', '.join(operational_missing)}")
+            raise PromotionError(
+                f"operational stage record missing fields: {', '.join(operational_missing)}"
+            )
         if not isinstance(record.get("purpose"), str) or not str(record["purpose"]).strip():
             raise PromotionError("operational stage record needs a non-empty purpose")
 
@@ -54,9 +60,14 @@ class StageStore:
         persisted["promotion_state"] = "staged"
         persisted["staged_at"] = utc_now()
         require_valid_named(persisted, "stage-receipt")
-        normalized = json.dumps(persisted, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        normalized = json.dumps(
+            persisted, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        )
         path = self.staging_dir / f"{hashlib.sha256(normalized.encode('utf-8')).hexdigest()}.json"
-        path.write_text(json.dumps(persisted, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        path.write_text(
+            json.dumps(persisted, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
         return path
 
     def promote(self, stage_path: Path, *, explicit_confirmation: bool) -> Path:
@@ -86,5 +97,8 @@ class StageStore:
         record["promoted_at"] = utc_now()
         require_valid_named(record, "promotion-receipt")
         output = self.promotion_dir / stage_path.name
-        output.write_text(json.dumps(record, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        output.write_text(
+            json.dumps(record, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
         return output

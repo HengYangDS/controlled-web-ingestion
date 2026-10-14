@@ -119,19 +119,21 @@ class StagingPromotionTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as directory:
             store = StageStore(Path(directory))
-            staged = store.stage({
-                "candidate": "fixture",
-                "requested_url": "https://example.com/private",
-                "final_url": "https://example.com/private",
-                "source_url": "https://example.com/private",
-                "content_sha256": hashlib.sha256(b"").hexdigest(),
-                "status": "skipped",
-                "content_type": "text/html",
-                "fetched_at": "2026-07-13T00:00:00+00:00",
-                "parser_version": "fixture",
-                "robots_decision": "denied",
-                "policy_decision": "rejected",
-            })
+            staged = store.stage(
+                {
+                    "candidate": "fixture",
+                    "requested_url": "https://example.com/private",
+                    "final_url": "https://example.com/private",
+                    "source_url": "https://example.com/private",
+                    "content_sha256": hashlib.sha256(b"").hexdigest(),
+                    "status": "skipped",
+                    "content_type": "text/html",
+                    "fetched_at": "2026-07-13T00:00:00+00:00",
+                    "parser_version": "fixture",
+                    "robots_decision": "denied",
+                    "policy_decision": "rejected",
+                }
+            )
             with self.assertRaises(PromotionError):
                 store.promote(staged, explicit_confirmation=True)
 

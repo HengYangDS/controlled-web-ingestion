@@ -14,15 +14,13 @@ import json
 import os
 import re
 import resource
-import sys
 import time
-import urllib.robotparser
 import urllib.request
-from datetime import datetime, timedelta, timezone
+import urllib.robotparser
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.parse import urldefrag, urljoin, urlparse
-
 
 ROOT = Path(__file__).resolve().parents[2]
 RUNTIME_DIR = ROOT / ".runtime"
@@ -50,7 +48,7 @@ USER_AGENT = "AgenticWebIngestionBenchmark/0.1 (+local, contact: disabled)"
 
 
 def utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def validate_record(record: dict[str, Any]) -> list[str]:
@@ -139,14 +137,21 @@ def safe_error(exc: BaseException) -> str:
 
 
 def load_case(name: str) -> dict[str, Any]:
-    cases = json.loads((ROOT / "system" / "projections" / "framework-comparison-cases.json").read_text(encoding="utf-8"))
+    cases = json.loads(
+        (ROOT / "system" / "projections" / "framework-comparison-cases.json").read_text(
+            encoding="utf-8"
+        )
+    )
     if name not in cases:
         raise ValueError(f"unknown case {name!r}; expected one of {sorted(cases)}")
     return cases[name]
 
 
 def robots_allowed(url: str) -> bool | None:
-    """Return False only for an explicit robots denial; unavailable robots is recorded as unknown."""
+    """Return False only for an explicit robots denial.
+
+    Unavailable robots is recorded as unknown.
+    """
     parsed = urlparse(url)
     robots_url = f"{parsed.scheme}://{parsed.netloc}/robots.txt"
     parser = urllib.robotparser.RobotFileParser()
@@ -202,7 +207,13 @@ def crawlee_concurrency_settings() -> Any:
 
 
 async def run_crawl4ai(case: dict[str, Any]) -> tuple[str | None, str | None, str, int]:
-    from crawl4ai import AsyncWebCrawler, BFSDeepCrawlStrategy, BrowserConfig, CacheMode, CrawlerRunConfig
+    from crawl4ai import (
+        AsyncWebCrawler,
+        BFSDeepCrawlStrategy,
+        BrowserConfig,
+        CacheMode,
+        CrawlerRunConfig,
+    )
 
     url = case["url"]
     config = BrowserConfig(
@@ -382,7 +393,9 @@ def run_firecrawl(case: dict[str, Any]) -> tuple[str | None, str | None, str, in
     return result.content, result.title, result.final_url, result.discovered_count
 
 
-def execute(candidate: str, case: dict[str, Any]) -> tuple[str | None, str | None, str, int, str | None, str]:
+def execute(
+    candidate: str, case: dict[str, Any]
+) -> tuple[str | None, str | None, str, int, str | None, str]:
     if candidate == "crawl4ai":
         content, title, final_url, count = asyncio.run(run_crawl4ai(case))
         return content, title, final_url, count, None, "success"
@@ -394,7 +407,14 @@ def execute(candidate: str, case: dict[str, Any]) -> tuple[str | None, str | Non
         return content, title, final_url, count, None, "success"
     if candidate == "jina-reader":
         content, title, final_url, count, unsupported = run_jina_reader(case)
-        return content, title, final_url, count, unsupported, "unsupported" if unsupported else "success"
+        return (
+            content,
+            title,
+            final_url,
+            count,
+            unsupported,
+            "unsupported" if unsupported else "success",
+        )
     if candidate == "firecrawl":
         content, title, final_url, count = run_firecrawl(case)
         return content, title, final_url, count, None, "success"
@@ -413,7 +433,11 @@ def write_record(path: Path, record: dict[str, Any]) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--candidate", required=True, choices=["crawl4ai", "crawlee", "scrapy-trafilatura", "jina-reader", "firecrawl"])
+    parser.add_argument(
+        "--candidate",
+        required=True,
+        choices=["crawl4ai", "crawlee", "scrapy-trafilatura", "jina-reader", "firecrawl"],
+    )
     parser.add_argument("--case", required=True, choices=["static", "javascript", "crawl"])
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args(argv)
@@ -486,7 +510,15 @@ def main(argv: list[str] | None = None) -> int:
             error=safe_error(exc),
         )
     write_record(args.output, record)
-    print(json.dumps({key: record[key] for key in ("candidate", "case", "status", "discovered_count", "error")}, ensure_ascii=False))
+    print(
+        json.dumps(
+            {
+                key: record[key]
+                for key in ("candidate", "case", "status", "discovered_count", "error")
+            },
+            ensure_ascii=False,
+        )
+    )
     return 0
 
 

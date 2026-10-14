@@ -10,10 +10,9 @@ from __future__ import annotations
 import hashlib
 import os
 import shutil
-import tempfile
 import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 
 class BlobIntegrityError(RuntimeError):
@@ -23,7 +22,10 @@ class BlobIntegrityError(RuntimeError):
 def byte_ranges(*, total_bytes: int, chunk_bytes: int) -> list[tuple[int, int]]:
     if total_bytes < 0 or chunk_bytes <= 0:
         raise ValueError("total_bytes must be non-negative and chunk_bytes positive")
-    return [(start, min(total_bytes - 1, start + chunk_bytes - 1)) for start in range(0, total_bytes, chunk_bytes)]
+    return [
+        (start, min(total_bytes - 1, start + chunk_bytes - 1))
+        for start in range(0, total_bytes, chunk_bytes)
+    ]
 
 
 def fetch_blob_by_ranges(
@@ -37,7 +39,9 @@ def fetch_blob_by_ranges(
     max_retries: int = 4,
 ) -> Path:
     """Fetch each precise byte range, then atomically publish only verified data."""
-    if len(expected_sha256) != 64 or any(char not in "0123456789abcdef" for char in expected_sha256):
+    if len(expected_sha256) != 64 or any(
+        char not in "0123456789abcdef" for char in expected_sha256
+    ):
         raise ValueError("expected_sha256 must be a lowercase SHA-256 hex digest")
     if workers < 1 or max_retries < 1:
         raise ValueError("workers and max_retries must be positive")
@@ -56,14 +60,19 @@ def fetch_blob_by_ranges(
             try:
                 payload = fetch_range(start, end)
                 if len(payload) != expected_length:
-                    raise BlobIntegrityError(f"range {start}-{end} returned {len(payload)} bytes, expected {expected_length}")
+                    raise BlobIntegrityError(
+                        f"range {start}-{end} returned {len(payload)} bytes, "
+                        f"expected {expected_length}"
+                    )
                 path.write_bytes(payload)
                 return index, path
             except BaseException as exc:  # network callable can expose any transport exception
                 last_error = exc
                 if attempt + 1 < max_retries:
                     time.sleep(0.1 * (attempt + 1))
-        raise BlobIntegrityError(f"range {start}-{end} did not complete after {max_retries} attempts: {last_error}")
+        raise BlobIntegrityError(
+            f"range {start}-{end} did not complete after {max_retries} attempts: {last_error}"
+        )
 
     try:
         ranges = byte_ranges(total_bytes=total_bytes, chunk_bytes=chunk_bytes)
@@ -81,7 +90,9 @@ def fetch_blob_by_ranges(
                 with completed[index].open("rb") as part:
                     shutil.copyfileobj(part, output)
         if temporary.stat().st_size != total_bytes:
-            raise BlobIntegrityError(f"assembled blob has {temporary.stat().st_size} bytes, expected {total_bytes}")
+            raise BlobIntegrityError(
+                f"assembled blob has {temporary.stat().st_size} bytes, expected {total_bytes}"
+            )
         digest = hashlib.sha256(temporary.read_bytes()).hexdigest()
         if digest != expected_sha256:
             raise BlobIntegrityError(f"assembled blob digest mismatch: {digest}")

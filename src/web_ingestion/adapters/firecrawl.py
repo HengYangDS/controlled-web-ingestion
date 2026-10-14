@@ -28,10 +28,24 @@ class FirecrawlClient:
         self.endpoint = endpoint.rstrip("/")
         self.timeout_seconds = timeout_seconds
 
-    def _request(self, method: str, path: str, payload: dict[str, Any] | None = None, *, timeout_seconds: float | None = None) -> dict[str, Any]:
+    def _request(
+        self,
+        method: str,
+        path: str,
+        payload: dict[str, Any] | None = None,
+        *,
+        timeout_seconds: float | None = None,
+    ) -> dict[str, Any]:
         encoded = json.dumps(payload).encode("utf-8") if payload is not None else None
-        request = Request(f"{self.endpoint}{path}", data=encoded, method=method, headers={"Content-Type": "application/json"} if encoded else {})
-        with urlopen(request, timeout=self.timeout_seconds if timeout_seconds is None else timeout_seconds) as response:  # noqa: S310 - loopback validated
+        request = Request(
+            f"{self.endpoint}{path}",
+            data=encoded,
+            method=method,
+            headers={"Content-Type": "application/json"} if encoded else {},
+        )
+        with urlopen(
+            request, timeout=self.timeout_seconds if timeout_seconds is None else timeout_seconds
+        ) as response:  # noqa: S310 - loopback validated
             data = json.loads(response.read().decode("utf-8"))
         if not isinstance(data, dict) or data.get("success") is False:
             raise RuntimeError(f"Firecrawl API {method} {path} returned unsuccessful payload")
@@ -54,36 +68,69 @@ class FirecrawlClient:
             raise RuntimeError("Firecrawl scrape response omitted page data")
         return self._result_from_page(page, discovered_count=1)
 
-    def crawl(self, url: str, *, max_pages: int, poll_interval_seconds: float = 0.1) -> FirecrawlResult:
+    def crawl(
+        self, url: str, *, max_pages: int, poll_interval_seconds: float = 0.1
+    ) -> FirecrawlResult:
         deadline = time.monotonic() + self.timeout_seconds
         crawl_id: str | None = None
         try:
-            created = self._request("POST", "/v1/crawl", {"url": url, "limit": max_pages, "maxConcurrency": 1, "maxDiscoveryDepth": 1, "allowBackwardLinks": False, "ignoreSitemap": True, "scrapeOptions": {"formats": ["markdown"], "onlyMainContent": True, "timeout": 10_000}}, timeout_seconds=max(0.001, deadline - time.monotonic()))
+            created = self._request(
+                "POST",
+                "/v1/crawl",
+                {
+                    "url": url,
+                    "limit": max_pages,
+                    "maxConcurrency": 1,
+                    "maxDiscoveryDepth": 1,
+                    "allowBackwardLinks": False,
+                    "ignoreSitemap": True,
+                    "scrapeOptions": {
+                        "formats": ["markdown"],
+                        "onlyMainContent": True,
+                        "timeout": 10_000,
+                    },
+                },
+                timeout_seconds=max(0.001, deadline - time.monotonic()),
+            )
             crawl_id = created.get("id")
             if not isinstance(crawl_id, str) or not crawl_id:
                 raise RuntimeError("Firecrawl crawl response omitted job identifier")
             while time.monotonic() < deadline:
-                status = self._request("GET", f"/v1/crawl/{crawl_id}", timeout_seconds=max(0.001, deadline - time.monotonic()))
+                status = self._request(
+                    "GET",
+                    f"/v1/crawl/{crawl_id}",
+                    timeout_seconds=max(0.001, deadline - time.monotonic()),
+                )
                 if status.get("status") == "completed":
                     data = status.get("data")
-                    pages = [item for item in data if isinstance(item, dict)][:max_pages] if isinstance(data, list) else []
+                    pages = (
+                        [item for item in data if isinstance(item, dict)][:max_pages]
+                        if isinstance(data, list)
+                        else []
+                    )
                     if not pages:
                         raise RuntimeError("Firecrawl completed crawl without valid pages")
                     return self._result_from_page(pages[0], discovered_count=len(pages))
                 if status.get("status") in {"failed", "cancelled"}:
                     raise RuntimeError(f"Firecrawl crawl ended with status {status.get('status')}")
                 time.sleep(min(poll_interval_seconds, max(0.0, deadline - time.monotonic())))
-        except (TimeoutError, OSError):
+        except (TimeoutError, OSError) as error:
             if crawl_id:
                 self._best_effort_cancel(crawl_id)
-            raise TimeoutError(f"Firecrawl crawl {crawl_id or 'unknown'} exceeded {self.timeout_seconds} seconds")
+            raise TimeoutError(
+                f"Firecrawl crawl {crawl_id or 'unknown'} exceeded {self.timeout_seconds} seconds"
+            ) from error
         if crawl_id:
             self._best_effort_cancel(crawl_id)
-        raise TimeoutError(f"Firecrawl crawl {crawl_id or 'unknown'} exceeded {self.timeout_seconds} seconds")
+        raise TimeoutError(
+            f"Firecrawl crawl {crawl_id or 'unknown'} exceeded {self.timeout_seconds} seconds"
+        )
 
     def _best_effort_cancel(self, crawl_id: str) -> None:
         try:
-            self._request("DELETE", f"/v1/crawl/{crawl_id}", timeout_seconds=min(5.0, self.timeout_seconds))
+            self._request(
+                "DELETE", f"/v1/crawl/{crawl_id}", timeout_seconds=min(5.0, self.timeout_seconds)
+            )
         except (OSError, RuntimeError, ValueError):
             return
 

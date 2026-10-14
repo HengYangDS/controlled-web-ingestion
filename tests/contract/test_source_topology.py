@@ -8,7 +8,10 @@ class SourceTopologyTests(unittest.TestCase):
         self.assertFalse(any(root.glob("*.py")))
         self.assertFalse((root / "scripts").exists())
         self.assertFalse((root / "ops").exists())
-        runtime_sources = "\n".join(path.read_text(encoding="utf-8") for path in (root / "src" / "web_ingestion").rglob("*.py"))
+        runtime_sources = "\n".join(
+            path.read_text(encoding="utf-8")
+            for path in (root / "src" / "web_ingestion").rglob("*.py")
+        )
         self.assertNotIn("tools.benchmark", runtime_sources)
         self.assertNotIn("run_framework_comparison", runtime_sources)
 
@@ -18,7 +21,6 @@ class SourceTopologyTests(unittest.TestCase):
             root / "tools" / "ci" / "run_tests.py",
             root / "tools" / "ci" / "check_documentation.py",
             root / "tools" / "ci" / "check_source_topology.py",
-            root / "tools" / "ci" / "run_security_checks.sh",
         ):
             with self.subTest(path=path):
                 self.assertTrue(path.is_file())
@@ -27,7 +29,7 @@ class SourceTopologyTests(unittest.TestCase):
         self.assertIn("tools/ci/validate_schemas.py", projection)
         self.assertIn("tools/ci/check_documentation.py", projection)
         self.assertIn("tools/ci/check_source_topology.py", projection)
-        self.assertIn("tools/ci/run_security_checks.sh", projection)
+        self.assertIn("gitleaks git --no-banner --redact=100 --exit-code 1 .", projection)
         self.assertNotIn("unittest discover", projection)
         self.assertNotIn("bash -n", projection)
 
@@ -42,7 +44,7 @@ class SourceTopologyTests(unittest.TestCase):
             "tools/ci/validate_schemas.py",
             "tools/ci/check_documentation.py",
             "tools/ci/check_source_topology.py",
-            "tools/ci/run_security_checks.sh",
+            "gitleaks git --no-banner --redact=100 --exit-code 1 .",
         ):
             with self.subTest(command=command):
                 self.assertIn(command, gitlab.read_text(encoding="utf-8"))

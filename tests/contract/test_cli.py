@@ -62,9 +62,7 @@ class IsolatedFirecrawlInvocationTests(unittest.TestCase):
                 stdout=json.dumps({"stage_receipt": str(receipt)}) + "\n",
                 stderr="",
             )
-            with patch(
-                "web_ingestion.cli.subprocess.run", return_value=completed
-            ) as run:
+            with patch("web_ingestion.cli.subprocess.run", return_value=completed) as run:
                 actual = run_isolated_firecrawl(request, Path(directory))
 
         command = run.call_args.args[0]
@@ -89,8 +87,8 @@ class BrowserPreflightTests(unittest.TestCase):
     def test_browser_request_is_admitted_before_the_runner_can_start(self):
         from unittest.mock import patch
 
-        from web_ingestion.cli import main
         from web_ingestion import IngestionError
+        from web_ingestion.cli import main
 
         with (
             patch(

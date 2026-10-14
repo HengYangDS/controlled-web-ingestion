@@ -1,8 +1,8 @@
-import unittest
-from unittest.mock import patch
 import hashlib
 import tempfile
+import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 class RegistryManifestTests(unittest.TestCase):
@@ -26,7 +26,14 @@ class RegistryManifestTests(unittest.TestCase):
 
         with self.assertRaises(RegistryError):
             select_platform_manifest(
-                {"manifests": [{"digest": "sha256:amd", "platform": {"os": "linux", "architecture": "amd64"}}]},
+                {
+                    "manifests": [
+                        {
+                            "digest": "sha256:amd",
+                            "platform": {"os": "linux", "architecture": "amd64"},
+                        }
+                    ]
+                },
                 architecture="arm64",
             )
 
@@ -47,7 +54,7 @@ class RegistryManifestTests(unittest.TestCase):
         self.assertEqual(layers, [("sha256:one", 11), ("sha256:two", 12)])
 
     def test_requires_tag_to_resolve_to_the_pinned_platform_digest(self):
-        from web_ingestion.supply_chain.ghcr_registry import GhcrRegistry
+        from web_ingestion.supply_chain.ghcr_registry import GhcrRegistry, RegistryError
 
         registry = object.__new__(GhcrRegistry)
         registry.manifest = lambda reference: {
@@ -57,7 +64,7 @@ class RegistryManifestTests(unittest.TestCase):
         }
 
         registry.verify_tag_platform_digest(tag="fixed", platform_digest="sha256:arm")
-        with self.assertRaises(Exception):
+        with self.assertRaises(RegistryError):
             registry.verify_tag_platform_digest(tag="fixed", platform_digest="sha256:other")
 
     def test_refreshes_signed_url_for_each_range_request(self):
@@ -66,7 +73,12 @@ class RegistryManifestTests(unittest.TestCase):
         content = b"abcdefgh"
         registry = object.__new__(GhcrRegistry)
         registry.timeout_seconds = 1
-        urls = iter(["https://pkg-containers.githubusercontent.com/first", "https://pkg-containers.githubusercontent.com/second"])
+        urls = iter(
+            [
+                "https://pkg-containers.githubusercontent.com/first",
+                "https://pkg-containers.githubusercontent.com/second",
+            ]
+        )
         seen = []
 
         class Result:
@@ -80,7 +92,13 @@ class RegistryManifestTests(unittest.TestCase):
             start, end = [int(value) for value in byte_range.split("-", 1)]
             return Result(content[start : end + 1])
 
-        with tempfile.TemporaryDirectory() as directory, patch.object(registry, "signed_blob_url", side_effect=urls), patch("web_ingestion.supply_chain.ghcr_registry.subprocess.run", side_effect=run_command):
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            patch.object(registry, "signed_blob_url", side_effect=urls),
+            patch(
+                "web_ingestion.supply_chain.ghcr_registry.subprocess.run", side_effect=run_command
+            ),
+        ):
             destination = registry.blob_to_path(
                 digest=f"sha256:{hashlib.sha256(content).hexdigest()}",
                 size=len(content),
@@ -90,10 +108,13 @@ class RegistryManifestTests(unittest.TestCase):
             )
 
         self.assertEqual(destination.read_bytes() if destination.exists() else content, content)
-        self.assertEqual(seen, [
-            ("https://pkg-containers.githubusercontent.com/first", "0-3", True),
-            ("https://pkg-containers.githubusercontent.com/second", "4-7", True),
-        ])
+        self.assertEqual(
+            seen,
+            [
+                ("https://pkg-containers.githubusercontent.com/first", "0-3", True),
+                ("https://pkg-containers.githubusercontent.com/second", "4-7", True),
+            ],
+        )
 
 
 if __name__ == "__main__":

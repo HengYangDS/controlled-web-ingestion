@@ -28,20 +28,18 @@ code_correctness_gates = [
   "controlled-web-ingestion-schemas",
   "controlled-web-ingestion-docs",
   "controlled-web-ingestion-security",
+  "controlled-web-ingestion-behavior",
+  "controlled-web-ingestion-code-analysis",
 ]
 
 [proof.code_correctness_map]
-behavior = "controlled-web-ingestion-tests"
-static-analysis = "controlled-web-ingestion-static"
+behavior = "controlled-web-ingestion-behavior"
+static-analysis = "controlled-web-ingestion-code-analysis"
 
 [[proof.gates]]
 id = "controlled-web-ingestion-tests"
 kind = "test"
-command = [
-  "tools/ci/scripts/with-python-runtime.sh",
-  "python3",
-  "tools/ci/run_tests.py",
-]
+command = ["uv", "run", "--locked", "--offline", "python", "tools/ci/run_tests.py"]
 dimensions = ["test", "unit", "contract", "integration"]
 execution_mode = "subprocess"
 evidence_class = "proof"
@@ -52,12 +50,8 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-static"
 kind = "lint"
-command = [
-  "tools/ci/scripts/with-python-runtime.sh",
-  "python3",
-  "tools/ci/check_source_topology.py",
-]
-dimensions = ["static-analysis", "architecture", "import-discipline"]
+command = ["uv", "run", "--locked", "--offline", "python", "tools/ci/check_source_topology.py"]
+dimensions = ["architecture", "import-discipline"]
 execution_mode = "subprocess"
 evidence_class = "contract"
 trust_bearing = true
@@ -67,11 +61,7 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-schemas"
 kind = "schema"
-command = [
-  "tools/ci/scripts/with-python-runtime.sh",
-  "python3",
-  "tools/ci/validate_schemas.py",
-]
+command = ["uv", "run", "--locked", "--offline", "python", "tools/ci/validate_schemas.py"]
 dimensions = ["schema", "redaction"]
 execution_mode = "subprocess"
 evidence_class = "contract"
@@ -82,11 +72,7 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-docs"
 kind = "documentation"
-command = [
-  "tools/ci/scripts/with-python-runtime.sh",
-  "python3",
-  "tools/ci/check_documentation.py",
-]
+command = ["uv", "run", "--locked", "--offline", "python", "tools/ci/check_documentation.py"]
 dimensions = ["documentation", "topology"]
 execution_mode = "subprocess"
 evidence_class = "contract"
@@ -97,10 +83,28 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-security"
 kind = "security"
-command = ["sh", "tools/ci/run_security_checks.sh"]
+command = ["gitleaks", "git", "--no-banner", "--redact=100", "--exit-code", "1", "."]
 dimensions = ["security", "secrets"]
 execution_mode = "subprocess"
 evidence_class = "contract"
 trust_bearing = true
 tool_adapter = "repository-native"
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-behavior"
+kind = "test"
+providers = ["ethos.adapters.gates.code_quality:behavior_report"]
+dimensions = ["behavior"]
+evidence_class = "proof"
+trust_bearing = true
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-code-analysis"
+kind = "lint"
+providers = ["ethos.adapters.gates.code_quality:static_report"]
+dimensions = ["static-analysis"]
+evidence_class = "contract"
+trust_bearing = true
 network_policy = "offline"

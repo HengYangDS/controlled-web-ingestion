@@ -22,3 +22,10 @@ packages = ["src/web_ingestion"]
 
 [tool.uv]
 package = true
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "pytest-reportlog>=1.0.0",
+]

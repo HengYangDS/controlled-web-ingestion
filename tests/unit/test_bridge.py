@@ -8,12 +8,17 @@ from pathlib import Path
 class RagBridgeTests(unittest.TestCase):
     def _promoted_receipt(self, root: Path, *, digest: str) -> Path:
         path = root / "promoted.json"
-        path.write_text(json.dumps({
-            "promotion_state": "promoted",
-            "content_sha256": digest,
-            "purpose": "fixture",
-            "source_url": "https://example.com/",
-        }), encoding="utf-8")
+        path.write_text(
+            json.dumps(
+                {
+                    "promotion_state": "promoted",
+                    "content_sha256": digest,
+                    "purpose": "fixture",
+                    "source_url": "https://example.com/",
+                }
+            ),
+            encoding="utf-8",
+        )
         return path
 
     def test_prepare_requires_an_explicitly_promoted_receipt(self):
@@ -36,9 +41,13 @@ class RagBridgeTests(unittest.TestCase):
             receipt = self._promoted_receipt(root, digest=digest)
             bridge = RagBridge(root)
             with self.assertRaises(BridgeError):
-                bridge.deliver_from_memory(receipt, content, sink=lambda _: None, explicit_confirmation=False)
+                bridge.deliver_from_memory(
+                    receipt, content, sink=lambda _: None, explicit_confirmation=False
+                )
             with self.assertRaises(BridgeError):
-                bridge.deliver_from_memory(receipt, "tampered", sink=lambda _: None, explicit_confirmation=True)
+                bridge.deliver_from_memory(
+                    receipt, "tampered", sink=lambda _: None, explicit_confirmation=True
+                )
 
     def test_delivery_passes_a_redacted_receipt_and_in_memory_content_to_explicit_sink(self):
         from web_ingestion.bridge import RagBridge

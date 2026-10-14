@@ -222,7 +222,8 @@ if not record["rejected"]:
 PY
 
 docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" ps --format json >"$EVIDENCE_DIR/firecrawl-services.json"
-docker stats --no-stream --format '{{json .}}' $(docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" ps -q) >"$EVIDENCE_DIR/firecrawl-resources.jsonl"
+docker compose --project-name "$PROJECT" --env-file "$WORK/firecrawl.env" -f "$COMPOSE_FILE" ps -q |
+  xargs docker stats --no-stream --format '{{json .}}' >"$EVIDENCE_DIR/firecrawl-resources.jsonl"
 lsof -nP -iTCP -sTCP:LISTEN | grep -E ':(13002|16379|15672|25672|43691) ' >"$EVIDENCE_DIR/firecrawl-listeners.txt"
 if grep -Ev 'TCP (127\.0\.0\.1|\[::1\]):' "$EVIDENCE_DIR/firecrawl-listeners.txt" | grep -q .; then
   printf 'benchmark listener escaped loopback scope\n' >&2

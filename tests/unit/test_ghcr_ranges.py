@@ -107,7 +107,9 @@ class RangeFetchTests(unittest.TestCase):
                     workers=1,
                     max_retries=1,
                 )
-            self.assertEqual((Path(directory) / ".blob.gz.parts" / "00000000.part").read_bytes(), b"abcd")
+            self.assertEqual(
+                (Path(directory) / ".blob.gz.parts" / "00000000.part").read_bytes(), b"abcd"
+            )
             self.assertFalse(destination.exists())
 
 

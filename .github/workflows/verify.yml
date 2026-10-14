@@ -44,12 +44,12 @@ jobs:
           PIP_DISABLE_PIP_VERSION_CHECK: "1"
         run: |
           set -euo pipefail
-          tools/ci/scripts/with-python-runtime.sh python python --version
+          uv run --locked --python python python --version
           uv --version
-          tools/ci/scripts/with-python-runtime.sh python python tools/ci/run_tests.py --python python
-          tools/ci/scripts/with-python-runtime.sh python python tools/ci/validate_schemas.py
-          tools/ci/scripts/with-python-runtime.sh python python tools/ci/check_documentation.py
-          tools/ci/scripts/with-python-runtime.sh python python tools/ci/check_source_topology.py
+          uv run --locked --python python python tools/ci/run_tests.py --python python
+          uv run --locked --python python python tools/ci/validate_schemas.py
+          uv run --locked --python python python tools/ci/check_documentation.py
+          uv run --locked --python python python tools/ci/check_source_topology.py
 
   security:
     name: Security
@@ -68,4 +68,4 @@ jobs:
         run: |
           set -euo pipefail
           gitleaks version
-          sh tools/ci/run_security_checks.sh
+          gitleaks git --no-banner --redact=100 --exit-code 1 .

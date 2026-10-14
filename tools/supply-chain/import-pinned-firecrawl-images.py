@@ -10,6 +10,7 @@ Docker daemon configuration is changed.
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import shutil
 import subprocess
@@ -21,12 +22,14 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
-from web_ingestion.supply_chain.ghcr_registry import GhcrRegistry
+GhcrRegistry = importlib.import_module("web_ingestion.supply_chain.ghcr_registry").GhcrRegistry
 
 DEFAULT_SPEC = ROOT / "system" / "supply-chain" / "firecrawl-images.json"
 
 
-def import_images(*, spec_path: Path, cache_dir: Path, workers: int, chunk_bytes: int, timeout_seconds: float) -> list[str]:
+def import_images(
+    *, spec_path: Path, cache_dir: Path, workers: int, chunk_bytes: int, timeout_seconds: float
+) -> list[str]:
     spec = json.loads(spec_path.read_text(encoding="utf-8"))
     if spec.get("platform_manifest") != "linux/arm64":
         raise ValueError("only the reviewed linux/arm64 manifests are admissible on this host")
@@ -67,7 +70,13 @@ def main() -> int:
     else:
         ephemeral = False
     try:
-        for image in import_images(spec_path=args.spec, cache_dir=args.cache_dir, workers=args.workers, chunk_bytes=args.chunk_bytes, timeout_seconds=args.timeout_seconds):
+        for image in import_images(
+            spec_path=args.spec,
+            cache_dir=args.cache_dir,
+            workers=args.workers,
+            chunk_bytes=args.chunk_bytes,
+            timeout_seconds=args.timeout_seconds,
+        ):
             print(image)
     finally:
         if ephemeral:

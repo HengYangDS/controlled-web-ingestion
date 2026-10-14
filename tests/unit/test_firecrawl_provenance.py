@@ -15,12 +15,14 @@ class ProvenanceVerificationTests(unittest.TestCase):
                 }
             },
         }
-        images = [{
-            "Id": "sha256:" + "1" * 64,
-            "RepoTags": ["ghcr.io/firecrawl/firecrawl:2.10.19"],
-            "Architecture": "arm64",
-            "Os": "linux",
-        }]
+        images = [
+            {
+                "Id": "sha256:" + "1" * 64,
+                "RepoTags": ["ghcr.io/firecrawl/firecrawl:2.10.19"],
+                "Architecture": "arm64",
+                "Os": "linux",
+            }
+        ]
 
         self.assertEqual(verify_image_records(provenance, images), [])
 
@@ -37,12 +39,14 @@ class ProvenanceVerificationTests(unittest.TestCase):
                 }
             },
         }
-        images = [{
-            "Id": "sha256:" + "2" * 64,
-            "RepoTags": ["ghcr.io/firecrawl/firecrawl:2.10.19"],
-            "Architecture": "amd64",
-            "Os": "linux",
-        }]
+        images = [
+            {
+                "Id": "sha256:" + "2" * 64,
+                "RepoTags": ["ghcr.io/firecrawl/firecrawl:2.10.19"],
+                "Architecture": "amd64",
+                "Os": "linux",
+            }
+        ]
 
         errors = verify_image_records(provenance, images)
         self.assertTrue(any("architecture" in error for error in errors))

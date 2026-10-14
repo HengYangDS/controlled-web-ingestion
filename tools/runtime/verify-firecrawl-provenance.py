@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import importlib
 import json
 import subprocess
 import sys
@@ -11,11 +12,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
-from web_ingestion.supply_chain.provenance import verify_image_records
+verify_image_records = importlib.import_module(
+    "web_ingestion.supply_chain.provenance"
+).verify_image_records
 
 
 def main() -> int:
-    provenance = json.loads((ROOT / "system" / "supply-chain" / "firecrawl-provenance.json").read_text(encoding="utf-8"))
+    provenance = json.loads(
+        (ROOT / "system" / "supply-chain" / "firecrawl-provenance.json").read_text(encoding="utf-8")
+    )
     references = [entry["reference"] for entry in provenance["images"].values()]
     output = subprocess.run(
         ["docker", "image", "inspect", *references], check=True, capture_output=True, text=True

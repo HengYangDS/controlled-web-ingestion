@@ -24,7 +24,16 @@ class _FirecrawlHandler(BaseHTTPRequestHandler):
         body = json.loads(self.rfile.read(length) or b"{}")
         self.requests.append((self.path, body))
         if self.path == "/v1/scrape":
-            self._json(200, {"success": True, "data": {"markdown": "# Fixture", "metadata": {"title": "Fixture", "sourceURL": body["url"]}}})
+            self._json(
+                200,
+                {
+                    "success": True,
+                    "data": {
+                        "markdown": "# Fixture",
+                        "metadata": {"title": "Fixture", "sourceURL": body["url"]},
+                    },
+                },
+            )
             return
         if self.path == "/v1/crawl":
             self._json(200, {"success": True, "id": "crawl-1"})
@@ -37,10 +46,23 @@ class _FirecrawlHandler(BaseHTTPRequestHandler):
             if self.crawl_status != "completed":
                 self._json(200, {"success": True, "status": self.crawl_status})
                 return
-            self._json(200, {"success": True, "status": "completed", "data": [
-                {"markdown": "# One", "metadata": {"title": "One", "sourceURL": "https://example.com/"}},
-                {"markdown": "# Two", "metadata": {"title": "Two", "sourceURL": "https://example.com/two"}},
-            ]})
+            self._json(
+                200,
+                {
+                    "success": True,
+                    "status": "completed",
+                    "data": [
+                        {
+                            "markdown": "# One",
+                            "metadata": {"title": "One", "sourceURL": "https://example.com/"},
+                        },
+                        {
+                            "markdown": "# Two",
+                            "metadata": {"title": "Two", "sourceURL": "https://example.com/two"},
+                        },
+                    ],
+                },
+            )
             return
         self._json(404, {"success": False})
 
@@ -90,8 +112,9 @@ class FirecrawlClientTests(unittest.TestCase):
         self.assertFalse(_FirecrawlHandler.requests[0][1]["allowBackwardLinks"])
         self.assertTrue(_FirecrawlHandler.requests[0][1]["ignoreSitemap"])
         self.assertEqual(_FirecrawlHandler.requests[0][1]["scrapeOptions"]["timeout"], 10_000)
-        self.assertEqual([path for path, _ in _FirecrawlHandler.requests], ["/v1/crawl", "/v1/crawl/crawl-1"])
-
+        self.assertEqual(
+            [path for path, _ in _FirecrawlHandler.requests], ["/v1/crawl", "/v1/crawl/crawl-1"]
+        )
 
     def test_crawl_timeout_cancels_the_remote_job(self):
         from web_ingestion.adapters.firecrawl import FirecrawlClient

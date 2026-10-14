@@ -22,11 +22,18 @@ class RuntimeRunnerTimeoutTests(unittest.TestCase):
 
     def test_isolated_runner_bounds_the_entire_detached_compose_startup_group(self):
         root = Path(__file__).resolve().parents[2]
-        runner_text = (root / "tools" / "runtime" / "firecrawl-isolated-benchmark.sh").read_text(encoding="utf-8")
+        runner_text = (root / "tools" / "runtime" / "firecrawl-isolated-benchmark.sh").read_text(
+            encoding="utf-8"
+        )
 
-        self.assertIn('STARTUP_TIMEOUT_SECONDS="${FIRECRAWL_STARTUP_TIMEOUT_SECONDS:-120}"', runner_text)
-        self.assertIn("--pid-file \"$COMPOSE_UP_PID_FILE\" --timeout-seconds \"$STARTUP_TIMEOUT_SECONDS\"", runner_text)
-        self.assertIn("docker compose --project-name \"$PROJECT\"", runner_text)
+        self.assertIn(
+            'STARTUP_TIMEOUT_SECONDS="${FIRECRAWL_STARTUP_TIMEOUT_SECONDS:-120}"', runner_text
+        )
+        self.assertIn(
+            '--pid-file "$COMPOSE_UP_PID_FILE" --timeout-seconds "$STARTUP_TIMEOUT_SECONDS"',
+            runner_text,
+        )
+        self.assertIn('docker compose --project-name "$PROJECT"', runner_text)
         self.assertIn("up --detach", runner_text)
 
     def test_timeout_helper_records_the_detached_child_group_for_interruption_cleanup(self):
@@ -60,7 +67,9 @@ class RuntimeRunnerTimeoutTests(unittest.TestCase):
 
     def test_runner_stops_an_inflight_detached_compose_group_before_teardown(self):
         root = Path(__file__).resolve().parents[2]
-        runner_text = (root / "tools" / "runtime" / "firecrawl-isolated-benchmark.sh").read_text(encoding="utf-8")
+        runner_text = (root / "tools" / "runtime" / "firecrawl-isolated-benchmark.sh").read_text(
+            encoding="utf-8"
+        )
 
         self.assertIn('COMPOSE_UP_PID_FILE="$WORK/compose-up.pid"', runner_text)
         self.assertIn("stop_inflight_compose_up()", runner_text)
