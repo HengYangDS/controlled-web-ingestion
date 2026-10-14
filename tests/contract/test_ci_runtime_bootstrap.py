@@ -24,7 +24,11 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
             projection.count('uv run --locked --python "python${PYTHON_VERSION}" python'), 4
         )
         self.assertIn("UV_PYTHON_DOWNLOADS: never", projection)
-        network = ('UV_HTTP_RETRIES: "10"', 'UV_HTTP_TIMEOUT: "120"', 'UV_CONCURRENT_DOWNLOADS: "8"')
+        network = (
+            'UV_HTTP_RETRIES: "10"',
+            'UV_HTTP_TIMEOUT: "120"',
+            'UV_CONCURRENT_DOWNLOADS: "8"',
+        )
         for setting in network:
             self.assertIn(setting, projection)
         images = re.findall(r"(?m)^\s+(?:image|name): (\S+)$", projection)
