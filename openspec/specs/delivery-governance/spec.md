@@ -102,3 +102,9 @@ runner.
 - **WHEN** a GitLab job starts
 - **THEN** its image is a digest reference
 - **AND** the job runs without privileged mode or the host Docker socket
+
+#### Scenario: a dependency download fails transiently
+
+- **WHEN** a package download in a GitLab Python job times out or cannot resolve its host
+- **THEN** uv retries that download inside the same job
+- **AND** a failing test is never retried
