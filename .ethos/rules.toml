@@ -12,7 +12,6 @@ trailing_whitespace = "forbidden"
 blank_line_policy = "semantic-single; python-module-double; machine-readable-none"
 
 [artifacts]
-state_path = ".ethos/state/state.sqlite"
 state_tracked_truth = false
 durable_evidence_roots = ["evidence", "evidence/claims"]
 
