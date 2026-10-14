@@ -69,6 +69,9 @@ def bounded(
         stdout, stderr = process.communicate(timeout=timeout)
     except BaseException:
         _stop_group(process)
+        for stream in (process.stdout, process.stderr):
+            if stream is not None:
+                stream.close()
         raise
     return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
 

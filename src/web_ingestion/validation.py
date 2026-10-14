@@ -135,6 +135,7 @@ def service_rejects_loopback(endpoint: str) -> dict[str, Any]:
             status = response.status
     except urllib.error.HTTPError as error:
         status = error.code
+        error.close()
     except OSError as error:
         return {"target": "loopback", "transport_error": type(error).__name__, "rejected": True}
     return {"target": "loopback", "status_code": status, "rejected": status >= 400}
