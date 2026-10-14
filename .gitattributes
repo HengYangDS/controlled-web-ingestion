@@ -1,2 +1,3 @@
 # Repository tooling: authored static analysis applies, product behavior evidence does not.
 tools/** ethos-role=tooling
+* text=auto eol=lf

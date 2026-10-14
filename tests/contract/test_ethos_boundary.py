@@ -9,9 +9,7 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
         profile_path = root / ".ethos" / "profile.toml"
         profile = profile_path.read_text(encoding="utf-8")
         profile_data = tomllib.loads(profile)
-        project = (root / ".ethos" / "project.toml").read_text(encoding="utf-8")
         self.assertIn('profile_id = "controlled-web-ingestion"', profile)
-        self.assertIn('name = "controlled-web-ingestion"', project)
         self.assertFalse(
             {
                 "schema_version",

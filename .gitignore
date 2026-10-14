@@ -15,10 +15,6 @@ results/
 .DS_Store
 *~
 
-# Python and local editor/runtime state.
-# ETHOS local coordination state is host-local.
-.ethos/state/*
-!.ethos/state/.gitignore
 # Semantic ignored generated homes. The declarative contract lives in
 # .config/ethos/generated-artifacts.toml; these directories are outputs, not
 # repository truth.
