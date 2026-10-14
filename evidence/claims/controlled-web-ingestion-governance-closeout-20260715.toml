@@ -28,7 +28,7 @@ owner = "controlled-web-ingestion-maintainers"
 scope = "historical governance closeout; dual-hosted delivery requires a successor receipt and no ingestion-runtime expansion"
 
 [carriers]
-openspec = "openspec/changes/archive/2026-07-14-2026-07-15-governance-closeout"
+openspec = "openspec/changes/archive/2026-07-14-governance-closeout"
 fallback = "docs/evidence/chronicle/2026-07-15/governance-closeout.md"
 kill_signal = "A new target, runtime topology, sink, or persisted data class is proposed without a separate admission packet and proof."
 
