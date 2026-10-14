@@ -24,8 +24,6 @@ def main() -> int:
         ROOT / "system" / "schemas",
         ROOT / "tools" / "benchmark",
         ROOT / "tools" / "ci",
-        ROOT / "tools" / "runtime",
-        ROOT / "tools" / "supply-chain",
         ROOT / "tests" / "unit",
         ROOT / "tests" / "contract",
         ROOT / "tests" / "integration",

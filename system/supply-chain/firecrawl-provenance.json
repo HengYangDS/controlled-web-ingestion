@@ -1,5 +1,5 @@
 {
-  "schema": "firecrawl-isolated-image-provenance-v1",
+  "schema": "firecrawl-isolated-image-provenance-v2",
   "source_repository": "https://github.com/firecrawl/firecrawl",
   "source_tag": "v2.11.0",
   "source_tarball_sha256": "2278c44de7a189390f039bac88377c64c087e4a4cc6555b581e1e19a2d15bcac",
@@ -26,7 +26,21 @@
       "local_image_id": "sha256:bf62aacd3ff0062482ff7ddf7cfa4eb7e9c652937156b116b3684b02376fa65e",
       "verified_at": "2026-07-13T15:00:00+08:00",
       "verification": "official GHCR platform manifest"
+    },
+    "redis": {
+      "reference": "docker.io/library/redis:8.10.2-alpine",
+      "manifest_digest": "sha256:3811787313eba226a2ef38658c6ccb91cd5e110edc89c37767de373120a0e5a0",
+      "local_image_id": "sha256:675f7644831d85995868250485bf7a71970257f74da31c62969a868d3f3eff2e",
+      "verified_at": "2026-10-14T22:30:00+08:00",
+      "verification": "Docker Official Image index digest; the engine resolved linux/arm64/v8"
+    },
+    "rabbitmq": {
+      "reference": "docker.io/library/rabbitmq:4.3.6-alpine",
+      "manifest_digest": "sha256:2cb43283d8bbd3caa6c0f0dc00e96c8de772df33df7fd8af6aee4d605aeb8ada",
+      "local_image_id": "sha256:01a36bbf3db9360285268c5ea0b87afc7af429f68beb98f30a4136c6c278ed35",
+      "verified_at": "2026-10-14T22:30:00+08:00",
+      "verification": "Docker Official Image index digest; the engine resolved linux/arm64/v8"
     }
   },
-  "constraint": "Tag and digest are both retained because the package version and source tag are not asserted to be identical. Runtime execution remains blocked until all pinned official blobs fully import."
+  "constraint": "Compose references each image by this digest with pull_policy never. `docker compose pull` acquires exactly these objects, and every run first compares each local image ID and platform."
 }

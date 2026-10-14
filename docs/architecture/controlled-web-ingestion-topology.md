@@ -67,20 +67,18 @@ are candidate adapters or measured baselines, not repository owners.
 │   ├── adapters/
 │   │   ├── static.py
 │   │   └── firecrawl.py
+│   ├── runtime.py
+│   ├── validation.py
 │   └── supply_chain/
-│       ├── provenance.py
-│       ├── ghcr_archive.py
-│       ├── ghcr_ranges.py
-│       └── ghcr_registry.py
+│       └── provenance.py
 ├── system/
 │   ├── policies/
 │   ├── projections/
 │   ├── supply-chain/
 │   └── schemas/
 ├── tools/
-│   ├── ci/
-│   ├── runtime/
-│   └── supply-chain/
+│   ├── benchmark/
+│   └── ci/
 ├── tests/
 │   ├── unit/
 │   ├── contract/
@@ -119,7 +117,9 @@ internals.
 | `bridge.py` | promoted-receipt validation and sinkless manifest | default delivery sink |
 | `adapters/static.py` | in-memory static extraction | persistent service lifecycle |
 | `adapters/firecrawl.py` | loopback Firecrawl request protocol | host policy admission or daemon lifecycle |
-| `supply_chain/*` | reviewed GHCR identity and range-verified import | ingestion policy or adapter routing |
+| `runtime.py` | disposable Compose topology lifecycle and zero-resource check | request policy or a standing service |
+| `validation.py` | reviewed workload validation and its redacted evidence | new targets or admission |
+| `supply_chain/provenance.py` | reviewed digest, platform and local image identity | image acquisition or adapter routing |
 | `cli.py` | explicit user commands and argument contract | raw Firecrawl public API exposure |
 
 The stable executable is a `web-ingest` console command defined in
@@ -142,9 +142,10 @@ No secrets, runtime state, bodies, or generated result files belong here.
 
 `tools/ci/` is the owner of every CI command. `.github/workflows/verify.yml`
 and `.gitlab-ci.yml` are independent thin projections over those scripts rather
-than copies of Python, shell, security, or documentation logic. `tools/runtime/`
-owns disposable Firecrawl invocation and authorized workload validation.
-`tools/supply-chain/` owns provenance and image import utilities.
+than copies of Python, shell, security, or documentation logic. `tools/benchmark/` owns the
+framework comparison lane. The Firecrawl runtime lifecycle and workload validation belong to the
+product (`web-ingest`), and image acquisition is the native `docker compose pull` of the reviewed
+digests.
 
 ## 5. Documentation and Evidence Kernel
 

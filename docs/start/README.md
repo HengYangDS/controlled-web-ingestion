@@ -25,10 +25,10 @@ uv run --locked python tools/ci/run_tests.py
 uv run --locked python tools/ci/validate_schemas.py
 ```
 
-The only interactive data-plane command is `web-ingest`; it has `ingest`,
-`promote`, and `prepare-rag` subcommands. Browser and crawl modes are routed
-through the disposable, loopback-only Firecrawl runner. They require explicit
-local runtime authorization and are not ordinary CI work.
+The only interactive data-plane command is `web-ingest`; it has `ingest`, `promote`, `prepare-rag`
+and `validate-workloads` subcommands. Browser and crawl modes run one disposable, loopback-only
+Firecrawl topology under native Compose. They require explicit local runtime authorization and are
+not ordinary CI work.
 
 ## Read in this order
 

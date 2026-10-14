@@ -29,8 +29,6 @@ def main(argv: list[str] | None = None) -> int:
     runtime_python = _runtime_python(args.python)
     commands = [
         [runtime_python, "-m", "unittest", "discover", "-s", str(ROOT / "tests"), "-v"],
-        ["bash", "-n", str(ROOT / "tools" / "runtime" / "firecrawl-isolated-benchmark.sh")],
-        ["bash", "-n", str(ROOT / "tools" / "runtime" / "validate-authorized-workloads.sh")],
     ]
     for command in commands:
         result = subprocess.run(command, cwd=ROOT, check=False)

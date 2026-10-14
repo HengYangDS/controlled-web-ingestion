@@ -375,10 +375,17 @@ def run_jina_reader(case: dict[str, Any]) -> tuple[str | None, str | None, str, 
 
 
 def run_firecrawl(case: dict[str, Any]) -> tuple[str | None, str | None, str, int]:
-    """Run only through an explicitly configured loopback Firecrawl endpoint."""
+    """Run through an explicit loopback endpoint, or else through one disposable topology."""
     endpoint = os.environ.get("FIRECRAWL_ENDPOINT")
     if not endpoint:
-        raise RuntimeError("FIRECRAWL_ENDPOINT must explicitly name the isolated loopback API")
+        from web_ingestion.runtime import firecrawl_runtime
+
+        with firecrawl_runtime() as started:
+            return firecrawl_case(case, started)
+    return firecrawl_case(case, endpoint)
+
+
+def firecrawl_case(case: dict[str, Any], endpoint: str) -> tuple[str | None, str | None, str, int]:
     from web_ingestion.adapters.firecrawl import FirecrawlClient
     from web_ingestion.policy import TargetPolicy, validate_target
 

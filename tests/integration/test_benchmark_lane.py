@@ -170,12 +170,36 @@ class RuntimeBoundTests(unittest.TestCase):
 
 
 class FirecrawlAdapterTests(unittest.TestCase):
-    def test_requires_an_explicit_loopback_endpoint(self):
-        from tools.benchmark.run_framework_comparison import run_firecrawl
+    def test_without_an_endpoint_runs_one_disposable_runtime(self):
+        from contextlib import contextmanager
 
-        with patch.dict(os.environ, {}, clear=True):
-            with self.assertRaisesRegex(RuntimeError, "FIRECRAWL_ENDPOINT"):
-                run_firecrawl({"name": "static", "url": "https://example.com/", "max_pages": 1})
+        from tools.benchmark.run_framework_comparison import run_firecrawl
+        from web_ingestion.adapters.firecrawl import FirecrawlResult
+
+        endpoints = []
+
+        @contextmanager
+        def runtime():
+            yield "http://127.0.0.1:13002"
+
+        class StubClient:
+            def __init__(self, endpoint: str):
+                endpoints.append(endpoint)
+
+            def scrape(self, url: str):
+                return FirecrawlResult("# fixture", "Fixture", url, 1)
+
+        with (
+            patch("web_ingestion.runtime.firecrawl_runtime", runtime),
+            patch("web_ingestion.adapters.firecrawl.FirecrawlClient", StubClient),
+            patch(
+                "web_ingestion.policy.socket.getaddrinfo",
+                return_value=[(None, None, None, None, ("93.184.216.34", 0))],
+            ),
+            patch.dict(os.environ, {}, clear=True),
+        ):
+            run_firecrawl({"name": "static", "url": "https://example.com/", "max_pages": 1})
+        self.assertEqual(endpoints, ["http://127.0.0.1:13002"])
 
     def test_maps_crawl_case_to_the_client_page_budget(self):
         from tools.benchmark.run_framework_comparison import run_firecrawl
