@@ -162,10 +162,11 @@ def firecrawl_runtime(
         "BULL_AUTH_KEY": secrets.token_hex(24),
     }
     compose = ["docker", "compose", "--project-name", PROJECT, "--file", str(COMPOSE_FILE)]
+    wait = ["--wait", "--wait-timeout", str(startup_timeout_seconds)]
     with _terminate_as_exit():
         try:
             started = bounded(
-                [*compose, "up", "--detach", "--wait", "--wait-timeout", str(startup_timeout_seconds)],
+                [*compose, "up", "--detach", *wait],
                 timeout=startup_timeout_seconds + 60,
                 environment=environment,
             )
