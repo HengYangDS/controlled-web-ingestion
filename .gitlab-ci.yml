@@ -23,6 +23,10 @@ default:
     UV_PYTHON_DOWNLOADS: never
     UV_CACHE_DIR: /cache/uv
     UV_LINK_MODE: copy
+    # The CI host's network drops some long downloads; uv retries them inside the job.
+    UV_HTTP_RETRIES: "10"
+    UV_HTTP_TIMEOUT: "120"
+    UV_CONCURRENT_DOWNLOADS: "8"
     UV_PROJECT_ENVIRONMENT: "$CI_PROJECT_DIR/build/runtime/venv/python-${PYTHON_VERSION}"
   script:
     - uv run --locked --python "python${PYTHON_VERSION}" python tools/ci/run_tests.py
