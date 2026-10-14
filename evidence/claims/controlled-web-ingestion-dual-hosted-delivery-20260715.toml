@@ -27,7 +27,7 @@ scope = "independent GitHub and GitLab repository, CI/CD, protection, and public
 
 [carriers]
 openspec = "openspec/changes/archive/2026-07-15-dual-hosted-delivery-archive-reconciliation"
-fallback = "docs/decisions/0003-dual-hosted-delivery.md"
+fallback = "docs/decisions/dr-0003-dual-hosted-delivery.md"
 kill_signal = "Any attempt to treat GitHub or GitLab as a snapshot, mirror, substitute, personal-runner fallback, or automatic cross-platform publisher."
 
 [promotion]
@@ -37,7 +37,7 @@ targets = [
   { kind = "config", path = ".ethos/rules.toml" },
   { kind = "workflow", path = ".github/workflows/verify.yml" },
   { kind = "ci", path = ".gitlab-ci.yml" },
-  { kind = "docs", path = "docs/decisions/0003-dual-hosted-delivery.md" },
+  { kind = "docs", path = "docs/decisions/dr-0003-dual-hosted-delivery.md" },
   { kind = "docs", path = "docs/reference/conventions.md" },
   { kind = "docs", path = "docs/reference/publication.md" },
   { kind = "openspec", path = "openspec/specs/delivery-governance/spec.md" },

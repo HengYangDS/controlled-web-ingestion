@@ -4,7 +4,7 @@ role: evidence
 state: active
 relations:
   evidence: evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json
-  decision: docs/decisions/0002-delivery-train-boundary.md
+  decision: docs/decisions/dr-0002-delivery-train-boundary.md
   admission: docs/reference/admission.md
 ---
 

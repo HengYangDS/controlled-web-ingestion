@@ -20,8 +20,8 @@ review_refs = [
   "docs/evidence/chronicle/2026-07-14/ethos-adopter-proof.md",
 ]
 decision_refs = [
-  "docs/decisions/0000-controlled-web-ingestion-position.md",
-  "docs/decisions/0001-ethos-adopter-boundary.md",
+  "docs/decisions/dr-0004-controlled-web-ingestion-position.md",
+  "docs/decisions/dr-0001-ethos-adopter-boundary.md",
 ]
 retirement_conditions = [
   "A new target, purpose, data class, runtime topology, service exposure, or sink requires a new policy and evidence review.",
@@ -38,6 +38,6 @@ evidence_refs = [
   "evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json",
 ]
 decision_refs = [
-  "docs/decisions/0000-controlled-web-ingestion-position.md",
-  "docs/decisions/0001-ethos-adopter-boundary.md",
+  "docs/decisions/dr-0004-controlled-web-ingestion-position.md",
+  "docs/decisions/dr-0001-ethos-adopter-boundary.md",
 ]

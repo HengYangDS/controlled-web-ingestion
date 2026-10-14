@@ -4,8 +4,8 @@ role: decision
 state: canonical
 relations:
   canonical_for: GitHub and GitLab independent repository and CI/CD planes
-  governed_by: docs/decisions/0001-ethos-adopter-boundary.md
-  delivery_train: docs/decisions/0002-delivery-train-boundary.md
+  governed_by: docs/decisions/dr-0001-ethos-adopter-boundary.md
+  delivery_train: docs/decisions/dr-0002-delivery-train-boundary.md
 ---
 
 # Decision 0003: Operate GitHub and GitLab as independent delivery planes

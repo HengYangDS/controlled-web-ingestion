@@ -15,11 +15,11 @@ not rewritten. This map only supplies the current reading path.
 
 | Historical lane | Retained historical record | Current canonical reading path |
 | --- | --- | --- |
-| M1 framework admission and Firecrawl recovery | `docs/history/2026-07-14-web-ingestion-firecrawl-m1-closeout.md`; `evidence/benchmarks/2026-07-14-web-ingestion-firecrawl-m1-runtime.json` | `docs/architecture/controlled-web-ingestion-topology.md`; `docs/decisions/0000-controlled-web-ingestion-position.md`; `docs/reference/runtime-validation.md` |
-| M2 design | `docs/history/2026-07-14-web-ingestion-m2-m5-design.md` | `docs/architecture/controlled-web-ingestion-topology.md`; `docs/reference/contracts.md` |
-| M3-M5 implementation and operations | `docs/history/2026-07-14-web-ingestion-m2-m5-implementation.md`; `docs/history/2026-07-14-web-ingestion-m2-m5-runbook.md` | `docs/reference/cli.md`; `docs/reference/runtime-validation.md`; `system/` declarations and schemas |
-| M2-M5 verification and retrospective | `docs/history/2026-07-14-web-ingestion-m2-m5-closeout-retrospective.md`; dated benchmark receipts | `evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json`; `evidence/verification/2026-07-14-controlled-web-ingestion-runtime-validation.json`; `docs/evidence/README.md` |
-| ETHOS adoption and delivery | dated chronicle records | `docs/decisions/0001-ethos-adopter-boundary.md`; `docs/decisions/0002-delivery-train-boundary.md`; `docs/start/adopter-governance.md` |
+| M1 framework admission and Firecrawl recovery | `evidence/benchmarks/2026-07-14-web-ingestion-firecrawl-m1-closeout.md`; `evidence/benchmarks/2026-07-14-web-ingestion-firecrawl-m1-runtime.json` | `docs/architecture/controlled-web-ingestion-topology.md`; `docs/decisions/dr-0004-controlled-web-ingestion-position.md`; `docs/reference/runtime-validation.md` |
+| M2 design | `evidence/benchmarks/2026-07-14-web-ingestion-m2-m5-design.md` | `docs/architecture/controlled-web-ingestion-topology.md`; `docs/reference/contracts.md` |
+| M3-M5 implementation and operations | `evidence/benchmarks/2026-07-14-web-ingestion-m2-m5-implementation.md`; `evidence/benchmarks/2026-07-14-web-ingestion-m2-m5-runbook.md` | `docs/reference/cli.md`; `docs/reference/runtime-validation.md`; `system/` declarations and schemas |
+| M2-M5 verification and retrospective | `evidence/benchmarks/2026-07-14-web-ingestion-m2-m5-closeout-retrospective.md`; dated benchmark receipts | `evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json`; `evidence/verification/2026-07-14-controlled-web-ingestion-runtime-validation.json`; `docs/evidence/README.md` |
+| ETHOS adoption and delivery | dated chronicle records | `docs/decisions/dr-0001-ethos-adopter-boundary.md`; `docs/decisions/dr-0002-delivery-train-boundary.md`; `docs/start/adopter-governance.md` |
 
 The migration does not turn old benchmark result files into current runtime
 authorization. Current authority is distributed deliberately: the policy and

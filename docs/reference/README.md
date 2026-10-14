@@ -15,4 +15,4 @@ relations:
 - [Research contract](research-contract.md)
 - [Publication boundary](publication.md)
 - [Repository conventions](conventions.md)
-- [Dual hosted-delivery decision](../decisions/0003-dual-hosted-delivery.md)
+- [Dual hosted-delivery decision](../decisions/dr-0003-dual-hosted-delivery.md)

@@ -4,7 +4,7 @@ role: decision
 state: canonical
 relations:
   canonical_for: ETHOS branch-role and protected publication boundary
-  governed_by: docs/decisions/0001-ethos-adopter-boundary.md
+  governed_by: docs/decisions/dr-0001-ethos-adopter-boundary.md
 ---
 
 # Decision 0002: Separate the published root from the ETHOS authoring train

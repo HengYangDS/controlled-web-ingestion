@@ -7,7 +7,10 @@ relations:
   implemented_by: docs/architecture/controlled-web-ingestion-topology.md
 ---
 
-# Decision 0000: Controlled Web Ingestion is the repository identity
+# Decision 0004: Controlled Web Ingestion is the repository identity
+
+This record was numbered 0000 until 2026-10-14. Decision identities are
+positive numbers, so it took the next unused one; no other record changed.
 
 ## Decision
 

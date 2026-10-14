@@ -4,7 +4,7 @@ role: reference
 state: active
 relations:
   canonical_for: future controlled-ingestion admission packet
-  governed_by: docs/decisions/0000-controlled-web-ingestion-position.md
+  governed_by: docs/decisions/dr-0004-controlled-web-ingestion-position.md
   runtime: docs/reference/runtime-validation.md
 ---
 

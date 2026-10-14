@@ -32,7 +32,7 @@ local runtime authorization and are not ordinary CI work.
 
 ## Read in this order
 
-1. [Position decision](../decisions/0000-controlled-web-ingestion-position.md)
+1. [Position decision](../decisions/dr-0004-controlled-web-ingestion-position.md)
 2. [Topology](../architecture/controlled-web-ingestion-topology.md)
 3. [Contracts](../reference/contracts.md)
 4. [CLI reference](../reference/cli.md)

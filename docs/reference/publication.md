@@ -18,4 +18,4 @@ GitHub and GitLab are independent complete repository and CI/CD planes. Each
 must contain the same reviewed candidate head before publication and must record
 its own protected-main review and hosted verification result. Neither platform
 is a snapshot, mirror, or substitute for the other; see
-`docs/decisions/0003-dual-hosted-delivery.md`.
+`docs/decisions/dr-0003-dual-hosted-delivery.md`.

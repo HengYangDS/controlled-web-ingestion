@@ -4,7 +4,7 @@ role: evidence
 state: active
 relations:
   proof: .ethos/state/proof/60b1d4615251ccf9450c68836d6ffd910a6b0cd4.json
-  decision: docs/decisions/0001-ethos-adopter-boundary.md
+  decision: docs/decisions/dr-0001-ethos-adopter-boundary.md
 ---
 
 # ETHOS Adopter Proof — 2026-07-14

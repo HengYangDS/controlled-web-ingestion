@@ -66,9 +66,12 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
 
     def test_governance_closeout_capability_is_canonical_and_archive_only(self):
         root = Path(__file__).resolve().parents[2]
-        canonical = root / "openspec" / "specs" / "governance-closeout"
-        self.assertTrue((canonical / "spec.md").is_file())
-        self.assertTrue((canonical / "capability.toml").is_file())
+        specs = root / "openspec" / "specs"
+        self.assertTrue((specs / "governance-closeout" / "spec.md").is_file())
+        self.assertEqual(
+            sorted(path.name for path in specs.glob("*/*") if path.name != "spec.md"),
+            [],
+        )
         self.assertFalse(
             (root / "openspec" / "changes" / "2026-07-15-governance-closeout").exists()
         )
