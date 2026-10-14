@@ -10,6 +10,7 @@ and SHALL NOT track ETHOS state.
 - **WHEN** ETHOS audits the binding file set
 - **THEN** `.ethos/` holds only `profile.toml`, `workspace.toml`, `release.toml` and `rules.toml`
 - **AND** no tracked file declares a state directory under `.ethos/`
+- **AND** no tracked copy of ETHOS runtime policy remains under `.config/ethos/`
 
 ### Requirement: Tracked text is normalized to LF
 

@@ -15,8 +15,7 @@ results/
 .DS_Store
 *~
 
-# Semantic ignored generated homes. The declarative contract lives in
-# .config/ethos/generated-artifacts.toml; these directories are outputs, not
+# Semantic ignored generated homes. These directories are outputs, not
 # repository truth.
 .cache/
 build/

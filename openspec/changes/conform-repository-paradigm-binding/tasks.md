@@ -5,7 +5,9 @@
 - [x] 1.1 Remove `.ethos/assistants.toml`, `.ethos/project.toml` and `.ethos/state/.gitignore`
       with their ignore exception, generated-artifact home and test reference; done when no
       tracked file names them.
-- [x] 1.2 End `.gitattributes` with `* text=auto eol=lf`; done when Git reports no tracked CRLF
+- [x] 1.2 Remove `.config/ethos/generated-artifacts.toml` and the `.gitignore` comment that
+      names it; done when no tracked file names it.
+- [x] 1.3 End `.gitattributes` with `* text=auto eol=lf`; done when Git reports no tracked CRLF
       file.
 
 ## 2. Verification

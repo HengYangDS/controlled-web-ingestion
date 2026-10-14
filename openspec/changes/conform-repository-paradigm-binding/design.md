@@ -11,7 +11,10 @@ repository to normalize text to LF through a final catch-all `.gitattributes` pa
    `profile_id`.
 2. Remove the `.ethos/state` exception everywhere it is declared. Leaving the generated-artifact
    home or the ignore exception behind would describe a directory that no producer writes.
-3. Append the catch-all last, after `tools/** ethos-role=tooling`. The patterns set different
+3. Remove the generated-artifact policy copy instead of moving it to a tool-named owner. ETHOS
+   loads that policy from its own package and documents that adopters need no copy, so a moved
+   file would still have no consumer.
+4. Append the catch-all last, after `tools/** ethos-role=tooling`. The patterns set different
    attributes, so the tooling role is unchanged.
 
 ## Rollback
