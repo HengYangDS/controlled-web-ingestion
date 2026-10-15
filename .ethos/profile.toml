@@ -30,6 +30,9 @@ code_correctness_gates = [
   "controlled-web-ingestion-security",
   "controlled-web-ingestion-behavior",
   "controlled-web-ingestion-code-analysis",
+  "controlled-web-ingestion-format-documents",
+  "controlled-web-ingestion-format-toml",
+  "controlled-web-ingestion-format-python",
 ]
 
 [proof.code_correctness_map]
@@ -107,4 +110,59 @@ providers = ["ethos.adapters.gates.code_quality:static_report"]
 dimensions = ["static-analysis"]
 evidence_class = "contract"
 trust_bearing = true
+network_policy = "offline"
+
+# The paradigm formatters run from the host installation, as gitleaks does.
+[[proof.gates]]
+id = "controlled-web-ingestion-format-documents"
+kind = "lint"
+command = [
+  "prettier",
+  "--config",
+  ".config/checks/prettier/prettier.toml",
+  "--ignore-path",
+  ".gitignore",
+  "--ignore-path",
+  ".config/checks/prettier/prettierignore",
+  "--check",
+  "**/*.{md,yaml,yml}",
+]
+dimensions = ["format"]
+execution_mode = "subprocess"
+evidence_class = "contract"
+trust_bearing = true
+tool_adapter = "repository-native"
+writes_files = false
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-format-toml"
+kind = "lint"
+command = ["taplo", "fmt", "--config", ".config/checks/taplo/taplo.toml", "--check"]
+dimensions = ["format"]
+execution_mode = "subprocess"
+evidence_class = "contract"
+trust_bearing = true
+tool_adapter = "repository-native"
+writes_files = false
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-format-python"
+kind = "lint"
+command = [
+  "ruff",
+  "format",
+  "--config",
+  ".config/checks/ruff/ruff.toml",
+  "--no-cache",
+  "--check",
+  ".",
+]
+dimensions = ["format"]
+execution_mode = "subprocess"
+evidence_class = "contract"
+trust_bearing = true
+tool_adapter = "repository-native"
+writes_files = false
 network_policy = "offline"

@@ -1,0 +1,4 @@
+printWidth = 100
+proseWrap = "preserve"
+# Markdown code examples keep their authored bytes (docs/reference/conventions.md).
+embeddedLanguageFormatting = "off"

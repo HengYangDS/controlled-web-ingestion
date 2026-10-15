@@ -15,7 +15,7 @@ positive numbers, so it took the next unused one; no other record changed.
 ## Decision
 
 This repository is **Controlled Web Ingestion**. Its canonical project name is
-`controlled-web-ingestion`; its prose name is *Controlled Web Ingestion*.
+`controlled-web-ingestion`; its prose name is _Controlled Web Ingestion_.
 
 ## Context and alternatives
 

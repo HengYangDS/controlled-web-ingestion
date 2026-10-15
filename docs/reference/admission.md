@@ -16,16 +16,16 @@ runtime receipt are not blanket authority.
 
 ## Required packet
 
-| Field | Required decision evidence |
-| --- | --- |
-| Target and owner | Canonical target identity, accountable owner, public-access basis, and an explicit statement that the target is not inherited from another packet. |
-| Purpose | Narrow business or research purpose, expected outcome, and the reason the existing approved workload cannot satisfy it. |
-| Data class | Allowed metadata and derived artifacts, prohibited content classes, retention, deletion, and access boundary. Credentials, account state, and private-target access are outside this capability. |
-| Budget | Route, page limit, concurrency, timeout, retry and cost limits, plus a stop condition. |
-| Robots and MIME | Preflight robots decision, allowed MIME classes, redirect handling, and service-returned final-target revalidation. |
-| Route and sink | `static`, `browser`, or `crawl` route; staging and promotion decision; sink remains `null` unless a separately reviewed delivery adapter is admitted. |
-| Runtime topology | Exact image and provenance identity where applicable, ports, isolation, teardown, dependencies, and whether the change affects the disposable loopback runtime. |
-| Proof plan | Required policy/schema tests, route-specific verification, redacted receipt, cleanup evidence, local matrix, and independent GitHub Actions plus GitLab CI evidence when code changes are proposed. |
+| Field            | Required decision evidence                                                                                                                                                                          |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Target and owner | Canonical target identity, accountable owner, public-access basis, and an explicit statement that the target is not inherited from another packet.                                                  |
+| Purpose          | Narrow business or research purpose, expected outcome, and the reason the existing approved workload cannot satisfy it.                                                                             |
+| Data class       | Allowed metadata and derived artifacts, prohibited content classes, retention, deletion, and access boundary. Credentials, account state, and private-target access are outside this capability.    |
+| Budget           | Route, page limit, concurrency, timeout, retry and cost limits, plus a stop condition.                                                                                                              |
+| Robots and MIME  | Preflight robots decision, allowed MIME classes, redirect handling, and service-returned final-target revalidation.                                                                                 |
+| Route and sink   | `static`, `browser`, or `crawl` route; staging and promotion decision; sink remains `null` unless a separately reviewed delivery adapter is admitted.                                               |
+| Runtime topology | Exact image and provenance identity where applicable, ports, isolation, teardown, dependencies, and whether the change affects the disposable loopback runtime.                                     |
+| Proof plan       | Required policy/schema tests, route-specific verification, redacted receipt, cleanup evidence, local matrix, and independent GitHub Actions plus GitLab CI evidence when code changes are proposed. |
 
 ## Decision rule
 

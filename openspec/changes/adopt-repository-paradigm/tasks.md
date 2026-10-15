@@ -6,14 +6,14 @@
 
 ## 2. Formatters
 
-- [ ] 2.1 Bind Prettier, taplo and Ruff under `.config/checks/<tool>/` with the paradigm settings and the protected-root exclusions; done when the paradigm report has no formatter-binding gap.
-- [ ] 2.2 Add one proof gate per formatter and record the check and fix commands in `docs/reference/conventions.md`; done when the three gates pass.
-- [ ] 2.3 Format the declared inputs; done when a second pass changes nothing and every excluded file is byte-identical.
+- [x] 2.1 Bind Prettier, taplo and Ruff under `.config/checks/<tool>/` with the paradigm settings and the protected-root exclusions; done when the paradigm report has no formatter-binding gap. The three carriers hold the paradigm settings; Prettier leaves embedded code untouched and Ruff checks only Python files. The report's only gaps are the three branch roles.
+- [x] 2.2 Add one proof gate per formatter and record the check and fix commands in `docs/reference/conventions.md`; done when the three gates pass. The three commands pass from the lane root.
+- [x] 2.3 Format the declared inputs; done when a second pass changes nothing and every excluded file is byte-identical. Prettier rewrote tables, emphasis and YAML comment spacing in five documents, taplo rewrote the arrays of `pyproject.toml`, and Ruff found its 41 files formatted; a second pass changes nothing and no excluded root changed.
 
 ## 3. Remote And Commit Grammar
 
-- [ ] 3.1 Name the `gitlab` peer's remote `gitlab` in `.ethos/release.toml` and run `git remote rename origin gitlab`; done when the paradigm report has no peer-remote gap and `git remote` lists `gitlab` and `github`.
-- [ ] 3.2 Drop the restated `subject_pattern` and keep the signing settings; done when commit admission accepts the next commit under the derived grammar.
+- [x] 3.1 Name the `gitlab` peer's remote `gitlab` in `.ethos/release.toml` and run `git remote rename origin gitlab`; done when the paradigm report has no peer-remote gap and `git remote` lists `gitlab` and `github`. The rename moved three tracking refs and the upstream of `main`; the report has no peer-remote gap.
+- [x] 3.2 Drop the restated `subject_pattern` and keep the signing settings; done when commit admission accepts the next commit under the derived grammar. This commit is admitted under the derived grammar.
 
 ## 4. Branch Roles
 

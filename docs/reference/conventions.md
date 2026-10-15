@@ -56,3 +56,29 @@ Canonical Markdown starts with complete front matter, then one blank line,
 then the title. Use one blank line around headings, paragraphs, lists, tables,
 and fenced code blocks. Do not insert empty paragraphs merely to create visual
 space. The result must remain readable in raw text and stable under review.
+
+## Formatters
+
+The ETHOS repository paradigm binds one formatter per text carrier class, each
+configured under `.config/checks/<tool>/` and run from the host installation:
+
+- Prettier formats Markdown and YAML at 100 columns with preserved prose
+  wrapping and leaves embedded code examples untouched.
+- taplo formats TOML at 100 columns.
+- Ruff formats Python at 100 columns for Python 3.12 and later.
+
+Immutable records keep their captured bytes and are not formatter inputs:
+archived OpenSpec Changes, `evidence/`, `docs/evidence/chronicle/`,
+`docs/history/` and `docs/plans/`. The ETHOS skill projections under `.agents/`
+follow their packages. JSON is not formatted.
+
+Each proof gate runs the check form from the repository root:
+
+```bash
+prettier --config .config/checks/prettier/prettier.toml --ignore-path .gitignore --ignore-path .config/checks/prettier/prettierignore --check '**/*.{md,yaml,yml}'
+taplo fmt --config .config/checks/taplo/taplo.toml --check
+ruff format --config .config/checks/ruff/ruff.toml --no-cache --check .
+```
+
+To fix the same inputs, replace Prettier's `--check` with `--write` and drop
+`--check` from the taplo and Ruff commands.

@@ -1,0 +1,6 @@
+# Patterns resolve from the repository root; the excluded roots match the Prettier ignore file.
+include = ["**/*.toml"]
+exclude = ["openspec/changes/archive/**", "evidence/**", ".agents/**", "build/**", ".venv/**"]
+
+[formatting]
+column_width = 100

@@ -1,0 +1,9 @@
+# Patterns resolve from this directory. `.gitignore` is the other ignore file.
+# Immutable records keep their captured bytes; they are not formatter inputs.
+../../../openspec/changes/archive/
+../../../evidence/
+../../../docs/evidence/chronicle/
+../../../docs/history/
+../../../docs/plans/
+# ETHOS skill projections follow their packages, not this repository's layout.
+../../../.agents/

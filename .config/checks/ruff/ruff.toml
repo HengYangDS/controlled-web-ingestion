@@ -1,0 +1,4 @@
+# Ruff owns the Python carriers; Prettier owns Markdown, including its code examples.
+include = ["*.py", "*.pyi"]
+line-length = 100
+target-version = "py312"

@@ -107,20 +107,20 @@ internals.
 
 ### 4.1 `src/web_ingestion/`
 
-| Unit | Owns | Does not own |
-| --- | --- | --- |
-| `contracts.py` | request, receipt, outcome, error types | transport, policy side effects |
-| `policy.py` | target, redirect, robots, MIME and budget decisions | HTTP connection or persistence |
-| `transport.py` | bounded public HTTP fetches | extraction, promotion or routing |
-| `controller.py` | request lifecycle and route selection | adapter-specific protocol details |
-| `staging.py` | receipt validation, digest dedupe, explicit promotion | content extraction |
-| `bridge.py` | promoted-receipt validation and sinkless manifest | default delivery sink |
-| `adapters/static.py` | in-memory static extraction | persistent service lifecycle |
-| `adapters/firecrawl.py` | loopback Firecrawl request protocol | host policy admission or daemon lifecycle |
-| `runtime.py` | disposable Compose topology lifecycle and zero-resource check | request policy or a standing service |
-| `validation.py` | reviewed workload validation and its redacted evidence | new targets or admission |
-| `supply_chain/provenance.py` | reviewed digest, platform and local image identity | image acquisition or adapter routing |
-| `cli.py` | explicit user commands and argument contract | raw Firecrawl public API exposure |
+| Unit                         | Owns                                                          | Does not own                              |
+| ---------------------------- | ------------------------------------------------------------- | ----------------------------------------- |
+| `contracts.py`               | request, receipt, outcome, error types                        | transport, policy side effects            |
+| `policy.py`                  | target, redirect, robots, MIME and budget decisions           | HTTP connection or persistence            |
+| `transport.py`               | bounded public HTTP fetches                                   | extraction, promotion or routing          |
+| `controller.py`              | request lifecycle and route selection                         | adapter-specific protocol details         |
+| `staging.py`                 | receipt validation, digest dedupe, explicit promotion         | content extraction                        |
+| `bridge.py`                  | promoted-receipt validation and sinkless manifest             | default delivery sink                     |
+| `adapters/static.py`         | in-memory static extraction                                   | persistent service lifecycle              |
+| `adapters/firecrawl.py`      | loopback Firecrawl request protocol                           | host policy admission or daemon lifecycle |
+| `runtime.py`                 | disposable Compose topology lifecycle and zero-resource check | request policy or a standing service      |
+| `validation.py`              | reviewed workload validation and its redacted evidence        | new targets or admission                  |
+| `supply_chain/provenance.py` | reviewed digest, platform and local image identity            | image acquisition or adapter routing      |
+| `cli.py`                     | explicit user commands and argument contract                  | raw Firecrawl public API exposure         |
 
 The stable executable is a `web-ingest` console command defined in
 `pyproject.toml`. No root-level implementation module remains after migration.
@@ -129,12 +129,12 @@ The stable executable is a `web-ingest` console command defined in
 
 `system/` holds declarative, reviewed repository truth:
 
-| Root | Contents |
-| --- | --- |
-| `system/policies/` | ingestion policy and authorized workload declarations |
-| `system/projections/` | route map and disposable Compose projection |
-| `system/supply-chain/` | reviewed images and Firecrawl provenance records |
-| `system/schemas/` | stage receipt, promotion receipt, bridge manifest, and evidence schemas |
+| Root                   | Contents                                                                |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `system/policies/`     | ingestion policy and authorized workload declarations                   |
+| `system/projections/`  | route map and disposable Compose projection                             |
+| `system/supply-chain/` | reviewed images and Firecrawl provenance records                        |
+| `system/schemas/`      | stage receipt, promotion receipt, bridge manifest, and evidence schemas |
 
 No secrets, runtime state, bodies, or generated result files belong here.
 
@@ -151,15 +151,15 @@ digests.
 
 The documentation root follows the ETHOS common kernel:
 
-| Root | Role |
-| --- | --- |
-| `docs/decisions/` | durable rulings, scope, and revisit triggers |
-| `docs/evidence/` | indexes for dated proof and closeout records |
-| `docs/reference/` | stable contracts, route semantics, CLI and operations reference |
-| `docs/history/` | superseded benchmark reports and migration history |
-| `docs/architecture/` | topology, data-flow and adapter boundaries |
-| `docs/start/` | first-run and contribution path |
-| `docs/plans/` | approved implementation plans only |
+| Root                 | Role                                                            |
+| -------------------- | --------------------------------------------------------------- |
+| `docs/decisions/`    | durable rulings, scope, and revisit triggers                    |
+| `docs/evidence/`     | indexes for dated proof and closeout records                    |
+| `docs/reference/`    | stable contracts, route semantics, CLI and operations reference |
+| `docs/history/`      | superseded benchmark reports and migration history              |
+| `docs/architecture/` | topology, data-flow and adapter boundaries                      |
+| `docs/start/`        | first-run and contribution path                                 |
+| `docs/plans/`        | approved implementation plans only                              |
 
 Each canonical document has front matter naming its subject, role, state, and
 relations. Dated evidence remains under `evidence/`; documents interpret it but

@@ -22,13 +22,16 @@ natively.
 - The three formatters run from the host's Homebrew installation, as `gitleaks`
   already does. Each has one proof gate with the security gate's shape, so the
   proof records each formatter separately.
-- Prettier formats Markdown and YAML only. Its ignore file adds, to `.gitignore`,
-  the immutable records (`openspec/changes/archive/`, `evidence/`,
-  `docs/evidence/chronicle/`, `docs/history/`, `docs/plans/`) and the ETHOS
-  skill projections under `.agents/`.
-- taplo checks the authored TOML and excludes the same roots in its own
-  configuration. Ruff checks without a cache, because the root `.ruff_cache/` is
-  denied residue here.
+- Prettier formats Markdown and YAML only, with embedded code formatting off so
+  Markdown code examples keep their bytes. Its ignore file adds, to
+  `.gitignore`, the immutable records (`openspec/changes/archive/`,
+  `evidence/`, `docs/evidence/chronicle/`, `docs/history/`, `docs/plans/`) and
+  the ETHOS skill projections under `.agents/`.
+- taplo checks the authored TOML; its configuration excludes the archive,
+  `evidence/`, `.agents/`, `build/` and `.venv/`, with patterns resolved from the
+  repository root. Ruff checks only `*.py` and `*.pyi`, because its default
+  inclusion also formats Python examples inside Markdown, and runs without a
+  cache, because the root `.ruff_cache/` is denied residue here.
 - `docs/reference/conventions.md` records the bindings and the check and fix
   commands.
 - The peer remote becomes `gitlab` in `.ethos/release.toml`, and
