@@ -12,12 +12,12 @@
 
 ## 3. Remote And Commit Grammar
 
-- [x] 3.1 Name the `gitlab` peer's remote `gitlab` in `.ethos/release.toml` and run `git remote rename origin gitlab`; done when the paradigm report has no peer-remote gap and `git remote` lists `gitlab` and `github`. The rename moved three tracking refs and the upstream of `main`; the report has no peer-remote gap.
+- [ ] 3.1 Name the `gitlab` peer's remote `gitlab` in `.ethos/release.toml` and run `git remote rename origin gitlab`; done when the paradigm report has no peer-remote gap and `git remote` lists `gitlab` and `github`. `74be74c` names the remote in the binding. The local rename was applied, then restored to `origin` because the committed accepted binding still names `origin` and this Change cannot land before 4.1; it is applied again in the landing batch.
 - [x] 3.2 Drop the restated `subject_pattern` and keep the signing settings; done when commit admission accepts the next commit under the derived grammar. This commit is admitted under the derived grammar.
 
 ## 4. Branch Roles
 
-- [ ] 4.1 Adopt `dev`, `candidate/dev` and `proposal/` in `.ethos/workspace.toml`, `tests/contract/test_ethos_boundary.py` and the current branch names in `docs/decisions/dr-0002-delivery-train-boundary.md` and `docs/start/adopter-governance.md`; done when the role refs carry the standard names and the paradigm report has no gap. Blocked, owner ETHOS: no admitted path renames the accepted and candidate refs. Exit when ETHOS ships its native role migration.
+- [ ] 4.1 Adopt `dev`, `candidate/dev` and `proposal/` in `.ethos/workspace.toml`, `tests/contract/test_ethos_boundary.py` and the current branch names in `docs/decisions/dr-0002-delivery-train-boundary.md` and `docs/start/adopter-governance.md`; done when the role refs carry the standard names and the paradigm report has no gap. Blocked, owner ETHOS: no admitted path renames the accepted and candidate refs. The full proof of `74be74c` fails only on these three branch-role gaps, so the whole Change lands after them. Exit when ETHOS ships its native role migration.
 - [ ] 4.2 Rename the hosted role branches and publish; done when both peers serve `dev` and `main` at the accepted and release heads and no old role branch remains. Blocked on 4.1 and the owner's confirmation of the remote effects.
 
 ## Workflow follow-up
