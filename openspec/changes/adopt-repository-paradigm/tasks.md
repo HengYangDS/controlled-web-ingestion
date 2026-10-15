@@ -18,7 +18,7 @@
 ## 4. Branch Roles
 
 - [x] 4.1 Adopt `dev`, `candidate/dev` and `proposal/` in `.ethos/workspace.toml`, `tests/contract/test_ethos_boundary.py` and the current branch names in `docs/decisions/dr-0002-delivery-train-boundary.md` and `docs/start/adopter-governance.md`; done when the role refs carry the standard names and the paradigm report has no gap. ETHOS `39fed382a` ships the native role migration: accepted closeout renamed both refs at `afc677c` and rebound the accepted and candidate worktrees. This commit removes `[branch_roles]`, whose remaining values equal the paradigm defaults.
-- [ ] 4.2 Rename the hosted role branches and publish; done when both peers serve `dev` and `main` at the accepted and release heads and no old role branch remains. Both peers serve `dev` at `40bdb83` and `main` at `afc677c`. Blocked, owner ETHOS role migration: both peers still hold `accepted/controlled-web-ingestion` at `afc677c`, and ETHOS admits remote retirement only for proposal refs (`proposal_retirement_target_not_proposal`). Exit when `ethos publish --retire` admits a renamed legacy role ref; review on 2026-10-17.
+- [x] 4.2 Rename the hosted role branches and publish; done when both peers serve `dev` and `main` at the accepted and release heads and no old role branch remains. Both peers serve `dev` at `a055059` and `main` at `afc677c`. ETHOS `492e781ee` admits a published legacy role ref for retirement, and `ethos publish --retire` removed `accepted/controlled-web-ingestion` from both peers on 2026-10-16; neither peer holds an old role branch.
 
 ## Workflow follow-up
 
