@@ -17,7 +17,7 @@
 
 ## 4. Branch Roles
 
-- [ ] 4.1 Adopt `dev`, `candidate/dev` and `proposal/` in `.ethos/workspace.toml`, `tests/contract/test_ethos_boundary.py` and the current branch names in `docs/decisions/dr-0002-delivery-train-boundary.md` and `docs/start/adopter-governance.md`; done when the role refs carry the standard names and the paradigm report has no gap. Blocked, owner ETHOS: no admitted path renames the accepted and candidate refs. The full proof of `74be74c` fails only on these three branch-role gaps, so the whole Change lands after them. Exit when ETHOS ships its native role migration.
+- [x] 4.1 Adopt `dev`, `candidate/dev` and `proposal/` in `.ethos/workspace.toml`, `tests/contract/test_ethos_boundary.py` and the current branch names in `docs/decisions/dr-0002-delivery-train-boundary.md` and `docs/start/adopter-governance.md`; done when the role refs carry the standard names and the paradigm report has no gap. ETHOS `39fed382a` ships the native role migration: accepted closeout renamed both refs at `afc677c` and rebound the accepted and candidate worktrees. This commit removes `[branch_roles]`, whose remaining values equal the paradigm defaults.
 - [ ] 4.2 Rename the hosted role branches and publish; done when both peers serve `dev` and `main` at the accepted and release heads and no old role branch remains. Blocked on 4.1 and the owner's confirmation of the remote effects.
 
 ## Workflow follow-up

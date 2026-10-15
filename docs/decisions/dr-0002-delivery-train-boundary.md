@@ -15,10 +15,14 @@ relations:
 delivery roles:
 
 ```text
-accepted/controlled-web-ingestion
-  -> candidate/controlled-web-ingestion
+dev
+  -> candidate/dev
   -> work/<bounded-change>
 ```
+
+The ETHOS repository paradigm fixes these names. On 2026-10-15 accepted closeout
+renamed the former `accepted/controlled-web-ingestion` and
+`candidate/controlled-web-ingestion` refs to them.
 
 The candidate branch is the sole review source. It may advance only through an
 owned, proven Work Lane. On publication, the same reviewed candidate head is

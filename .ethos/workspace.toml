@@ -3,22 +3,6 @@ name = "root"
 path = "."
 domains = ["repository"]
 
-# `main` is the published, protected release root. It is intentionally not
-# also the accepted root: ETHOS must distinguish a read-only release root from
-# the integration train used to mint an owned Work Lane.
-#
-# These are delivery roles, not product environments. The candidate train is
-# the reviewed MR source; `accepted/` is its integration base. Neither changes
-# the runtime, target allowlist, persistence policy or Firecrawl topology.
-[branch_roles]
-release_branch = "main"
-accepted_branch = "accepted/controlled-web-ingestion"
-candidate_branch = "candidate/controlled-web-ingestion"
-work_branch_prefix = "work/"
-proposal_branch_prefix = "submit/"
-release_mirror = "independent"
-canonical_sibling_worktrees = false
-
 [commit_policy]
 signing_required = true
 signing_format = "ssh"

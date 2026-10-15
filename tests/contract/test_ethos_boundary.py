@@ -35,16 +35,9 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
                 "static-analysis": ["ethos.adapters.gates.code_quality:static_report"],
             },
         )
-        workspace = tomllib.loads((root / ".ethos" / "workspace.toml").read_text(encoding="utf-8"))[
-            "branch_roles"
-        ]
-        self.assertEqual(workspace["release_branch"], "main")
-        self.assertEqual(workspace["accepted_branch"], "accepted/controlled-web-ingestion")
-        self.assertEqual(workspace["candidate_branch"], "candidate/controlled-web-ingestion")
-        self.assertEqual(workspace["proposal_branch_prefix"], "submit/")
-        self.assertNotIn("submit_branch_prefix", workspace)
-        self.assertNotEqual(workspace["release_branch"], workspace["accepted_branch"])
-        self.assertFalse(workspace["candidate_branch"].startswith(workspace["work_branch_prefix"]))
+        # The repository paradigm fixes the branch role names, so the binding restates none.
+        workspace = tomllib.loads((root / ".ethos" / "workspace.toml").read_text(encoding="utf-8"))
+        self.assertNotIn("branch_roles", workspace)
 
     def test_openspec_material_paths_cover_governance_closeout_artifacts(self):
         root = Path(__file__).resolve().parents[2]

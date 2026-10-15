@@ -28,8 +28,8 @@ GitHub Actions and GitLab CI remain independent hosted observations.
 authoring root. The distinct train is:
 
 ```text
-accepted/controlled-web-ingestion
-  -> candidate/controlled-web-ingestion
+dev
+  -> candidate/dev
   -> work/<bounded-change>
 ```
 
