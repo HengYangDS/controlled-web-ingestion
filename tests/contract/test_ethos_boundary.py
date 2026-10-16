@@ -35,9 +35,9 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
                 "static-analysis": ["ethos.adapters.gates.code_quality:static_report"],
             },
         )
-        # The repository paradigm fixes the branch role names, so the binding restates none.
-        workspace = tomllib.loads((root / ".ethos" / "workspace.toml").read_text(encoding="utf-8"))
-        self.assertNotIn("branch_roles", workspace)
+        # The repository paradigm fixes the branch roles and the commit signature, so the
+        # repository needs no workspace binding.
+        self.assertFalse((root / ".ethos" / "workspace.toml").exists())
 
     def test_openspec_material_paths_cover_governance_closeout_artifacts(self):
         root = Path(__file__).resolve().parents[2]

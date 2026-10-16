@@ -1,8 +1,0 @@
-[[package]]
-name = "root"
-path = "."
-domains = ["repository"]
-
-[commit_policy]
-signing_required = true
-signing_format = "ssh"
