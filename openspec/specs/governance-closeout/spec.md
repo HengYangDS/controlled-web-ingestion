@@ -65,9 +65,9 @@ while retaining the production resolver and fail-closed admission policy.
 
 ### Requirement: The ETHOS binding follows the governing ETHOS contract
 
-The repository SHALL keep `.ethos/profile.toml` and `.ethos/workspace.toml`
-within the strict binding schema of the ETHOS release that governs it, and
-SHALL name every declared native proof gate in the proof floor.
+The repository SHALL keep `.ethos/profile.toml`, and any other ETHOS binding
+file it declares, within the strict binding schema of the ETHOS release that
+governs it, and SHALL name every declared native proof gate in the proof floor.
 
 #### Scenario: current ETHOS reads the binding
 
@@ -145,17 +145,6 @@ with its repository-owned local verification and installation commands.
 - **AND** GitHub `github` is the public distribution peer
 - **AND** the topology reports no declaration gap
 
-### Requirement: Branch roles are declared completely
-
-The repository SHALL declare every field of the ETHOS branch-role table, so that ETHOS admits ref
-movement with the repository's own roles instead of product defaults.
-
-#### Scenario: ETHOS lands a Work Lane
-
-- **WHEN** ETHOS moves the candidate train to a proven Work Lane head
-- **THEN** it reads the repository's complete branch-role table
-- **AND** it classifies the candidate branch by its declared role
-
 ### Requirement: The ETHOS binding holds only runtime-defined files
 
 The repository SHALL keep only the ETHOS binding files whose schemas the governing runtime defines,
@@ -180,14 +169,22 @@ The repository SHALL end `.gitattributes` with the catch-all `* text=auto eol=lf
 
 ### Requirement: Commits follow the shared grammar and carry SSH signatures
 
-The repository SHALL declare an ETHOS commit policy that requires the shared subject grammar and
-an SSH signature on every new commit.
+Every new commit SHALL follow the shared subject grammar and carry an SSH
+signature, as the governing ETHOS repository paradigm requires; the repository
+SHALL NOT restate that policy in its binding.
 
 #### Scenario: ETHOS archives a Change
 
 - **WHEN** ETHOS creates the archive commit of a proven Change
 - **THEN** the commit carries an SSH signature that verifies against the host trust anchor
 - **AND** `ethos publish` accepts the commit as a publication source
+
+#### Scenario: the binding restates no commit policy
+
+- **WHEN** ETHOS audits the repository binding
+- **THEN** no `[commit_policy]` declares `signing_required`, `signing_format` or
+  `subject_pattern`
+- **AND** commit admission still requires the shared grammar and an SSH signature
 
 ### Requirement: The Firecrawl runtime runs under native Compose and the product lifecycle
 
