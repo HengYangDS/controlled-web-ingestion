@@ -12,6 +12,10 @@
 
 - [x] 3.1 Model both pipelines in `.config/ci/pipeline.cue`, render them with `tools/ci/project.py`, add the `controlled-web-ingestion-ci-projection` gate and run each GitHub step as one native command; done when `--check` passes, the contract tests pass on the generated files and the paradigm report is conforming. All three hold, and the repair preview reports `conforming`.
 
+## 4. Decision records
+
+- [x] 4.1 Restate `dr-0001` to `dr-0004` and the decision template in the shared decision grammar; done when proof reports no `docs_decision_*` gap. The runtime's decision grammar reports no gap on the restated records.
+
 ## Workflow follow-up
 
 - Resulting-HEAD proof, integration, official archive and exact lane retirement are native ETHOS and OpenSpec records.

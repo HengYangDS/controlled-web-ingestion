@@ -8,15 +8,28 @@ relations:
 
 # Decision Record Template
 
+Name a record `dr-NNNN-<topic>.md`, set `decision_id` to `DR-NNNN` and
+`decision_status` to `accepted` beside `role` `decision` and `state`
+`canonical` in its front matter, and title it `DR-NNNN: <ruling>`. Keep the
+rationale in prose; commands, fenced blocks and task lists belong to their
+native owners.
+
+## Context
+
+State the evidence and forces that made the decision necessary.
+
 ## Decision
 
-State the ruling in one sentence.
+State the ruling.
 
-## Context and alternatives
+## Alternatives Rejected
 
-State evidence, material alternatives and why they were accepted or rejected.
+Name each material alternative and why it was rejected.
 
-## Consequences and revisit trigger
+## Consequences and Boundary
 
-State affected boundaries, rollback posture and the condition that reopens the
-question.
+State the affected boundaries and the rollback posture.
+
+## Evidence and Revisit
+
+Name the evidence behind the ruling and the condition that reopens it.

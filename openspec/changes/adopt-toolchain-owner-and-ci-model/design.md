@@ -6,7 +6,8 @@ The repository's checks run `uv`, Prettier, taplo, Ruff and Gitleaks from the ho
 nothing locks those tools. The GitHub workflow and the GitLab pipeline are written by hand and
 already run the same owner scripts under `tools/ci/`, and contract tests bind their text. The
 ETHOS runtime reports the missing toolchain owner, the missing pipeline model and two GitHub
-steps that each run a shell sequence.
+steps that each run a shell sequence. The same runtime checks decision records against the
+shared grammar, and the four records here use an older layout.
 
 ## Goals / Non-Goals
 
@@ -27,10 +28,16 @@ or installing mise in hosted CI.
 - The model keeps every job, image, command and runner rule of the current pipelines. The GitHub
   uv environment stays on each uv step, so the setup actions keep their own cache settings.
 - Prettier does not format mise's npm package locks, because mise writes them.
+- The decision records keep each ruling, reason and revisit trigger. Their text moves into the
+  five shared sections, alternatives that the old rationale rejected become explicit entries,
+  and the fenced diagrams and the command example become prose.
 
 ## Risks / Trade-offs
 
 - Generated YAML drops comments and decorative blank lines. Accepted: the comments move into the
   model, and the repository's conventions forbid decorative blank lines in machine-readable files.
+- Restating a decision could shift its meaning. Mitigated: sentences keep their wording except
+  the moved headings, the prose that replaces the diagrams and the command example, and
+  DR-0003's note on the pipeline model.
 - A host CUE of another version fails the projection gate. Accepted: `mise run check` selects the
   locked version.

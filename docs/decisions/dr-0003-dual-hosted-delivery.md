@@ -2,13 +2,20 @@
 subject: controlled-web-ingestion:dual-hosted-delivery
 role: decision
 state: canonical
+decision_id: DR-0003
+decision_status: accepted
 relations:
   canonical_for: GitHub and GitLab independent repository and CI/CD planes
   governed_by: docs/decisions/dr-0001-ethos-adopter-boundary.md
   delivery_train: docs/decisions/dr-0002-delivery-train-boundary.md
 ---
 
-# Decision 0003: Operate GitHub and GitLab as independent delivery planes
+# DR-0003: Operate GitHub and GitLab as independent delivery planes
+
+## Context
+
+Controlled Web Ingestion is published through two forges, GitHub and GitLab,
+and each forge has its own review, branch protection and hosted CI.
 
 ## Decision
 
@@ -24,22 +31,20 @@ not prove GitLab CI, and a successful GitLab pipeline does not prove GitHub
 Actions. The explicit Firecrawl runtime validation remains a separate local
 acceptance gate and is not converted into generic hosted CI on either platform.
 
-## Delivery model
+Delivery follows one path:
 
-```text
-owned Work Lane
-  -> reviewed candidate
-  -> GitHub pull request + GitHub Actions
-  -> GitLab merge request + GitLab CI
-  -> protected main on each platform
-```
+1. An owned Work Lane.
+2. A reviewed candidate.
+3. A GitHub pull request with GitHub Actions.
+4. A GitLab merge request with GitLab CI.
+5. Protected `main` on each platform.
 
 The local ETHOS train is the authoring and integration control. It does not
 privilege either hosted forge. Before an implementation release, the candidate
 head must be identical on both remotes; each platform's protected `main` must
 advance only through its own reviewed change path and current hosted evidence.
 
-## Rejected alternatives
+## Alternatives Rejected
 
 - **GitHub as snapshot/mirror:** rejected because it hides CI/CD and protection
   drift behind a shallow copy.
@@ -49,10 +54,11 @@ advance only through its own reviewed change path and current hosted evidence.
   or compromised forge must not cause the other forge to publish without its
   own review and protected-branch controls.
 
-## Consequences
+## Consequences and Boundary
 
 - `.github/workflows/verify.yml` and `.gitlab-ci.yml` are thin, independent
-  host projections over the same owner scripts under `tools/ci/`.
+  host projections over the same owner scripts under `tools/ci/`, generated
+  from the one pipeline model in `.config/ci/pipeline.cue`.
 - GitHub action references are pinned to reviewed commit identifiers and run
   with least-privilege `contents: read` permissions.
 - Each publication receipt names platform, repository identity, source head,
@@ -69,7 +75,7 @@ advance only through its own reviewed change path and current hosted evidence.
   it. A runner in a person's login session, such as a shell executor on a workstation account, is
   a personal runner and is not eligible.
 
-## Revisit trigger
+## Evidence and Revisit
 
 Revisit only when one platform's branch-protection model, hosted runner
 contract, repository ownership, or security boundary changes. A convenience
