@@ -140,8 +140,9 @@ No secrets, runtime state, bodies, or generated result files belong here.
 
 ### 4.3 `tools/`
 
-`tools/ci/` is the owner of every CI command. `.github/workflows/verify.yml`
-and `.gitlab-ci.yml` are independent thin projections over those scripts rather
+`tools/ci/` is the owner of every CI command. `.config/ci/pipeline.cue` models both
+Forge pipelines once, and `tools/ci/project.py` renders `.github/workflows/verify.yml` and
+`.gitlab-ci.yml` from it; they stay independent thin projections over those scripts rather
 than copies of Python, shell, security, or documentation logic. `tools/benchmark/` owns the
 framework comparison lane. The Firecrawl runtime lifecycle and workload validation belong to the
 product (`web-ingest`), and image acquisition is the native `docker compose pull` of the reviewed

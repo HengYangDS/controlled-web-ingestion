@@ -2,68 +2,55 @@ workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"
       when: never
-    # Ref protection selects the project's protected or review runner (DR-0003).
     - if: $CI_COMMIT_REF_PROTECTED == "true"
       variables:
         WIB_CI_RUNNER_TAG: ci-linux-arm64-container-protected
     - variables:
         WIB_CI_RUNNER_TAG: ci-linux-arm64-container
-
 stages:
   - verify
-
 default:
   tags:
     - $WIB_CI_RUNNER_TAG
-
-# Each job names one digest-pinned image; the runners allow only these images.
 .python-contracts:
   stage: verify
   variables:
     UV_PYTHON_DOWNLOADS: never
     UV_CACHE_DIR: /cache/uv
     UV_LINK_MODE: copy
-    # The CI host's network drops some long downloads; uv retries them inside the job.
     UV_HTTP_RETRIES: "10"
     UV_HTTP_TIMEOUT: "120"
     UV_CONCURRENT_DOWNLOADS: "8"
-    UV_PROJECT_ENVIRONMENT: "$CI_PROJECT_DIR/build/runtime/venv/python-${PYTHON_VERSION}"
+    UV_PROJECT_ENVIRONMENT: $CI_PROJECT_DIR/build/runtime/venv/python-${PYTHON_VERSION}
   script:
     - uv run --locked --python "python${PYTHON_VERSION}" python tools/ci/run_tests.py
     - uv run --locked --python "python${PYTHON_VERSION}" python tools/ci/validate_schemas.py
     - uv run --locked --python "python${PYTHON_VERSION}" python tools/ci/check_documentation.py
     - uv run --locked --python "python${PYTHON_VERSION}" python tools/ci/check_source_topology.py
-
 python 3.12:
   extends: .python-contracts
   image: ghcr.io/astral-sh/uv:0.13.1-python3.12-trixie@sha256:570b79f6364c2a640aaa73691c58e41939df3a064fb2504a5cd00c87d303f22a
   variables:
     PYTHON_VERSION: "3.12"
-
 python 3.13:
   extends: .python-contracts
   image: ghcr.io/astral-sh/uv:0.13.1-python3.13-trixie@sha256:31f6d7c420cb41aaead4ac763ea5bce62f9c940779f2af7b8f2fca140966aa3c
   variables:
     PYTHON_VERSION: "3.13"
-
 python 3.14:
   extends: .python-contracts
   image: ghcr.io/astral-sh/uv:0.13.1-python3.14-trixie@sha256:6863df3d2e87426f81a136ecb2ae6a7e567b2c413a6bf623af89d75a63a00405
   variables:
     PYTHON_VERSION: "3.14"
-
 security:
   stage: verify
   image:
     name: ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f
-    entrypoint: [""]
+    entrypoint:
+      - ""
   variables:
     GIT_DEPTH: "0"
   script:
     - git config --global --add safe.directory "$CI_PROJECT_DIR"
     - gitleaks version
     - gitleaks git --no-banner --redact=100 --exit-code 1 .
-
-# Explicit runtime Firecrawl validation is omitted from hosted CI. It needs
-# reviewed local images and must prove loopback teardown rather than borrow
-# shared runner Docker state.

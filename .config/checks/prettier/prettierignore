@@ -7,3 +7,5 @@
 ../../../docs/plans/
 # ETHOS skill projections follow their packages, not this repository's layout.
 ../../../.agents/
+# mise writes its npm package locks.
+../../mise/locks/

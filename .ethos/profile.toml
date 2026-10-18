@@ -33,6 +33,7 @@ code_correctness_gates = [
   "controlled-web-ingestion-format-documents",
   "controlled-web-ingestion-format-toml",
   "controlled-web-ingestion-format-python",
+  "controlled-web-ingestion-ci-projection",
 ]
 
 [proof.code_correctness_map]
@@ -159,6 +160,18 @@ command = [
   "--check",
   ".",
 ]
+dimensions = ["format"]
+execution_mode = "subprocess"
+evidence_class = "contract"
+trust_bearing = true
+tool_adapter = "repository-native"
+writes_files = false
+network_policy = "offline"
+
+[[proof.gates]]
+id = "controlled-web-ingestion-ci-projection"
+kind = "lint"
+command = ["uv", "run", "--locked", "--offline", "python", "tools/ci/project.py", "--check"]
 dimensions = ["format"]
 execution_mode = "subprocess"
 evidence_class = "contract"

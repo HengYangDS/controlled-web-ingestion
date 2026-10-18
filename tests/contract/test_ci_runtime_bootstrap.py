@@ -18,7 +18,7 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
             for gate in profile["proof"]["gates"]
             if gate.get("command", [])[:5] == ["uv", "run", "--locked", "--offline", "python"]
         ]
-        self.assertEqual(len(python_gates), 4)
+        self.assertEqual(len(python_gates), 5)
         projection = (root / ".gitlab-ci.yml").read_text(encoding="utf-8")
         self.assertEqual(
             projection.count('uv run --locked --python "python${PYTHON_VERSION}" python'), 4
@@ -58,7 +58,7 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         self.assertIn(
             "gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7", projection
         )
-        self.assertIn('GITLEAKS_VERSION: "8.30.0"', projection)
+        self.assertIn("GITLEAKS_VERSION: 8.30.0", projection)
         self.assertIn("gitleaks git --no-banner --redact=100 --exit-code 1 .", projection)
         self.assertNotIn("@v", projection)
         self.assertIn("tools/ci/run_tests.py", projection)
