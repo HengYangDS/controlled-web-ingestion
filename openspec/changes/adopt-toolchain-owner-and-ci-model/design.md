@@ -20,8 +20,10 @@ or installing mise in hosted CI.
 ## Decisions
 
 - mise owns the toolchain at the versions already in use: CUE 0.17.1, Gitleaks 8.30.1, Node
-  26.12.0 with Prettier 3.9.10, Ruff 0.17.1, taplo 0.10.0 and uv 0.13.1. `mise lock` records
-  macOS ARM64, Linux ARM64 and Linux x64 checksums.
+  26.12.0 with Prettier 3.9.10, Python 3.14.8, Ruff 0.17.1, taplo 0.10.0 and uv 0.13.1.
+  `mise lock` records macOS ARM64, Linux ARM64 and Linux x64 checksums. The ETHOS behavior gate
+  takes uv and Python from a declared toolchain, so the toolchain locks the host's current
+  CPython; hosted CI keeps its uv images for Python 3.12 to 3.14.
 - `tools/ci/project.py` runs the CUE on `PATH` after checking that it is the locked version, so
   the proof gate and `mise run check` render byte-identical projections; hosted CI does not run
   it.
