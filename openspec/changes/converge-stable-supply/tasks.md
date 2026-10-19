@@ -6,7 +6,7 @@
 
 ## 2. Python lock
 
-- [ ] 2.1 Refresh `uv.lock` with `uv lock --upgrade`; done when every `mise run check` command passes on the refreshed environment.
+- [x] 2.1 Refresh `uv.lock` with `uv lock --upgrade`; done when every `mise run check` command passes on the refreshed environment. All pass in the lane, including the 87 tests.
 
 ## Workflow follow-up
 
