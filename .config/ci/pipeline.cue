@@ -57,16 +57,16 @@ github: {
 			steps: [
 				{
 					name: "Check out repository"
-					uses: "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683" // v4.2.2
+					uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" // v7.0.1
 				},
 				{
 					name: "Set up Python"
-					uses: "actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065" // v5.6.0
+					uses: "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" // v7.0.0
 					with: "python-version": "${{ matrix.python-version }}"
 				},
 				{
 					name: "Set up uv"
-					uses: "astral-sh/setup-uv@22695119d769bdb6f7032ad67b9bca0ef8c4a174" // v5.4.0
+					uses: "astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884" // v10.3.0
 					with: "enable-cache": true
 				},
 				{
@@ -87,15 +87,15 @@ github: {
 			steps: [
 				{
 					name: "Check out repository"
-					uses: "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683" // v4.2.2
+					uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" // v7.0.1
 					with: "fetch-depth": 0
 				},
 				{
 					name: "Run the pinned Gitleaks action"
-					uses: "gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7" // v2.3.9
+					uses: "gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e" // v3.0.0
 					env: {
 						GITHUB_TOKEN:     "${{ secrets.GITHUB_TOKEN }}"
-						GITLEAKS_VERSION: "8.30.0"
+						GITLEAKS_VERSION: "8.30.1"
 					}
 				},
 				{name: "Report the Gitleaks version", run: "gitleaks version"},

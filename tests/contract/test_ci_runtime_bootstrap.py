@@ -4,6 +4,12 @@ import unittest
 from pathlib import Path
 
 
+def _locked_tools(root):
+    """Return the tool versions that mise, the toolchain owner, declares."""
+    config = (root / ".config" / "mise" / "config.toml").read_text(encoding="utf-8")
+    return tomllib.loads(config)["tools"]
+
+
 class CiRuntimeBootstrapTests(unittest.TestCase):
     def test_ci_runs_owner_commands_through_locked_uv(self):
         root = Path(__file__).resolve().parents[2]
@@ -35,6 +41,17 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         self.assertEqual(len(images), 4)
         pinned = re.compile(r"ghcr\.io/\S+@sha256:[0-9a-f]{64}")
         self.assertTrue(all(pinned.fullmatch(image) for image in images))
+        tools = _locked_tools(root)
+        uv_images = [image for image in images if image.startswith("ghcr.io/astral-sh/uv:")]
+        self.assertEqual(len(uv_images), 3)
+        self.assertTrue(
+            all(
+                image.startswith(f"ghcr.io/astral-sh/uv:{tools['uv']}-python3.")
+                for image in uv_images
+            )
+        )
+        gitleaks = tools["github:gitleaks/gitleaks"]
+        self.assertIn(f"ghcr.io/gitleaks/gitleaks:v{gitleaks}@sha256:", projection)
         self.assertIn('if: $CI_COMMIT_REF_PROTECTED == "true"', projection)
         self.assertIn("WIB_CI_RUNNER_TAG: ci-linux-arm64-container-protected", projection)
         self.assertIn("WIB_CI_RUNNER_TAG: ci-linux-arm64-container\n", projection)
@@ -52,13 +69,12 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         self.assertIn("workflow_dispatch:", projection)
         self.assertIn("permissions:", projection)
         self.assertIn("contents: read", projection)
-        self.assertIn("actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683", projection)
-        self.assertIn("actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065", projection)
-        self.assertIn("astral-sh/setup-uv@22695119d769bdb6f7032ad67b9bca0ef8c4a174", projection)
-        self.assertIn(
-            "gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7", projection
-        )
-        self.assertIn("GITLEAKS_VERSION: 8.30.0", projection)
+        actions = re.findall(r"(?m)^\s+uses: (\S+)$", projection)
+        self.assertEqual(len(actions), 5)
+        pinned = re.compile(r"[\w.-]+/[\w.-]+@[0-9a-f]{40}")
+        self.assertTrue(all(pinned.fullmatch(action) for action in actions))
+        gitleaks = _locked_tools(root)["github:gitleaks/gitleaks"]
+        self.assertIn(f"GITLEAKS_VERSION: {gitleaks}\n", projection)
         self.assertIn("gitleaks git --no-banner --redact=100 --exit-code 1 .", projection)
         self.assertNotIn("@v", projection)
         self.assertIn("tools/ci/run_tests.py", projection)
