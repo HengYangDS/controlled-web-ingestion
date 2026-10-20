@@ -11,7 +11,6 @@ relations:
 Always bind ETHOS to this repository explicitly:
 
 ```bash
-ethos orient --root <repository-root>
 ethos status --root <repository-root>
 ethos plan --root <repository-root>
 ethos prove --root <repository-root>

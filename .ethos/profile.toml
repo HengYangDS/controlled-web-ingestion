@@ -126,7 +126,7 @@ command = [
   "--ignore-path",
   ".config/checks/prettier/prettierignore",
   "--check",
-  "**/*.{md,yaml,yml}",
+  "**/*.{md,yaml,yml,json}",
 ]
 dimensions = ["format"]
 execution_mode = "subprocess"

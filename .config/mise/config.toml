@@ -23,7 +23,7 @@ run = [
   "uv run --locked python tools/ci/check_documentation.py",
   "uv run --locked python tools/ci/check_source_topology.py",
   "uv run --locked python tools/ci/project.py --check",
-  "prettier --config .config/checks/prettier/prettier.toml --ignore-path .gitignore --ignore-path .config/checks/prettier/prettierignore --check '**/*.{md,yaml,yml}'",
+  "prettier --config .config/checks/prettier/prettier.toml --ignore-path .gitignore --ignore-path .config/checks/prettier/prettierignore --check '**/*.{md,yaml,yml,json}'",
   "taplo fmt --config .config/checks/taplo/taplo.toml --check",
   "ruff format --config .config/checks/ruff/ruff.toml --no-cache --check .",
   "gitleaks git --no-banner --redact=100 --exit-code 1 .",
@@ -32,7 +32,7 @@ run = [
 description = "Regenerate both Forge pipelines and apply the repository formatters"
 run = [
   "uv run --locked python tools/ci/project.py --write",
-  "prettier --config .config/checks/prettier/prettier.toml --ignore-path .gitignore --ignore-path .config/checks/prettier/prettierignore --write '**/*.{md,yaml,yml}'",
+  "prettier --config .config/checks/prettier/prettier.toml --ignore-path .gitignore --ignore-path .config/checks/prettier/prettierignore --write '**/*.{md,yaml,yml,json}'",
   "taplo fmt --config .config/checks/taplo/taplo.toml",
   "ruff format --config .config/checks/ruff/ruff.toml --no-cache .",
 ]

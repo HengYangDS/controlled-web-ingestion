@@ -3,6 +3,16 @@
   "title": "Body-redacted evidence record",
   "type": "object",
   "required": ["schema"],
-  "properties": {"schema": {"type": "string", "pattern": ".+"}},
-  "x-forbidden-recursive-keys": ["body", "content", "html", "markdown", "raw_response", "credentials", "authorization", "cookie", "private_target"]
+  "properties": { "schema": { "type": "string", "pattern": ".+" } },
+  "x-forbidden-recursive-keys": [
+    "body",
+    "content",
+    "html",
+    "markdown",
+    "raw_response",
+    "credentials",
+    "authorization",
+    "cookie",
+    "private_target"
+  ]
 }

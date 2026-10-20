@@ -31,10 +31,7 @@
     },
     "route": {
       "type": "string",
-      "enum": [
-        "trafilatura",
-        "firecrawl"
-      ]
+      "enum": ["trafilatura", "firecrawl"]
     },
     "requested_url": {
       "type": "string"
@@ -75,10 +72,7 @@
     },
     "dedupe_decision": {
       "type": "string",
-      "enum": [
-        "unique",
-        "duplicate"
-      ]
+      "enum": ["unique", "duplicate"]
     },
     "budget": {
       "type": "object"

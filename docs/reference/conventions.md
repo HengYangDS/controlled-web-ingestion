@@ -62,8 +62,8 @@ space. The result must remain readable in raw text and stable under review.
 The ETHOS repository paradigm binds one formatter per text carrier class, each
 configured under `.config/checks/<tool>/` and run from the host installation:
 
-- Prettier formats Markdown and YAML at 100 columns with preserved prose
-  wrapping and leaves embedded code examples untouched.
+- Prettier formats Markdown, YAML and JSON at 100 columns with preserved
+  prose wrapping and leaves embedded code examples untouched.
 - taplo formats TOML at 100 columns.
 - Ruff formats Python at 100 columns for Python 3.12 and later.
 
@@ -72,13 +72,12 @@ archived OpenSpec Changes, `evidence/`, `docs/evidence/chronicle/`,
 `docs/history/` and `docs/plans/`. `.gitattributes` marks the same records,
 apart from the archived Changes that ETHOS already keeps, `linguist-vendored`,
 so the ETHOS paradigm treats them as received and leaves their layout and
-names as captured. The ETHOS skill projections under `.agents/`
-follow their packages. JSON is not formatted.
+names as captured.
 
 Each proof gate runs the check form from the repository root:
 
 ```bash
-prettier --config .config/checks/prettier/prettier.toml --ignore-path .gitignore --ignore-path .config/checks/prettier/prettierignore --check '**/*.{md,yaml,yml}'
+prettier --config .config/checks/prettier/prettier.toml --ignore-path .gitignore --ignore-path .config/checks/prettier/prettierignore --check '**/*.{md,yaml,yml,json}'
 taplo fmt --config .config/checks/taplo/taplo.toml --check
 ruff format --config .config/checks/ruff/ruff.toml --no-cache --check .
 ```

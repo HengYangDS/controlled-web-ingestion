@@ -3,6 +3,19 @@
   "title": "Route projection",
   "type": "object",
   "required": ["schema", "modes", "excluded"],
-  "properties": {"schema": {"type": "string", "const": "web-ingestion-routing-v1"}, "modes": {"type": "object"}, "excluded": {"type": "array", "items": {"type": "string"}}},
-  "x-forbidden-recursive-keys": ["body", "content", "html", "markdown", "raw_response", "credentials", "authorization", "cookie"]
+  "properties": {
+    "schema": { "type": "string", "const": "web-ingestion-routing-v1" },
+    "modes": { "type": "object" },
+    "excluded": { "type": "array", "items": { "type": "string" } }
+  },
+  "x-forbidden-recursive-keys": [
+    "body",
+    "content",
+    "html",
+    "markdown",
+    "raw_response",
+    "credentials",
+    "authorization",
+    "cookie"
+  ]
 }

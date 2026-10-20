@@ -3,6 +3,22 @@
   "title": "Controlled Web Ingestion policy declaration",
   "type": "object",
   "required": ["schema_version", "scope", "network", "robots", "content", "data_flow", "adapters"],
-  "properties": {"schema_version": {"type": "string", "const": "web-ingestion-policy-v1"}, "scope": {"type": "string"}, "network": {"type": "object"}, "robots": {"type": "object"}, "content": {"type": "object"}, "data_flow": {"type": "object"}, "adapters": {"type": "object"}},
-  "x-forbidden-recursive-keys": ["body", "html", "markdown", "raw_response", "credentials", "authorization", "cookie"]
+  "properties": {
+    "schema_version": { "type": "string", "const": "web-ingestion-policy-v1" },
+    "scope": { "type": "string" },
+    "network": { "type": "object" },
+    "robots": { "type": "object" },
+    "content": { "type": "object" },
+    "data_flow": { "type": "object" },
+    "adapters": { "type": "object" }
+  },
+  "x-forbidden-recursive-keys": [
+    "body",
+    "html",
+    "markdown",
+    "raw_response",
+    "credentials",
+    "authorization",
+    "cookie"
+  ]
 }

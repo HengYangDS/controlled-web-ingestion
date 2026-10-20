@@ -9,5 +9,5 @@ relations:
 # Decision-to-Code Links
 
 - Position: `src/web_ingestion/`, `system/`, `tools/benchmark/`.
-- ETHOS boundary: `.ethos/`, `.agents/skills/`, and the repository-native gates
-  in `.ethos/profile.toml`.
+- ETHOS boundary: `.ethos/` and the repository-native gates in
+  `.ethos/profile.toml`.
