@@ -8,9 +8,9 @@
 
 ## 2. Current ETHOS checks
 
-- [ ] 2.1 Retire the skill projections under `.agents/skills/` with their Prettier ignore and taplo exclusion entries and their place in `docs/decisions/decision-code-links.md`; done when no tracked file or live document names `.agents/` and the schema and configuration quality gates report no skill gap.
-- [ ] 2.2 Format the ten JSON files under `system/` with `ethos lane format --apply`, and state in the conventions that Prettier formats JSON outside the immutable records; done when the source format gate passes and each file parses to its former value.
-- [ ] 2.3 Remove `ethos orient` from `docs/start/adopter-governance.md`; done when the documentation registry gate reports no unknown command example.
+- [x] 2.1 Retire the skill projections under `.agents/skills/` with their Prettier ignore and taplo exclusion entries and their place in `docs/decisions/decision-code-links.md`; done when no tracked file or live document names `.agents/` and the schema and configuration quality gates report no skill gap. Both gates pass on the ETHOS runtime built from `b67d63cc3`.
+- [x] 2.2 Format the ten JSON files under `system/` with `ethos lane format --apply`, and state in the conventions that Prettier formats JSON outside the immutable records; done when the source format gate passes and each file parses to its former value. The gate passes on that runtime, and all ten files parse to their former values.
+- [x] 2.3 Remove `ethos orient` from `docs/start/adopter-governance.md`; done when the documentation registry gate reports no unknown command example. The gate passes on that runtime.
 
 ## Workflow follow-up
 
