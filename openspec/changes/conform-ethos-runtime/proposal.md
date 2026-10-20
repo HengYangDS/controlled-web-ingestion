@@ -19,6 +19,8 @@ tree fails:
   output, while `docs/reference/conventions.md` says that JSON is not formatted.
 - `docs/start/adopter-governance.md` still shows `ethos orient`, which the ETHOS command plane no
   longer has.
+- The prose gate now also runs the shared Vale policy, whose term rule reports the product name
+  Taplo written in lowercase in the conventions.
 
 ETHOS itself read only a root `.prettierignore`, so the records that
 `.config/checks/prettier/prettierignore` excludes reported format drift. That defect is fixed in
@@ -32,11 +34,12 @@ ETHOS, not here.
 - Add a contract test that requires every tracked record under the roots the Prettier ignore file
   excludes as immutable to be `linguist-vendored`, apart from archived OpenSpec Changes, which ETHOS
   already keeps.
-- Retire the skill projections under `.agents/skills/`, with their Prettier ignore and taplo
+- Retire the skill projections under `.agents/skills/`, with their Prettier ignore and Taplo
   exclusion entries and their place in the ETHOS boundary of `docs/decisions/decision-code-links.md`.
 - Format the ten JSON files with the ETHOS-native Prettier formatter, and state in the
   conventions that Prettier formats JSON outside the immutable records.
 - Remove `ethos orient` from the adopter guide.
+- Spell the product name Taplo as the shared Vale term rule requires.
 
 ## Capabilities
 

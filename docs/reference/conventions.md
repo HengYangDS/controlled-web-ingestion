@@ -64,7 +64,7 @@ configured under `.config/checks/<tool>/` and run from the host installation:
 
 - Prettier formats Markdown, YAML and JSON at 100 columns with preserved
   prose wrapping and leaves embedded code examples untouched.
-- taplo formats TOML at 100 columns.
+- Taplo formats TOML at 100 columns.
 - Ruff formats Python at 100 columns for Python 3.12 and later.
 
 Immutable records keep their captured bytes and are not formatter inputs:
@@ -83,4 +83,4 @@ ruff format --config .config/checks/ruff/ruff.toml --no-cache --check .
 ```
 
 To fix the same inputs, replace Prettier's `--check` with `--write` and drop
-`--check` from the taplo and Ruff commands.
+`--check` from the Taplo and Ruff commands.
