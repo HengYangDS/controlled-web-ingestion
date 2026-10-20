@@ -69,7 +69,10 @@ configured under `.config/checks/<tool>/` and run from the host installation:
 
 Immutable records keep their captured bytes and are not formatter inputs:
 archived OpenSpec Changes, `evidence/`, `docs/evidence/chronicle/`,
-`docs/history/` and `docs/plans/`. The ETHOS skill projections under `.agents/`
+`docs/history/` and `docs/plans/`. `.gitattributes` marks the same records,
+apart from the archived Changes that ETHOS already keeps, `linguist-vendored`,
+so the ETHOS paradigm treats them as received and leaves their layout and
+names as captured. The ETHOS skill projections under `.agents/`
 follow their packages. JSON is not formatted.
 
 Each proof gate runs the check form from the repository root:

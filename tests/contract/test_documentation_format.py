@@ -1,4 +1,5 @@
 import importlib.util
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -9,9 +10,50 @@ SPEC = importlib.util.spec_from_file_location(
 assert SPEC and SPEC.loader
 CHECK_DOCUMENTATION = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(CHECK_DOCUMENTATION)
+PRETTIER_IGNORE = ROOT / ".config" / "checks" / "prettier" / "prettierignore"
+# ETHOS itself keeps archived OpenSpec Changes immutable.
+ETHOS_IMMUTABLE_ROOTS = frozenset({"openspec/changes/archive/"})
+
+
+def immutable_record_roots():
+    """Return the roots the Prettier ignore file keeps at their captured bytes."""
+    roots, collecting = [], False
+    for line in PRETTIER_IGNORE.read_text(encoding="utf-8").splitlines():
+        if line.startswith("#"):
+            collecting = line.startswith("# Immutable records")
+        elif collecting and line:
+            root = (PRETTIER_IGNORE.parent / line).resolve().relative_to(ROOT)
+            roots.append(f"{root.as_posix()}/")
+    return roots
+
+
+def unvendored(paths):
+    """Return the paths whose Git attributes do not set linguist-vendored."""
+    fields = subprocess.run(
+        ["git", "check-attr", "-z", "--stdin", "linguist-vendored"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        input=b"".join(path.encode() + b"\0" for path in paths),
+    ).stdout.split(b"\0")
+    return [
+        fields[index].decode()
+        for index in range(0, len(fields) - 1, 3)
+        if fields[index + 2] != b"set"
+    ]
 
 
 class DocumentationFormatTests(unittest.TestCase):
+    def test_immutable_records_are_received_by_git_attributes(self):
+        roots = [root for root in immutable_record_roots() if root not in ETHOS_IMMUTABLE_ROOTS]
+        self.assertTrue(roots)
+        listed = subprocess.run(
+            ["git", "ls-files", "-z", "--", *roots], cwd=ROOT, check=True, capture_output=True
+        ).stdout.decode()
+        records = [path for path in listed.split("\0") if path]
+        self.assertTrue(records)
+        self.assertEqual(unvendored(records), [])
+
     def test_tracked_text_layout_passes_repository_policy(self):
         failures = [
             failure

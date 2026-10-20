@@ -1,12 +1,10 @@
 # Tasks
 
-## 1. Received record
+## 1. Immutable records
 
-- [x] 1.1 Mark `evidence/benchmarks/2026-07-14-*` `linguist-vendored` in `.gitattributes`; done when the repair preview no longer lists the publication record and every member still matches `evidence/benchmarks/2026-07-14-publication-manifest.json`. The preview lists only the plan, and the ten members kept under `evidence/benchmarks/` keep their manifest digests.
-
-## 2. Layout
-
-- [x] 2.1 Lay out `docs/plans/2026-07-14-controlled-web-ingestion-topology-implementation.md` with `ethos lane repair-paradigm --apply`; done when only its blank lines change, the paradigm reports conforming and `mise run check` passes. Its 210 non-blank lines are unchanged, the repair leaves no gap and `mise run check` passes.
+- [x] 1.1 Add a contract test that requires every tracked record under the Prettier ignore file's immutable roots, apart from archived OpenSpec Changes, to be `linguist-vendored`; done when it fails before the attribute rules exist. It failed on 21 unmarked records.
+- [x] 1.2 Mark `evidence/`, `docs/evidence/chronicle/`, `docs/history/` and `docs/plans/` `linguist-vendored` in `.gitattributes`; done when the test passes, the repair preview reports conforming and no record differs from its captured bytes. The test passes, the preview reports `conforming`, and no record differs from `6964775`.
+- [x] 1.3 State the binding in `docs/reference/conventions.md`; done when its formatter section names the attribute beside the Prettier exclusion and `mise run check` passes.
 
 ## Workflow follow-up
 

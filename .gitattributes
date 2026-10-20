@@ -1,5 +1,8 @@
 # Repository tooling: authored static analysis applies, product behavior evidence does not.
 tools/** ethos-role=tooling
-# The 2026-07-14 publication record is received evidence: its manifest binds each member's bytes.
-evidence/benchmarks/2026-07-14-* linguist-vendored
+# Immutable records keep their captured bytes and names; ETHOS reads linguist-vendored as received.
+evidence/** linguist-vendored
+docs/evidence/chronicle/** linguist-vendored
+docs/history/** linguist-vendored
+docs/plans/** linguist-vendored
 * text=auto eol=lf

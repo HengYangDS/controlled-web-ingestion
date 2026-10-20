@@ -45,9 +45,9 @@ relations:
 ### Task 1: Record the approved topology as active work
 
 **Files:**
-
 - Modify: `docs/architecture/controlled-web-ingestion-topology.md`
 - Create: `docs/plans/2026-07-14-controlled-web-ingestion-topology-implementation.md`
+
 - [x] Change design metadata from `proposed` to `active` and link this implementation plan.
 - [x] State acceptance mapping, exclusions, exact branch boundary, verifier classes and no-gate-weakening rule.
 - [x] Commit the document-only approval boundary before moving source files.
@@ -57,7 +57,6 @@ relations:
 ### Task 2: Create the installable runtime package without changing behavior
 
 **Files:**
-
 - Create: `src/web_ingestion/__init__.py`
 - Create: `src/web_ingestion/contracts.py`
 - Create: `src/web_ingestion/policy.py`
@@ -72,13 +71,13 @@ relations:
 - Modify: `pyproject.toml`
 
 **Interfaces:**
-
 - `web_ingestion.contracts` exports `IngestionError`, `IngestionRequest`, `RawHttpResponse`, `HttpFetch`, `IngestionOutcome`.
 - `web_ingestion.policy` exports `TargetPolicy`, `TargetDecision`, `RobotsDecision`, `PromotionError`, URL/robots/MIME policy functions.
 - `web_ingestion.transport.SafeHttpClient` has the existing bounded-fetch contract.
 - `web_ingestion.controller.IngestionController` consumes the contracts, policy, transport and adapters.
 - `web_ingestion.staging.StageStore` owns staging/promotion.
 - `web_ingestion.bridge.RagBridge` remains sinkless by default.
+
 - [ ] Write a failing import-boundary test that imports each public package unit and asserts no root implementation module exists.
 - [ ] Run that test and record its expected import failure before moving code.
 - [ ] Move code by responsibility, preserving public names and dependency direction; use package-relative imports only.
@@ -91,7 +90,6 @@ relations:
 ### Task 3: Migrate CLI, adapter and supply-chain ownership
 
 **Files:**
-
 - Create: `src/web_ingestion/cli.py`
 - Create: `src/web_ingestion/supply_chain/__init__.py`
 - Create: `src/web_ingestion/supply_chain/provenance.py`
@@ -103,6 +101,7 @@ relations:
 - Create: `tools/runtime/verify-firecrawl-provenance.py`
 - Create: `tools/supply-chain/import-pinned-firecrawl-images.py`
 - Test: `tests/contract/test_cli.py`, `tests/unit/test_firecrawl_client.py`, `tests/unit/test_supply_chain_*.py`
+
 - [ ] Write failing imports and executable-path tests for `web_ingestion.cli`, adapter modules and supply-chain modules.
 - [ ] Move Firecrawl client code to `adapters/firecrawl.py`, static extractor to `adapters/static.py`, and supply-chain utilities under `supply_chain/`.
 - [ ] Update all runtime/supply-chain scripts to import package modules through the locked environment; retain only fixed runner invocation, no generic shell execution.
@@ -114,12 +113,12 @@ relations:
 ### Task 4: Separate benchmark evidence from controlled runtime
 
 **Files:**
-
 - Create: `tools/benchmark/run_framework_comparison.py`
 - Create: `tests/integration/test_benchmark_lane.py`
 - Move: `benchmark.py` to `tools/benchmark/run_framework_comparison.py`
 - Move: `cases.json` to `system/projections/framework-comparison-cases.json`
 - Modify: README and benchmark documentation references
+
 - [ ] Write a failing integration test that imports the comparison runner from the tools lane and asserts it writes only a body-redacted record.
 - [ ] Move candidate-comparison logic and update imports to use package policy/adapters where applicable.
 - [ ] Ensure the runtime package does not import benchmark tooling.
@@ -130,7 +129,6 @@ relations:
 ### Task 5: Move reviewed repository truth under `system/`
 
 **Files:**
-
 - Move: `policy.json` to `system/policies/ingestion-policy.json`
 - Move: `ops/web-ingestion-authorized-workloads.json` to `system/policies/authorized-workloads.json`
 - Move: `ops/web-ingestion-routing.json` to `system/projections/routing.json`
@@ -138,6 +136,7 @@ relations:
 - Move: `ops/firecrawl-images.json` to `system/supply-chain/firecrawl-images.json`
 - Move: `ops/firecrawl-provenance.json` to `system/supply-chain/firecrawl-provenance.json`
 - Create: `tests/contract/test_system_declarations.py`
+
 - [ ] Write failing contract tests for every declared file and its required no-secret/no-body fields.
 - [ ] Move declarations unchanged except for the new canonical project/CLI identifiers.
 - [ ] Update package code, tools and docs to resolve system files from the repository root explicitly; no current-working-directory ambiguity.
@@ -148,7 +147,6 @@ relations:
 ### Task 6: Add schemas and fail closed on persisted artifacts
 
 **Files:**
-
 - Create: `system/schemas/ingestion-policy.schema.json`
 - Create: `system/schemas/authorized-workloads.schema.json`
 - Create: `system/schemas/routing.schema.json`
@@ -158,6 +156,7 @@ relations:
 - Create: `system/schemas/evidence.schema.json`
 - Create: `tools/ci/validate_schemas.py`
 - Create: `tests/contract/test_schema_contracts.py`
+
 - [ ] Write failing tests for a valid staged/promotion/bridge artifact and one recursive forbidden-field counterexample for each artifact type.
 - [ ] Implement a narrow local JSON-Schema validator for the used Draft 2020-12 subset: object, array, string, integer, number, boolean, required, properties, items, enum, const, pattern, minimum, maximum, additionalProperties and recursive `not`-forbidden keys.
 - [ ] Validate all system declarations and committed evidence with their tracked schema.
@@ -168,13 +167,13 @@ relations:
 ### Task 7: Establish owner CI commands and test topology
 
 **Files:**
-
 - Create: `tools/ci/run_tests.py`
 - Create: `tools/ci/check_documentation.py`
 - Create: `tools/ci/check_source_topology.py`
 - Create: `tools/ci/run_security_checks.sh`
 - Modify: `.gitlab-ci.yml`
 - Move tests into: `tests/unit/`, `tests/contract/`, `tests/integration/`
+
 - [ ] Write a failing source-topology test that rejects root implementation modules, `scripts/`, `ops/`, untracked schema roots, and package-to-tool imports.
 - [ ] Relocate tests by layer without reducing coverage; update discovery and module names.
 - [ ] Implement owner scripts that perform tests, shell syntax, schema, docs and security checks. `.gitlab-ci.yml` must only select Python versions and call these scripts.
@@ -185,10 +184,10 @@ relations:
 ### Task 8: Re-run explicit runtime proof
 
 **Files:**
-
 - Modify: `tools/runtime/validate-authorized-workloads.sh`
 - Modify: `docs/reference/runtime-validation.md`
 - Create: `evidence/verification/2026-07-14-controlled-web-ingestion-runtime-validation.json`
+
 - [ ] Update paths and the project/CLI identity, preserving exact authorized workloads and teardown assertions.
 - [ ] Run the explicit on-demand runtime validator only after provenance preflight succeeds.
 - [ ] Store only the redacted summary and resource cleanup outcome under `evidence/verification/`.
@@ -199,11 +198,11 @@ relations:
 ### Task 9: Adopt ETHOS as external governance, not runtime ownership
 
 **Files:**
-
 - Create only reviewed ETHOS-generated binding/governance/OpenSpec files under `.ethos/` and `openspec/`
 - Create: `docs/decisions/0001-ethos-adopter-boundary.md`
 - Create: `docs/start/adopter-governance.md`
 - Test: `tests/contract/test_ethos_boundary.py`
+
 - [ ] Write a failing boundary test stating that the package has no ETHOS runtime import and no copied ETHOS product package.
 - [ ] Create the decision record: ETHOS owns `orient -> status -> plan -> prove -> land -> publish`; Controlled Web Ingestion owns policy, adapter, schema, runtime and evidence truth.
 - [ ] Run `ethos adopt --dry-run --root <worktree>` for Python, save exact output, then run GitLab overlay dry-run.
@@ -215,7 +214,6 @@ relations:
 ### Task 10: Create the documentation and evidence kernel
 
 **Files:**
-
 - Create: `docs/start/README.md`
 - Create: `docs/decisions/0000-controlled-web-ingestion-position.md`
 - Create: `docs/evidence/README.md`
@@ -225,6 +223,7 @@ relations:
 - Create: `docs/history/README.md`
 - Move legacy benchmark narratives to `docs/history/` when superseded
 - Modify: `README.md`, `docs/research-contract.md`, `docs/PUBLICATION.md`
+
 - [ ] Write canonical front matter for all kernel documents (`subject`, `role`, `state`, `relations`).
 - [ ] State the controlled-acquisition identity in README; retain Research / Knowledge Systems contract without calling the repository a benchmark product.
 - [ ] Document CLI, schemas, evidence classes, adapter boundary, runtime gate and ETHOS adoption boundary.
@@ -235,9 +234,9 @@ relations:
 ### Task 11: Obtain complete local proof
 
 **Files:**
-
 - Create: `evidence/verification/2026-07-14-controlled-web-ingestion-local-proof.json`
 - Modify: `evidence/verification/README.md` if generated by Task 10
+
 - [ ] Execute the locked Python matrix with exact interpreters 3.12, 3.13, and 3.14 through the owner CI command.
 - [ ] Execute schema, source topology, documentation, shell syntax and Gitleaks owner commands.
 - [ ] Run `git diff --check`, inspect tracked evidence for forbidden persistence fields, and verify no dirty runtime output is staged.
@@ -248,8 +247,8 @@ relations:
 ### Task 12: Rename/publish GitLab project through protected delivery
 
 **Files:**
-
 - Modify only remote GitLab project metadata after local proof is green.
+
 - [ ] Use live GitLab API evidence to verify project ID, namespace, current protection and branch head.
 - [ ] Rename display name and canonical path to `controlled-web-ingestion` under the confirmed Research / Knowledge Systems namespace; do not move it to a historical/non-authoritative group.
 - [ ] Push the work branch, create or update an MR with the decision, local proof and hosted-CI distinction.
@@ -261,11 +260,11 @@ relations:
 ### Task 13: Evidence-led closeout and goal completion
 
 **Files:**
-
 - Create: `evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json`
 - Create: `docs/evidence/chronicle/2026-07-15/governance-closeout.md`
 - Create: `docs/history/2026-07-15-topology-migration.md`
 - Create: `docs/reference/admission.md`
+
 - [x] Reconcile each acceptance-map row against a command, API observation, or evidence path and label it `verified`, `historical`, `blocked`, or `not-run`.
 - [x] Separate local proof, runtime proof, ETHOS proof, hosted CI, protected-main publication, and current runner reachability into independent evidence classes.
 - [x] Record lessons: adapter products cannot own the capability identity; policy/schema/evidence boundary precedes runtime convenience; runner shortage cannot be solved by weakening gates.
