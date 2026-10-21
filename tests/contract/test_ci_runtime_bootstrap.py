@@ -73,7 +73,9 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         self.assertEqual(len(actions), 5)
         pinned = re.compile(r"[\w.-]+/[\w.-]+@[0-9a-f]{40}")
         self.assertTrue(all(pinned.fullmatch(action) for action in actions))
-        gitleaks = _locked_tools(root)["github:gitleaks/gitleaks"]
+        tools = _locked_tools(root)
+        self.assertIn(f"version: {tools['uv']}\n", projection)
+        gitleaks = tools["github:gitleaks/gitleaks"]
         self.assertIn(f"GITLEAKS_VERSION: {gitleaks}\n", projection)
         self.assertIn("gitleaks git --no-banner --redact=100 --exit-code 1 .", projection)
         self.assertNotIn("@v", projection)

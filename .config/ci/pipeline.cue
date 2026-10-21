@@ -13,11 +13,14 @@ _checks: [
 
 _pythonVersions: ["3.12", "3.13", "3.14"]
 
+// The uv release that mise declares; the contract tests hold both projections to it.
+_uv: "0.13.4"
+
 // Each GitLab job names one digest-pinned image; the runners allow only these images.
 _uvImages: {
-	"3.12": "ghcr.io/astral-sh/uv:0.13.1-python3.12-trixie@sha256:570b79f6364c2a640aaa73691c58e41939df3a064fb2504a5cd00c87d303f22a"
-	"3.13": "ghcr.io/astral-sh/uv:0.13.1-python3.13-trixie@sha256:31f6d7c420cb41aaead4ac763ea5bce62f9c940779f2af7b8f2fca140966aa3c"
-	"3.14": "ghcr.io/astral-sh/uv:0.13.1-python3.14-trixie@sha256:6863df3d2e87426f81a136ecb2ae6a7e567b2c413a6bf623af89d75a63a00405"
+	"3.12": "ghcr.io/astral-sh/uv:\(_uv)-python3.12-trixie@sha256:62b4b66ebb8e2b59f09307693a12732eb56eca8b13a951a2da536dfed9ac5c55"
+	"3.13": "ghcr.io/astral-sh/uv:\(_uv)-python3.13-trixie@sha256:d6b4d13b4d926ca0deb4f1bc454aaa7e3bbb02ce1929ec1bd2e94a18c47ad757"
+	"3.14": "ghcr.io/astral-sh/uv:\(_uv)-python3.14-trixie@sha256:81ff59d597a2483d6dfa5a65bf4e021f6e9df8aa68dd6fa3ab5052d2d76fc97b"
 }
 
 _gitleaks: {
@@ -67,7 +70,10 @@ github: {
 				{
 					name: "Set up uv"
 					uses: "astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884" // v10.3.0
-					with: "enable-cache": true
+					with: {
+						"enable-cache": true
+						version:        _uv
+					}
 				},
 				{
 					name: "Report the selected Python"

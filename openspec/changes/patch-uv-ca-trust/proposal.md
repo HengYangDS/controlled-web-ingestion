@@ -11,9 +11,10 @@ TLS connections. uv 0.13.4 removes the root.
 This repository declares uv 0.13.1 in `.config/mise/config.toml`, in its lock and in the three
 GitLab job images, so local runs and GitLab CI resolve and download packages through the affected
 trust store. The GitHub job requests no uv release: setup-uv finds none in `uv.toml` or
-`pyproject.toml` and installs the newest one, which was 0.13.3 in run 39403774544 on 20 October
-2026. Its uv therefore follows the release feed instead of the declared toolchain, although the
-design of `converge-stable-supply` intended both projections to follow the mise declaration.
+`pyproject.toml` and installs the newest one, which was 0.13.3 in run 39403774544 on
+20 October 2026. Its uv therefore follows the release feed instead of the declared toolchain,
+although the design of `converge-stable-supply` intended both projections to follow the mise
+declaration.
 
 ## What Changes
 

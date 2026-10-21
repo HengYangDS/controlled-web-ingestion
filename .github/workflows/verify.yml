@@ -35,6 +35,7 @@ jobs:
         uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           enable-cache: true
+          version: 0.13.4
       - name: Report the selected Python
         env:
           UV_NO_MANAGED_PYTHON: "1"
