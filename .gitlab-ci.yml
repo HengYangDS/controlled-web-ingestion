@@ -29,17 +29,17 @@ default:
     - uv run --locked --python "python${PYTHON_VERSION}" python tools/ci/check_source_topology.py
 python 3.12:
   extends: .python-contracts
-  image: ghcr.io/astral-sh/uv:0.13.4-python3.12-trixie@sha256:62b4b66ebb8e2b59f09307693a12732eb56eca8b13a951a2da536dfed9ac5c55
+  image: ghcr.io/astral-sh/uv:0.13.5-python3.12-trixie@sha256:28d8c73fcb8352d619ab3fa5d6b6ee040a3c03da47a77d688c33f2d1beb01396
   variables:
     PYTHON_VERSION: "3.12"
 python 3.13:
   extends: .python-contracts
-  image: ghcr.io/astral-sh/uv:0.13.4-python3.13-trixie@sha256:d6b4d13b4d926ca0deb4f1bc454aaa7e3bbb02ce1929ec1bd2e94a18c47ad757
+  image: ghcr.io/astral-sh/uv:0.13.5-python3.13-trixie@sha256:11f0329b64916f56cfdf532194564aa993b959568f8806fe55b76503ef3c2c54
   variables:
     PYTHON_VERSION: "3.13"
 python 3.14:
   extends: .python-contracts
-  image: ghcr.io/astral-sh/uv:0.13.4-python3.14-trixie@sha256:81ff59d597a2483d6dfa5a65bf4e021f6e9df8aa68dd6fa3ab5052d2d76fc97b
+  image: ghcr.io/astral-sh/uv:0.13.5-python3.14-trixie@sha256:00c6beb41f4ceb136a7e28a48f9d7ded75f85f4e99bce30a6c89dffbd5d10d7c
   variables:
     PYTHON_VERSION: "3.14"
 security:
