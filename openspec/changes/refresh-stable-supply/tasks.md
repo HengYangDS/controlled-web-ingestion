@@ -16,3 +16,4 @@
 
 - Resulting-HEAD proof under the rebound ETHOS runtime, integration, official archive and exact lane retirement are native ETHOS and OpenSpec records.
 - Publication and hosted acceptance follow separately; this pass stays local.
+- The isolated Firecrawl stack's images move only through their own Change, with a provenance review and the product's workload validation.

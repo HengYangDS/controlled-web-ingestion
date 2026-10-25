@@ -32,11 +32,15 @@ no CPython 3.15 wheel, so a 3.15 environment would build them from source. The m
 
 ### The Firecrawl images keep their reviewed digests
 
-`system/supply-chain/firecrawl-provenance.json` binds each Firecrawl image to a reviewed manifest
-digest, a local image identity and a verification method, and Compose runs only those objects.
-Source tag v2.11.0 is still the newest Firecrawl release. Moving an image needs a new provenance
-review with image acquisition and the product's workload validation, which is more than a lock
-refresh.
+`system/supply-chain/firecrawl-provenance.json` binds each of the five images in the isolated
+Firecrawl stack to a reviewed manifest digest, a local image identity and a verification method,
+and Compose runs only those objects. On 25 October 2026 two of them had newer tags: the
+`ghcr.io/firecrawl/firecrawl` API at 2.11.209 against the reviewed 2.10.19, and `rabbitmq` at
+4.4.0-alpine against 4.3.6-alpine. `redis` 8.10.2-alpine is current, and `playwright-service` and
+`nuq-postgres` publish only a moving `latest` tag. Moving an image needs a new provenance review
+with image acquisition and the product's workload validation, which runs the disposable stack
+against the reviewed public workloads. That is more than a lock refresh, so it returns as its own
+Change.
 
 ### Action inputs carry over unchanged
 
