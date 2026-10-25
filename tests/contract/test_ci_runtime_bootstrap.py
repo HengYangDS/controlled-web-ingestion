@@ -30,6 +30,7 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
             projection.count('uv run --locked --python "python${PYTHON_VERSION}" python'), 4
         )
         self.assertIn("UV_PYTHON_DOWNLOADS: never", projection)
+        self.assertNotIn("UV_PROJECT_ENVIRONMENT", projection)
         network = (
             'UV_HTTP_RETRIES: "10"',
             'UV_HTTP_TIMEOUT: "120"',
@@ -85,6 +86,7 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         self.assertIn("tools/ci/check_source_topology.py", projection)
         self.assertEqual(projection.count("uv run --locked --python python python"), 5)
         self.assertIn("build/runtime/tool-cache/uv", projection)
+        self.assertNotIn("UV_PROJECT_ENVIRONMENT", projection)
         self.assertNotIn("unittest discover", projection)
         self.assertNotIn("bash -n", projection)
 

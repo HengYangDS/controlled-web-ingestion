@@ -32,7 +32,6 @@ _gitleaks: {
 _githubUv: {
 	UV_NO_MANAGED_PYTHON:          "1"
 	UV_CACHE_DIR:                  "${{ github.workspace }}/build/runtime/tool-cache/uv"
-	UV_PROJECT_ENVIRONMENT:        "${{ github.workspace }}/build/runtime/venv/python-${{ matrix.python-version }}"
 	PIP_DISABLE_PIP_VERSION_CHECK: "1"
 }
 
@@ -132,7 +131,6 @@ gitlab: {
 			UV_HTTP_RETRIES:         "10"
 			UV_HTTP_TIMEOUT:         "120"
 			UV_CONCURRENT_DOWNLOADS: "8"
-			UV_PROJECT_ENVIRONMENT:  "$CI_PROJECT_DIR/build/runtime/venv/python-${PYTHON_VERSION}"
 		}
 		script: [for check in _checks {"uv run --locked --python \"python${PYTHON_VERSION}\" python \(check.script)"}]
 	}

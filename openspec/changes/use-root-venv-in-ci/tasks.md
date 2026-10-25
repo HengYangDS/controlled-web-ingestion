@@ -2,8 +2,8 @@
 
 ## 1. CI environment
 
-- [ ] 1.1 Require in the CI contract test that neither projection sets `UV_PROJECT_ENVIRONMENT`; done when the test fails on the current projections.
-- [ ] 1.2 Remove `UV_PROJECT_ENVIRONMENT` from `_githubUv` and `.python-contracts` in `.config/ci/pipeline.cue` and regenerate both projections; done when `tools/ci/project.py --check`, the contract tests and every `mise run check` command pass, and no CI or tool entrypoint names `build/runtime/venv`.
+- [x] 1.1 Require in the CI contract test that neither projection sets `UV_PROJECT_ENVIRONMENT`; done when the test fails on the current projections. Both contract tests failed on the variable.
+- [x] 1.2 Remove `UV_PROJECT_ENVIRONMENT` from `_githubUv` and `.python-contracts` in `.config/ci/pipeline.cue` and regenerate both projections; done when `tools/ci/project.py --check`, the contract tests and every `mise run check` command pass, and no CI or tool entrypoint names `build/runtime/venv`. All pass, and the ETHOS generated-artifact entrypoint audit reports no retired runtime home.
 
 ## Workflow follow-up
 

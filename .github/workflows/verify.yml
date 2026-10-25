@@ -40,35 +40,30 @@ jobs:
         env:
           UV_NO_MANAGED_PYTHON: "1"
           UV_CACHE_DIR: ${{ github.workspace }}/build/runtime/tool-cache/uv
-          UV_PROJECT_ENVIRONMENT: ${{ github.workspace }}/build/runtime/venv/python-${{ matrix.python-version }}
           PIP_DISABLE_PIP_VERSION_CHECK: "1"
         run: uv run --locked --python python python --version
       - name: Run the tests check
         env:
           UV_NO_MANAGED_PYTHON: "1"
           UV_CACHE_DIR: ${{ github.workspace }}/build/runtime/tool-cache/uv
-          UV_PROJECT_ENVIRONMENT: ${{ github.workspace }}/build/runtime/venv/python-${{ matrix.python-version }}
           PIP_DISABLE_PIP_VERSION_CHECK: "1"
         run: uv run --locked --python python python tools/ci/run_tests.py
       - name: Run the schemas check
         env:
           UV_NO_MANAGED_PYTHON: "1"
           UV_CACHE_DIR: ${{ github.workspace }}/build/runtime/tool-cache/uv
-          UV_PROJECT_ENVIRONMENT: ${{ github.workspace }}/build/runtime/venv/python-${{ matrix.python-version }}
           PIP_DISABLE_PIP_VERSION_CHECK: "1"
         run: uv run --locked --python python python tools/ci/validate_schemas.py
       - name: Run the documents check
         env:
           UV_NO_MANAGED_PYTHON: "1"
           UV_CACHE_DIR: ${{ github.workspace }}/build/runtime/tool-cache/uv
-          UV_PROJECT_ENVIRONMENT: ${{ github.workspace }}/build/runtime/venv/python-${{ matrix.python-version }}
           PIP_DISABLE_PIP_VERSION_CHECK: "1"
         run: uv run --locked --python python python tools/ci/check_documentation.py
       - name: Run the topology check
         env:
           UV_NO_MANAGED_PYTHON: "1"
           UV_CACHE_DIR: ${{ github.workspace }}/build/runtime/tool-cache/uv
-          UV_PROJECT_ENVIRONMENT: ${{ github.workspace }}/build/runtime/venv/python-${{ matrix.python-version }}
           PIP_DISABLE_PIP_VERSION_CHECK: "1"
         run: uv run --locked --python python python tools/ci/check_source_topology.py
   security:
