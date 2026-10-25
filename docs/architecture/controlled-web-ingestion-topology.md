@@ -145,8 +145,8 @@ Forge pipelines once, and `tools/ci/project.py` renders `.github/workflows/verif
 `.gitlab-ci.yml` from it; they stay independent thin projections over those scripts rather
 than copies of Python, shell, security, or documentation logic. `tools/benchmark/` owns the
 framework comparison lane. The Firecrawl runtime lifecycle and workload validation belong to the
-product (`web-ingest`), and image acquisition is the native `docker compose pull` of the reviewed
-digests.
+product (`web-ingest`), and image acquisition is the native `docker compose pull --policy always`
+of the reviewed digests.
 
 ## 5. Documentation and Evidence Kernel
 

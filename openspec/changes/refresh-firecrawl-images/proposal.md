@@ -20,6 +20,10 @@ user authorized it on 25 October 2026.
 - Record each moved image's digest, local image identity and verification in
   `system/supply-chain/firecrawl-provenance.json`, and pin the same digests in
   `system/projections/firecrawl-isolated-compose.yaml`.
+- Name the working acquisition command, `docker compose pull --policy always`, in
+  `docs/reference/runtime-validation.md`, `docs/architecture/controlled-web-ingestion-topology.md`,
+  the Compose comment and the provenance constraint. The documented `docker compose pull` skips
+  every service, because each one declares `pull_policy: never`.
 - Commit the body-redacted record of `web-ingest validate-workloads` under `evidence/verification/`.
 
 ## Capabilities
@@ -36,6 +40,7 @@ None. Ingestion behavior and its contracts are unchanged, so `.openspec.yaml` se
 ## Impact
 
 The topology keeps its services, limits, listeners, workload set and source release. Operators
-acquire the moved images once with `docker compose pull`, which fetches exactly the pinned objects.
+acquire the moved images once with `docker compose pull --policy always`, which fetches exactly the
+pinned objects; runs still never pull.
 The Playwright service and NuQ Postgres images stay as reviewed, and the design explains why.
 `tasks.md` is the sole progress ledger.

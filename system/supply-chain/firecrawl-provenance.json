@@ -3,15 +3,15 @@
   "source_repository": "https://github.com/firecrawl/firecrawl",
   "source_tag": "v2.11.0",
   "source_tarball_sha256": "2278c44de7a189390f039bac88377c64c087e4a4cc6555b581e1e19a2d15bcac",
-  "runtime_image_release": "2.10.19",
+  "runtime_image_release": "2.10.30",
   "platform": "linux/arm64",
   "images": {
     "api": {
-      "reference": "ghcr.io/firecrawl/firecrawl:2.10.19",
-      "manifest_digest": "sha256:e6860ab406e738b632cc41b02a54085575909a1da1fbe4b3577b8339257fee70",
-      "local_image_id": "sha256:1f5943fa898d85dc9e5c975a29630b1215b897ef6105e3defb9aa711fa9d4550",
-      "verified_at": "2026-07-13T15:15:00+08:00",
-      "verification": "official GHCR tag API and platform manifest"
+      "reference": "ghcr.io/firecrawl/firecrawl:2.10.30",
+      "manifest_digest": "sha256:66deea195d7d67cfdd1cdcb3dfdd7f330a68d3ef6f77d3e84490f5e5a89ffa94",
+      "local_image_id": "sha256:36c395fb2b6a6a6dfd54ffd0b8bf6174f7c154f364678c45b31939d28966dbe8",
+      "verified_at": "2026-10-25T21:43:00+08:00",
+      "verification": "official GHCR tag API and platform manifest; the v2.11.0 release commit build sha-ef12eb36b2f3-linux-arm64 carries the same manifest"
     },
     "playwright_service": {
       "reference": "ghcr.io/firecrawl/playwright-service:latest",
@@ -29,18 +29,18 @@
     },
     "redis": {
       "reference": "docker.io/library/redis:8.10.2-alpine",
-      "manifest_digest": "sha256:3811787313eba226a2ef38658c6ccb91cd5e110edc89c37767de373120a0e5a0",
-      "local_image_id": "sha256:675f7644831d85995868250485bf7a71970257f74da31c62969a868d3f3eff2e",
-      "verified_at": "2026-10-14T22:30:00+08:00",
+      "manifest_digest": "sha256:0bf6577d7774e592b29d093e3ac9390eb91e13d72c21e506afce736de5e0eeb0",
+      "local_image_id": "sha256:9eba214ac186cd19f8675fd248d92db3bfef0180773990b304b378cbe384c45f",
+      "verified_at": "2026-10-25T21:43:00+08:00",
       "verification": "Docker Official Image index digest; the engine resolved linux/arm64/v8"
     },
     "rabbitmq": {
-      "reference": "docker.io/library/rabbitmq:4.3.6-alpine",
-      "manifest_digest": "sha256:2cb43283d8bbd3caa6c0f0dc00e96c8de772df33df7fd8af6aee4d605aeb8ada",
-      "local_image_id": "sha256:01a36bbf3db9360285268c5ea0b87afc7af429f68beb98f30a4136c6c278ed35",
-      "verified_at": "2026-10-14T22:30:00+08:00",
+      "reference": "docker.io/library/rabbitmq:4.4.0-alpine",
+      "manifest_digest": "sha256:5b70d54d53d0ce9558b84ad93cb237d06fa2e8c57115fa0ff7223b9eaffa44ed",
+      "local_image_id": "sha256:cc9d78f17950b82272be0ea054b3479d5a27766bf2ee30922cb9865b967c9964",
+      "verified_at": "2026-10-25T21:43:00+08:00",
       "verification": "Docker Official Image index digest; the engine resolved linux/arm64/v8"
     }
   },
-  "constraint": "Compose references each image by this digest with pull_policy never. `docker compose pull` acquires exactly these objects, and every run first compares each local image ID and platform."
+  "constraint": "Compose references each image by this digest with pull_policy never. `docker compose pull --policy always` acquires exactly these objects, and every run first compares each local image ID and platform."
 }

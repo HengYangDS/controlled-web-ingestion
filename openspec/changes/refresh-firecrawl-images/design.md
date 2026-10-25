@@ -47,6 +47,13 @@ RabbitMQ 4.4.0 is the newest stable 4.x Alpine image. Redis 8.10.2 is still the 
 release, and its tag now resolves to a republished index. Both stay pinned by index digest, and the
 engine resolves linux/arm64/v8 as before.
 
+### Acquisition applies the always pull policy
+
+Every service declares `pull_policy: never`, so runs use only verified local objects. On
+25 October 2026 Docker Compose 5.6.1 skipped all five services on `docker compose pull`, so the
+documented acquisition fetched nothing. `--policy always` applies to that one pull and fetches
+exactly the pinned digests; runs keep `never`.
+
 ### The runtime acceptance proves the set works together
 
 Unit tests cannot show that the moved images work with the rest of the topology.
@@ -61,7 +68,13 @@ every check passes.
   keeps the reviewed set.
 - [A registry may stop serving a pinned digest] → GHCR serves all three reviewed Firecrawl digests
   today. A missing object blocks acquisition, never integrity, because every reference is a digest.
+- [The crawl can come back short of its page budget] → The first validation run stopped on a crawl
+  with fewer than ten pages. The runtime removes the topology on failure, so the crawl's error list
+  was not kept and the cause is unknown; a diagnostic crawl and the second run both returned ten
+  pages with no crawl error. A recurring shortfall blocks the evidence again rather than lowering
+  the budget.
 
 ## Rollback
 
-Revert this Change. The reviewed digests return, and `docker compose pull` acquires them again.
+Revert this Change. The reviewed digests return, and `docker compose pull --policy always` acquires
+them again.

@@ -12,10 +12,11 @@ Full Firecrawl proof is deliberately separate from generic CI. It requires the r
 images, a Docker engine, explicit runtime authorization and the fixed public workload declaration.
 
 Acquire the reviewed images once. Every image in the Compose projection is a digest reference, so
-the pull fetches exactly the reviewed objects:
+the pull fetches exactly the reviewed objects. Compose skips services whose `pull_policy` is
+`never`, so the pull applies the `always` policy:
 
 ```bash
-docker compose --file system/projections/firecrawl-isolated-compose.yaml pull
+docker compose --file system/projections/firecrawl-isolated-compose.yaml pull --policy always
 ```
 
 Then run the authorized workload set and name the evidence record:

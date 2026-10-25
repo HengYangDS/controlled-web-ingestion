@@ -1,10 +1,11 @@
 name: web-ingestion-firecrawl-bench
 
 # Every image is the reviewed object that system/supply-chain/firecrawl-provenance.json
-# names by digest. Runs never pull; `docker compose pull` acquires exactly these objects.
+# names by digest. Runs never pull; `docker compose pull --policy always` acquires exactly these
+# objects.
 services:
   redis:
-    image: docker.io/library/redis@sha256:3811787313eba226a2ef38658c6ccb91cd5e110edc89c37767de373120a0e5a0
+    image: docker.io/library/redis@sha256:0bf6577d7774e592b29d093e3ac9390eb91e13d72c21e506afce736de5e0eeb0
     pull_policy: never
     command: ["redis-server", "--save", "", "--appendonly", "no"]
     networks: [backend]
@@ -16,7 +17,7 @@ services:
     mem_limit: 512m
 
   rabbitmq:
-    image: docker.io/library/rabbitmq@sha256:2cb43283d8bbd3caa6c0f0dc00e96c8de772df33df7fd8af6aee4d605aeb8ada
+    image: docker.io/library/rabbitmq@sha256:5b70d54d53d0ce9558b84ad93cb237d06fa2e8c57115fa0ff7223b9eaffa44ed
     pull_policy: never
     networks: [backend]
     healthcheck:
@@ -60,7 +61,7 @@ services:
     mem_limit: 1g
 
   api:
-    image: ghcr.io/firecrawl/firecrawl@sha256:e6860ab406e738b632cc41b02a54085575909a1da1fbe4b3577b8339257fee70
+    image: ghcr.io/firecrawl/firecrawl@sha256:66deea195d7d67cfdd1cdcb3dfdd7f330a68d3ef6f77d3e84490f5e5a89ffa94
     pull_policy: never
     command: ["node", "dist/src/harness.js", "--start-docker"]
     environment:
@@ -80,7 +81,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: postgres
       BULL_AUTH_KEY: ${BULL_AUTH_KEY}
-      # Firecrawl 2.10.19's harness reads this documented runtime knob and
+      # Firecrawl 2.10.30's harness reads this documented runtime knob and
       # launches exactly one NuQ scrape worker. The request adapter also sets
       # maxConcurrency=1, so the service and request layers agree.
       NUQ_WORKER_COUNT: "1"
