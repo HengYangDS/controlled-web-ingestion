@@ -28,10 +28,10 @@
       "verification": "official GHCR platform manifest"
     },
     "redis": {
-      "reference": "docker.io/library/redis:8.10.2-alpine",
-      "manifest_digest": "sha256:0bf6577d7774e592b29d093e3ac9390eb91e13d72c21e506afce736de5e0eeb0",
-      "local_image_id": "sha256:9eba214ac186cd19f8675fd248d92db3bfef0180773990b304b378cbe384c45f",
-      "verified_at": "2026-10-25T21:43:00+08:00",
+      "reference": "docker.io/library/redis:8.10.3-alpine",
+      "manifest_digest": "sha256:21090af93f8324db2f0f0f4f38a7c60369d47d917e000c3423d89d2ae2883537",
+      "local_image_id": "sha256:3e56fb2dd578827a6a711af0459ce130c8d4ea9ab640f752ffa542ec57e8d89d",
+      "verified_at": "2026-10-31T16:14:22+08:00",
       "verification": "Docker Official Image index digest; the engine resolved linux/arm64/v8"
     },
     "rabbitmq": {

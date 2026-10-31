@@ -16,8 +16,8 @@ the newest releases were read from Mise, PyPI, the GitHub releases API, Docker H
 
 **Goals:**
 
-- Move the Mise tools and floor, the pinned action, the uv images, the Python lock and the Redis
-  image to their current stable releases, keeping the Python 3.12 support line.
+- Move the Mise tools, the pinned action, the uv images, the Python lock and the Redis image to
+  their current stable releases, keeping the Python 3.12 support line.
 
 **Non-Goals:**
 
@@ -34,6 +34,12 @@ newest releases, still publish no CPython 3.15 wheel, so a 3.15 environment woul
 source, `fastuuid` with a Rust toolchain. The Mise Python moves to 3.14.10, the newest 3.14 release,
 and the matrix stays 3.12 to 3.14.
 
+### The Mise floor stays 2026.10.10
+
+`min_version` names the oldest Mise that reads this configuration and its lock, not the Mise in
+use. Locking again with Mise 2026.10.24 changes only versions, URLs and checksums, not the shape of
+`mise.lock`, and no pipeline job runs Mise, so raising the floor would only refuse older readers.
+
 ### Action inputs carry over unchanged
 
 setup-uv v10.3.3 is a patch release of the pinned v10.3 line. The job keeps its `python-version`,
@@ -41,9 +47,11 @@ setup-uv v10.3.3 is a patch release of the pinned v10.3 line. The job keeps its 
 
 ### The lock takes the stable Twisted fix
 
-`uv lock --upgrade` moves Twisted to 26.10.0, the first stable release that fixes seven of the eight
-advisories; the eighth, GHSA-8pqf-f4m5-798g, and scrapy's PYSEC-2017-83 have no fixed release and
-remain until one exists. OSV reads the refreshed lock before anything is installed from it.
+`uv lock --upgrade` moves Twisted to 26.10.0, the first stable release after 26.10.0rc1, which
+seven of the eight advisories record as their fix. The eighth, GHSA-8pqf-f4m5-798g, records no fix
+but names 26.4.0 as its last affected release, so OSV reports none of them against the refreshed
+lock. Scrapy's PYSEC-2017-83 has no fixed release and remains until one exists. OSV reads the
+refreshed lock before anything is installed from it.
 
 ### Only Redis moves in the Firecrawl stack
 
