@@ -39,8 +39,8 @@ _githubUv: {
 github: {
 	name: "Verify"
 	on: {
-		push: branches: ["main", "candidate/**"]
-		pull_request: branches: ["main"]
+		push: branches: ["dev", "main", "proposal/**"]
+		pull_request: branches: ["dev", "main"]
 		workflow_dispatch: {}
 	}
 	permissions: contents: "read"

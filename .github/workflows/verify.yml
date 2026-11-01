@@ -2,10 +2,12 @@ name: Verify
 "on":
   push:
     branches:
+      - dev
       - main
-      - candidate/**
+      - proposal/**
   pull_request:
     branches:
+      - dev
       - main
   workflow_dispatch: {}
 permissions:

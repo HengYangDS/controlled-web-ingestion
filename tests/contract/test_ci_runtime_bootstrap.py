@@ -66,7 +66,14 @@ class CiRuntimeBootstrapTests(unittest.TestCase):
         workflow = root / ".github" / "workflows" / "verify.yml"
         self.assertTrue(workflow.is_file())
         projection = workflow.read_text(encoding="utf-8")
-        self.assertIn("pull_request:", projection)
+        # Every ref that ETHOS publishes starts a run: the accepted branch, the release branch and
+        # each proposal; the candidate role stays local.
+        self.assertIn(
+            '"on":\n  push:\n    branches:\n      - dev\n      - main\n      - proposal/**\n'
+            "  pull_request:\n    branches:\n      - dev\n      - main\n",
+            projection,
+        )
+        self.assertNotIn("candidate/", projection)
         self.assertIn("workflow_dispatch:", projection)
         self.assertIn("permissions:", projection)
         self.assertIn("contents: read", projection)
