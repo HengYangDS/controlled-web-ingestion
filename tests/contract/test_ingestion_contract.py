@@ -1,7 +1,16 @@
+import http.server
+import ipaddress
 import json
+import os
+import ssl
 import tempfile
+import threading
 import unittest
+import urllib.error
+import urllib.request
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from unittest import mock
 
 
 class RequestContractTests(unittest.TestCase):
@@ -72,6 +81,91 @@ class SafeTransportTests(unittest.TestCase):
         with self.assertRaisesRegex(IngestionError, "blocked_ip:127.0.0.1"):
             client.fetch("https://example.com/start", timeout_seconds=5, max_bytes=1024)
         self.assertEqual(calls, ["https://example.com/start"])
+
+    def test_refuses_a_certificate_the_host_trusts_outside_the_locked_roots(self):
+        from web_ingestion.transport import default_transport
+
+        with tempfile.TemporaryDirectory() as work:
+            certificate, key = _self_signed_loopback_certificate(Path(work))
+            tls = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            tls.load_cert_chain(certificate, key)
+            server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), _EmptyPageHandler)
+            self.addCleanup(server.server_close)
+            server.socket = tls.wrap_socket(server.socket, server_side=True)
+            threading.Thread(target=server.serve_forever, daemon=True).start()
+            self.addCleanup(server.shutdown)
+            url = f"https://127.0.0.1:{server.server_address[1]}/"
+            host_trust = {"SSL_CERT_FILE": str(certificate), "no_proxy": "*"}
+            with mock.patch.dict(os.environ, host_trust):
+                # The host's own trust accepts this server, so only the transport's roots refuse it.
+                with urllib.request.urlopen(
+                    url, context=ssl.create_default_context(), timeout=5
+                ) as response:
+                    self.assertEqual(response.status, 200)
+                with self.assertRaisesRegex(urllib.error.URLError, "CERTIFICATE_VERIFY_FAILED"):
+                    default_transport(url, timeout_seconds=5, max_bytes=1024)
+
+
+class _EmptyPageHandler(http.server.BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
+    def log_message(self, format, *args):
+        pass
+
+
+def _self_signed_loopback_certificate(directory: Path) -> tuple[Path, Path]:
+    from cryptography import x509
+    from cryptography.hazmat.primitives import hashes, serialization
+    from cryptography.hazmat.primitives.asymmetric import ec
+    from cryptography.x509.oid import NameOID
+
+    key = ec.generate_private_key(ec.SECP256R1())
+    public_key = key.public_key()
+    name = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, "loopback test root")])
+    now = datetime.now(UTC)
+    usage = x509.KeyUsage(
+        digital_signature=True,
+        content_commitment=False,
+        key_encipherment=False,
+        data_encipherment=False,
+        key_agreement=False,
+        key_cert_sign=True,
+        crl_sign=True,
+        encipher_only=False,
+        decipher_only=False,
+    )
+    loopback = x509.SubjectAlternativeName([x509.IPAddress(ipaddress.ip_address("127.0.0.1"))])
+    signed = (
+        x509.CertificateBuilder()
+        .subject_name(name)
+        .issuer_name(name)
+        .public_key(public_key)
+        .serial_number(x509.random_serial_number())
+        .not_valid_before(now - timedelta(minutes=5))
+        .not_valid_after(now + timedelta(minutes=30))
+        .add_extension(x509.BasicConstraints(ca=True, path_length=None), critical=True)
+        .add_extension(usage, critical=True)
+        .add_extension(x509.SubjectKeyIdentifier.from_public_key(public_key), critical=False)
+        .add_extension(
+            x509.AuthorityKeyIdentifier.from_issuer_public_key(public_key), critical=False
+        )
+        .add_extension(loopback, critical=False)
+        .sign(key, hashes.SHA256())
+    )
+    certificate_path = directory / "certificate.pem"
+    certificate_path.write_bytes(signed.public_bytes(serialization.Encoding.PEM))
+    key_path = directory / "key.pem"
+    key_path.write_bytes(
+        key.private_bytes(
+            serialization.Encoding.PEM,
+            serialization.PrivateFormat.PKCS8,
+            serialization.NoEncryption(),
+        )
+    )
+    return certificate_path, key_path
 
 
 class _FakeHttpClient:

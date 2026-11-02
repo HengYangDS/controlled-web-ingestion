@@ -4,6 +4,7 @@ version = "0.0.0"
 description = "Policy-bound, evidence-driven controlled web ingestion"
 requires-python = ">=3.12"
 dependencies = [
+  "certifi>=2026.10.23",
   "crawl4ai>=0.9.1",
   "crawlee[playwright]>=1.8.1",
   "scrapy>=2.17.0",
@@ -24,4 +25,4 @@ packages = ["src/web_ingestion"]
 package = true
 
 [dependency-groups]
-dev = ["pytest>=9.1.1", "pytest-cov>=7.1.0", "pytest-reportlog>=1.0.0"]
+dev = ["cryptography>=50.0.2", "pytest>=9.1.1", "pytest-cov>=7.1.0", "pytest-reportlog>=1.0.0"]

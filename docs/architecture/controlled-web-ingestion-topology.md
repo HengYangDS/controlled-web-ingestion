@@ -111,7 +111,7 @@ internals.
 | ---------------------------- | ------------------------------------------------------------- | ----------------------------------------- |
 | `contracts.py`               | request, receipt, outcome, error types                        | transport, policy side effects            |
 | `policy.py`                  | target, redirect, robots, MIME and budget decisions           | HTTP connection or persistence            |
-| `transport.py`               | bounded public HTTP fetches                                   | extraction, promotion or routing          |
+| `transport.py`               | bounded public HTTP fetches and their TLS trust               | extraction, promotion or routing          |
 | `controller.py`              | request lifecycle and route selection                         | adapter-specific protocol details         |
 | `staging.py`                 | receipt validation, digest dedupe, explicit promotion         | content extraction                        |
 | `bridge.py`                  | promoted-receipt validation and sinkless manifest             | default delivery sink                     |

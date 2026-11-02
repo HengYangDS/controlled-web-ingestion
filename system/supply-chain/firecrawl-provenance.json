@@ -36,9 +36,9 @@
     },
     "rabbitmq": {
       "reference": "docker.io/library/rabbitmq:4.4.0-alpine",
-      "manifest_digest": "sha256:5b70d54d53d0ce9558b84ad93cb237d06fa2e8c57115fa0ff7223b9eaffa44ed",
+      "manifest_digest": "sha256:21577d148f4f7563a87d761862fa353f59348a094833ca8b1b1a46a8102dffce",
       "local_image_id": "sha256:cc9d78f17950b82272be0ea054b3479d5a27766bf2ee30922cb9865b967c9964",
-      "verified_at": "2026-10-25T21:43:00+08:00",
+      "verified_at": "2026-11-02T23:09:02+08:00",
       "verification": "Docker Official Image index digest; the engine resolved linux/arm64/v8"
     }
   },

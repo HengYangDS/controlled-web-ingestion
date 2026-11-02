@@ -17,7 +17,7 @@ services:
     mem_limit: 512m
 
   rabbitmq:
-    image: docker.io/library/rabbitmq@sha256:5b70d54d53d0ce9558b84ad93cb237d06fa2e8c57115fa0ff7223b9eaffa44ed
+    image: docker.io/library/rabbitmq@sha256:21577d148f4f7563a87d761862fa353f59348a094833ca8b1b1a46a8102dffce
     pull_policy: never
     networks: [backend]
     healthcheck:

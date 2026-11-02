@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import ssl
 import time
 import urllib.error
 import urllib.request
 from collections.abc import Callable, Iterable
 from urllib.parse import urljoin, urlsplit
+
+import certifi
 
 from .contracts import HttpFetch, IngestionError, RawHttpResponse
 from .policy import INGESTION_AGENT, TargetPolicy, evaluate_robots, validate_target
@@ -18,7 +21,11 @@ def default_transport(url: str, *, timeout_seconds: float, max_bytes: int) -> Ra
             return None
 
     request = urllib.request.Request(url, headers={"User-Agent": INGESTION_AGENT})
-    opener = urllib.request.build_opener(NoRedirect)
+    # The locked roots decide TLS trust, so a host's own bundle neither admits nor refuses a target.
+    locked_roots = ssl.create_default_context(cafile=certifi.where())
+    opener = urllib.request.build_opener(
+        NoRedirect, urllib.request.HTTPSHandler(context=locked_roots)
+    )
     try:
         response = opener.open(request, timeout=timeout_seconds)  # noqa: S310 - admission validates target first
     except urllib.error.HTTPError as exc:
