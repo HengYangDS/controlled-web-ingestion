@@ -44,6 +44,13 @@ privilege either hosted forge. Before an implementation release, the candidate
 head must be identical on both remotes; each platform's protected `main` must
 advance only through its own reviewed change path and current hosted evidence.
 
+Since `main` mirrors `dev` (DR-0002), that path is a pull request on GitHub and a
+merge request on GitLab, each from `dev` to `main`. When one platform's request
+has passed its hosted checks on the exact head, that platform's `main` is
+published as a fast-forward to the identical signed commit, and the forge
+records the request as merged. Neither platform's result publishes the other's
+`main`.
+
 ## Alternatives Rejected
 
 - **GitHub as snapshot/mirror:** rejected because it hides CI/CD and protection

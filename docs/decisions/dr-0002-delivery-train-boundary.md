@@ -33,6 +33,15 @@ owned, proven Work Lane. On publication, the same reviewed candidate head is
 presented through both independent forges; each platform's `main` advances only
 through its own protected review and hosted CI path.
 
+Since 4 November 2026 `main` also mirrors `dev`: `.ethos/release.toml` declares
+the release mirror `accepted_ff`, so accepted closeout advances both refs to the
+same proven head (Change `mirror-main-to-dev`). The roles stay distinct: `dev` is
+the accepted branch and `main` the release branch, and only their heads coincide
+after each publication. Each platform's `main` still advances only through its
+own review: a pull request on GitHub and a merge request on GitLab, each from
+`dev` to `main`, whose hosted checks pass on the exact head before that
+platform's fast-forward is published.
+
 ## Alternatives Rejected
 
 - **Mapping the release and accepted roles to `main`:** rejected because the
@@ -60,4 +69,5 @@ runtime environment or a standing service.
 
 Revisit only if either forge's protected-branch model or ETHOS lane semantics
 change. A desire for a shorter branch graph is not sufficient reason to merge
-release and accepted roles again.
+release and accepted roles again. ETHOS's release mirror is the lane-semantics
+change behind the 4 November 2026 revision; it keeps the two roles separate.

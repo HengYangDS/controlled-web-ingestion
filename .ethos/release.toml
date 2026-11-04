@@ -1,6 +1,7 @@
 [release]
 version_source = "pyproject.toml"
 tag_pattern = "v{version}"
+mirror = "accepted_ff"
 
 [publication]
 local_verification_command = "uv run --locked python tools/ci/run_tests.py"
