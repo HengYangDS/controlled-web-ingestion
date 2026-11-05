@@ -1,0 +1,10 @@
+# Tasks
+
+## 1. Python lock
+
+- [x] 1.1 Refresh `uv.lock` to the newest releases at least 24 hours old with `uv lock --upgrade --exclude-newer` and a plain `uv lock`; done when OSV reports no advisory in the refreshed lock that a stable release fixes and every `mise run check` command passes. `uv lock --upgrade --exclude-newer=2026-11-04T07:47:35Z` and a plain `uv lock` moved only filelock 4.2.7 to 4.2.8 and platformdirs 4.14.3 to 4.14.4, persisted no option, and `uv lock --check` passes. OSV reports only scrapy's PYSEC-2017-83, which no release fixes. All nine `mise run check` commands pass, including 89 tests.
+
+## Workflow follow-up
+
+- Resulting-HEAD proof, integration, official archive and exact lane retirement are native ETHOS and OpenSpec records.
+- Hosted acceptance follows publication: the published `dev` push starts the GitHub workflow by itself, and it and the GitLab pipeline pass. `main` follows in one review batch with the earlier day-old moves.
