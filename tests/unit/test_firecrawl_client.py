@@ -1,12 +1,15 @@
 import json
+import sys
 import threading
 import unittest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from typing import cast
 
 
 class _FirecrawlHandler(BaseHTTPRequestHandler):
-    requests: list[tuple[str, dict]] = []
-    crawl_status: str = "completed"
+    @property
+    def fixture(self) -> "_FirecrawlServer":
+        return cast("_FirecrawlServer", self.server)
 
     def log_message(self, format, *args):  # noqa: A003 - suppress test-server logs
         return
@@ -22,7 +25,7 @@ class _FirecrawlHandler(BaseHTTPRequestHandler):
     def do_POST(self):  # noqa: N802 - stdlib handler contract
         length = int(self.headers.get("Content-Length", "0"))
         body = json.loads(self.rfile.read(length) or b"{}")
-        self.requests.append((self.path, body))
+        self.fixture.requests.append((self.path, body))
         if self.path == "/v1/scrape":
             self._json(
                 200,
@@ -41,10 +44,10 @@ class _FirecrawlHandler(BaseHTTPRequestHandler):
         self._json(404, {"success": False})
 
     def do_GET(self):  # noqa: N802 - stdlib handler contract
-        self.requests.append((self.path, {}))
+        self.fixture.requests.append((self.path, {}))
         if self.path == "/v1/crawl/crawl-1":
-            if self.crawl_status != "completed":
-                self._json(200, {"success": True, "status": self.crawl_status})
+            if self.fixture.crawl_status != "completed":
+                self._json(200, {"success": True, "status": self.fixture.crawl_status})
                 return
             self._json(
                 200,
@@ -67,27 +70,44 @@ class _FirecrawlHandler(BaseHTTPRequestHandler):
         self._json(404, {"success": False})
 
     def do_DELETE(self):  # noqa: N802 - stdlib handler contract
-        self.requests.append((self.path, {}))
+        self.fixture.requests.append((self.path, {}))
         self._json(200, {"success": True})
 
 
+class _FirecrawlServer(ThreadingHTTPServer):
+    """One test's fixture server: its own request log, and a close that waits for its handlers."""
+
+    # server_close() joins only handler threads that are not daemons, so no request of one test can
+    # still be recording when the next test starts.
+    daemon_threads = False
+
+    def __init__(self) -> None:
+        super().__init__(("127.0.0.1", 0), _FirecrawlHandler)
+        self.requests: list[tuple[str, dict]] = []
+        self.crawl_status = "completed"
+
+    def handle_error(self, request, client_address):
+        # A client that gives up on purpose, as the crawl-timeout test does, has closed its socket.
+        if isinstance(sys.exception(), (BrokenPipeError, ConnectionResetError)):
+            return
+        super().handle_error(request, client_address)
+
+
 class FirecrawlClientTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.server = ThreadingHTTPServer(("127.0.0.1", 0), _FirecrawlHandler)
-        cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
-        cls.thread.start()
-        cls.endpoint = f"http://127.0.0.1:{cls.server.server_port}"
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.server.shutdown()
-        cls.thread.join(timeout=5)
-        cls.server.server_close()
-
     def setUp(self):
-        _FirecrawlHandler.requests.clear()
-        _FirecrawlHandler.crawl_status = "completed"
+        self.server = _FirecrawlServer()
+        thread = threading.Thread(
+            target=self.server.serve_forever, kwargs={"poll_interval": 0.01}, daemon=True
+        )
+        thread.start()
+        self.addCleanup(thread.join, 5)
+        self.addCleanup(self._close_server)
+        self.endpoint = f"http://127.0.0.1:{self.server.server_port}"
+
+    def _close_server(self):
+        """Stop serving and wait for every handler thread, so that the request log is final."""
+        self.server.shutdown()
+        self.server.server_close()
 
     def test_scrape_uses_loopback_api_and_returns_only_needed_result_fields(self):
         from web_ingestion.adapters.firecrawl import FirecrawlClient
@@ -97,7 +117,7 @@ class FirecrawlClientTests(unittest.TestCase):
         self.assertEqual(result.title, "Fixture")
         self.assertEqual(result.final_url, "https://example.com/")
         self.assertEqual(result.content, "# Fixture")
-        self.assertEqual(_FirecrawlHandler.requests[0][0], "/v1/scrape")
+        self.assertEqual(self.server.requests[0][0], "/v1/scrape")
 
     def test_crawl_polls_to_completion_and_applies_page_limit_client_side(self):
         from web_ingestion.adapters.firecrawl import FirecrawlClient
@@ -106,27 +126,29 @@ class FirecrawlClientTests(unittest.TestCase):
 
         self.assertEqual(result.discovered_count, 1)
         self.assertEqual(result.content, "# One")
-        self.assertEqual(_FirecrawlHandler.requests[0][1]["limit"], 1)
-        self.assertEqual(_FirecrawlHandler.requests[0][1]["maxConcurrency"], 1)
-        self.assertEqual(_FirecrawlHandler.requests[0][1]["maxDiscoveryDepth"], 1)
-        self.assertFalse(_FirecrawlHandler.requests[0][1]["allowBackwardLinks"])
-        self.assertTrue(_FirecrawlHandler.requests[0][1]["ignoreSitemap"])
-        self.assertEqual(_FirecrawlHandler.requests[0][1]["scrapeOptions"]["timeout"], 10_000)
+        self.assertEqual(self.server.requests[0][1]["limit"], 1)
+        self.assertEqual(self.server.requests[0][1]["maxConcurrency"], 1)
+        self.assertEqual(self.server.requests[0][1]["maxDiscoveryDepth"], 1)
+        self.assertFalse(self.server.requests[0][1]["allowBackwardLinks"])
+        self.assertTrue(self.server.requests[0][1]["ignoreSitemap"])
+        self.assertEqual(self.server.requests[0][1]["scrapeOptions"]["timeout"], 10_000)
         self.assertEqual(
-            [path for path, _ in _FirecrawlHandler.requests], ["/v1/crawl", "/v1/crawl/crawl-1"]
+            [path for path, _ in self.server.requests], ["/v1/crawl", "/v1/crawl/crawl-1"]
         )
 
     def test_crawl_timeout_cancels_the_remote_job(self):
         from web_ingestion.adapters.firecrawl import FirecrawlClient
 
-        _FirecrawlHandler.crawl_status = "scraping"
+        self.server.crawl_status = "scraping"
         with self.assertRaisesRegex(TimeoutError, "crawl-1"):
-            FirecrawlClient(self.endpoint, timeout_seconds=0.01).crawl(
-                "https://example.com/", max_pages=1, poll_interval_seconds=0.001
+            FirecrawlClient(self.endpoint, timeout_seconds=0.2).crawl(
+                "https://example.com/", max_pages=1, poll_interval_seconds=0.02
             )
+        # The client gave up without waiting for its last requests; let them finish first.
+        self._close_server()
 
         self.assertEqual(
-            [path for path, _ in _FirecrawlHandler.requests][-1],
+            [path for path, _ in self.server.requests][-1],
             "/v1/crawl/crawl-1",
         )
 
@@ -135,8 +157,4 @@ class FirecrawlClientTests(unittest.TestCase):
 
         FirecrawlClient(self.endpoint).cancel("crawl-1")
 
-        self.assertEqual(_FirecrawlHandler.requests, [("/v1/crawl/crawl-1", {})])
-
-
-if __name__ == "__main__":
-    unittest.main()
+        self.assertEqual(self.server.requests, [("/v1/crawl/crawl-1", {})])
