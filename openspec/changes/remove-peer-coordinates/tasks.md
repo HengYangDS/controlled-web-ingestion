@@ -2,8 +2,8 @@
 
 ## 1. Peer-free shared content
 
-- [ ] 1.1 Remove both `forge_repository` lines from `.ethos/release.toml`; done when `ethos status` is ready and the publication topology loads both peers without a gap.
-- [ ] 1.2 Build the target-policy tests' private-space example at run time; done when the tests pass and no tracked file outside `evidence/` names a private-space literal.
+- [x] 1.1 Remove both `forge_repository` lines from `.ethos/release.toml`; done when `ethos status` is ready and the publication topology loads both peers without a gap. Under 0.2.0-beta.5 `ethos status` is ready, and the publication probes for `gitlab` and `github` report a ready topology with both peers and are ready to publish.
+- [x] 1.2 Build the target-policy tests' private-space example at run time; done when the tests pass and no tracked file outside `evidence/` names a private-space literal. The 8 tests in `tests/unit/test_policy_and_staging.py` pass, and the paradigm's private-address pattern matches no tracked file outside `evidence/`.
 
 ## Workflow follow-up
 
