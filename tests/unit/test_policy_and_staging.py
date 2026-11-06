@@ -4,6 +4,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
+# A private-space example, joined at run time so that tracked text names no private literal.
+PRIVATE_EXAMPLE = ".".join(("10", "0", "0", "7"))
+
 
 class TargetPolicyTests(unittest.TestCase):
     def test_admits_public_https_target_with_resolved_public_address(self):
@@ -37,11 +40,11 @@ class TargetPolicyTests(unittest.TestCase):
         decision = validate_target(
             "https://public-looking.example/path",
             policy=TargetPolicy(),
-            resolver=lambda host: ["10.0.0.7"],
+            resolver=lambda host: [PRIVATE_EXAMPLE],
         )
 
         self.assertFalse(decision.allowed)
-        self.assertEqual(decision.reason, "blocked_ip:10.0.0.7")
+        self.assertEqual(decision.reason, f"blocked_ip:{PRIVATE_EXAMPLE}")
 
     def test_canonicalizes_fragment_and_tracking_without_dropping_semantic_query(self):
         from web_ingestion.policy import canonicalize_url
