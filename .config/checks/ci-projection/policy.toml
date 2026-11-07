@@ -1,0 +1,16 @@
+schema = "ethos-ci-template-consistency-v1"
+
+[compiler]
+source = ".config/ci/pipeline.cue"
+inputs = {}
+supply = { config = ".config/mise/config.toml", lock = ".config/mise/mise.lock" }
+
+[[projection]]
+provider = "github"
+kind = "cue"
+projection = ".github/workflows/verify.yml"
+
+[[projection]]
+provider = "gitlab"
+kind = "cue"
+projection = ".gitlab-ci.yml"

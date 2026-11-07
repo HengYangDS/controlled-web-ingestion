@@ -163,3 +163,8 @@ gitlab: {
 		]
 	}
 }
+
+// The provider map that ETHOS projection compilation reads.
+let _githubProjection = github
+let _gitlabProjection = gitlab
+compiled: providers: {github: _githubProjection, gitlab: _gitlabProjection}
