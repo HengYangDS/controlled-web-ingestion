@@ -3,10 +3,6 @@ version_source = "pyproject.toml"
 tag_pattern = "v{version}"
 mirror = "accepted_ff"
 
-[publication]
-local_verification_command = "uv run --locked python tools/ci/run_tests.py"
-local_installation_command = "uv run --locked web-ingest --help"
-
 [[publication.peers]]
 id = "gitlab"
 provider = "gitlab"
