@@ -1,6 +1,6 @@
 [project]
 name = "controlled-web-ingestion"
-version = "0.0.0"
+dynamic = ["version"]
 description = "Policy-bound, evidence-driven controlled web ingestion"
 requires-python = ">=3.12"
 dependencies = [
@@ -17,6 +17,10 @@ build-backend = "hatchling.build"
 
 [project.scripts]
 web-ingest = "web_ingestion.cli:main"
+
+[tool.hatch.version]
+path = "VERSION"
+pattern = "^(?P<version>\\S+)$"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/web_ingestion"]

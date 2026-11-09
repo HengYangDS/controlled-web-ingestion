@@ -1,7 +1,8 @@
 [release]
-version_source = "pyproject.toml"
-tag_pattern = "v{version}"
 mirror = "accepted_ff"
+
+[protected_refs]
+tags = ["v*"]
 
 [[publication.peers]]
 id = "gitlab"
