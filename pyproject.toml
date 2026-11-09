@@ -2,6 +2,8 @@
 name = "controlled-web-ingestion"
 dynamic = ["version"]
 description = "Policy-bound, evidence-driven controlled web ingestion"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
   "certifi>=2026.10.23",

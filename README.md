@@ -35,3 +35,7 @@ Read [the start guide](docs/start/README.md), then the
 [contracts](docs/reference/contracts.md),
 [Research contract](docs/reference/research-contract.md), and
 [evidence index](docs/evidence/README.md).
+
+## License
+
+The code is licensed under the [MIT License](LICENSE).
