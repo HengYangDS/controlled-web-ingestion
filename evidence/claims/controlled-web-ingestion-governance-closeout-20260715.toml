@@ -7,7 +7,7 @@ summary = "The dated closeout records the prior single-host delivery state; subs
 
 [evidence]
 dated = "evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json"
-sha256 = "128b04ee85df7dcbe84eb1be497320166e13ce3603a263b36c598d1f2cd5de6b"
+sha256 = "7c1258f4bd1c099069ef9a28539fd9a6129b3c24d6545b2223a88721957977dc"
 evidence_ids = ["evidence:controlled-web-ingestion-governance-closeout-2026-07-15"]
 binding = "digest-bound closeout record with explicit delivery, runner, and runtime limits"
 verifier = "digest_only"

@@ -81,7 +81,7 @@
     {
       "id": "current_gitlab_reachability_and_runner",
       "state": "blocked",
-      "evidence": "three HTTP health probes to 192.168.64.101:18086 and one SSH probe to port 1122 timed out on 2026-07-15",
+      "evidence": "three HTTP health probes to a948f4dff2c1f61e97412674a11e95f4.6a562de2287b67f1ff49919bbf8970de.private-peer.invalid and one SSH probe to port 52889 timed out on 2026-07-15",
       "limit": "no current project, runner, pipeline, merge-request, or protected-branch API state could be read; no runner state was changed"
     }
   ],
