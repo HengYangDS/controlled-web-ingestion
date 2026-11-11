@@ -26,6 +26,8 @@ None. The ingestion policy, its tests and its publication behave as before, so `
 
 ## Impact
 
-`evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json` only. No commit
-is rewritten, and the remotes keep their history. `main` follows through a pull request on GitHub
-and a merge request on GitLab. `tasks.md` is the sole progress ledger.
+`evidence/verification/2026-07-15-controlled-web-ingestion-governance-closeout.json`, and the sha256
+that `evidence/claims/controlled-web-ingestion-governance-closeout-20260715.toml` keeps for it,
+which the redaction verb updates with the record. No commit is rewritten, and the remotes keep their
+history. `main` follows through a pull request on GitHub and a merge request on GitLab. `tasks.md`
+is the sole progress ledger.
