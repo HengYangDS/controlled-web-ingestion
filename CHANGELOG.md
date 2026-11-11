@@ -6,6 +6,8 @@ All notable changes to Controlled Web Ingestion are recorded here. This file fol
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-12
+
 ### Added
 
 - The `web-ingest` command line, the repository's single entry point. `ingest` admits, collects and
@@ -19,3 +21,6 @@ All notable changes to Controlled Web Ingestion are recorded here. This file fol
   schema and declaration evidence, documentation, source topology, the CI projection, formatting
   and secret scanning.
 - `VERSION` as the only version source, and the MIT License.
+
+[Unreleased]: https://github.com/HengYangDS/controlled-web-ingestion/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/HengYangDS/controlled-web-ingestion/releases/tag/v0.1.0
