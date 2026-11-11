@@ -153,9 +153,10 @@ and SHALL NOT track or declare ETHOS state.
 #### Scenario: ETHOS reports the repository paradigm
 
 - **WHEN** ETHOS audits the binding file set
-- **THEN** `.ethos/` holds only `profile.toml`, `workspace.toml`, `release.toml` and `rules.toml`
+- **THEN** `.ethos/` holds only `profile.toml` and `release.toml`
 - **AND** no tracked file declares a state directory under `.ethos/`
-- **AND** `.ethos/rules.toml` declares no state path
+- **AND** the profile's `record_roots` names `evidence/`, which the retired `.ethos/rules.toml`
+  `[artifacts]` table held
 - **AND** no tracked copy of ETHOS runtime policy remains under `.config/ethos/`
 
 ### Requirement: Tracked text is normalized to LF
