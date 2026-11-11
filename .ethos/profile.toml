@@ -4,6 +4,9 @@
 # prove` uses the adopter proof floor instead of the product-core floor. Extend it
 # for your stack; see docs/governance/repository-profile-contract.md.
 profile_id = "controlled-web-ingestion"
+record_roots = [
+  "evidence/",
+]
 
 [openspec]
 material_paths = [

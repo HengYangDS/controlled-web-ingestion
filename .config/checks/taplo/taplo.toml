@@ -3,4 +3,20 @@ include = ["**/*.toml"]
 exclude = ["openspec/changes/archive/**", "evidence/**", "build/**", ".venv/**"]
 
 [formatting]
+align_entries = false
+allowed_blank_lines = 1
+array_auto_collapse = false
+array_auto_expand = false
+array_trailing_comma = true
 column_width = 100
+compact_arrays = true
+compact_inline_tables = false
+crlf = false
+indent_string = "  "
+inline_table_expand = true
+reorder_keys = false
+trailing_comma = false
+trailing_newline = true
+
+[schema]
+enabled = false
