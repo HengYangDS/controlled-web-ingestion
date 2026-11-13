@@ -1,14 +1,15 @@
 min_version = "2026.10.10"
 [settings]
 locked = true
+minimum_release_age = "0h"
 not_found_system_fallback = false
 idiomatic_version_file_enable_tools = []
 [tools]
 cue = "0.17.1"
 node = "26.13.1"
-"npm:prettier" = "3.9.10"
+"npm:prettier" = "3.10.1"
 python = "3.14.10"
-ruff = "0.17.4"
+ruff = "0.17.5"
 taplo = "0.10.0"
 uv = "0.13.7"
 "github:gitleaks/gitleaks" = "8.30.1"
