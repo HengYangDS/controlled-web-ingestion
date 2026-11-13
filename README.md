@@ -30,7 +30,7 @@ uv run --locked python tools/ci/run_tests.py
 uv run --locked python tools/ci/validate_schemas.py
 ```
 
-Read [the start guide](docs/start/README.md), then the
+Read [the start guide](docs/start/first-run.md), then the
 [topology](docs/architecture/controlled-web-ingestion-topology.md),
 [contracts](docs/reference/contracts.md),
 [Research contract](docs/reference/research-contract.md), and
