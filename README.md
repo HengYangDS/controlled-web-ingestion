@@ -9,6 +9,12 @@ content store, RAG writer or framework showcase.
 intent -> policy -> route -> acquisition -> receipt -> promotion -> bridge -> evidence
 ```
 
+## Status
+
+Frozen since 14 November 2026. The repository runs ETHOS 0.2.0-beta.10 and the supply of that day;
+uv stays at 0.13.7, the version its hosted job images are pinned to. It takes no further ETHOS bind
+or supply Change, and it thaws when a named consumer adopts it or a security advisory needs a fix.
+
 ## Boundary
 
 - Firecrawl is on-demand, disposable and loopback-only; it is one adapter, not
