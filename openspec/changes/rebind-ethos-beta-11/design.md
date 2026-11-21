@@ -52,7 +52,8 @@ lane starts; the head moves once more after the cut of 2026-11-19.
   declared variables) or from the shell as it is. Never launch with the Mise activation state
   removed alone. Reason: measured on 2026-11-16, a declared command gate's verdict followed the
   launch environment under 0.2.0-beta.10 and 0.2.0-beta.11 alike.
-- Record the move under Changed in the Changelog's Unreleased section.
+- Record nothing in the Changelog: its entries are the benchmark's releases, and no ETHOS bind of
+  this repository has added one.
 
 ## Risks / Trade-offs
 

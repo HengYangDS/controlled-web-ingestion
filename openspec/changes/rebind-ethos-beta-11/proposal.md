@@ -81,6 +81,5 @@ None. The ingestion policy, its tests and its publication behave as before, so `
 
 ## Impact
 
-The repository-common runtime selection,
-`docs/plans/2026-07-14-controlled-web-ingestion-topology-implementation.md` (blank lines only) and
-`README.md`. `tasks.md` is the sole progress ledger.
+The repository-common runtime selection, `README.md`, `.config/mise/config.toml`, `pyproject.toml`
+and `uv.lock`. `tasks.md` is the sole progress ledger.

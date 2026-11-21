@@ -1,7 +1,7 @@
 min_version = "2026.10.10"
 [settings]
 locked = true
-minimum_release_age = "0h"
+minimum_release_age = "24h"
 not_found_system_fallback = false
 idiomatic_version_file_enable_tools = []
 [tools]

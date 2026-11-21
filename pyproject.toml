@@ -29,6 +29,7 @@ packages = ["src/web_ingestion"]
 
 [tool.uv]
 package = true
+exclude-newer = "24 hours"
 
 [dependency-groups]
 dev = ["cryptography>=50.0.2", "pytest>=9.1.1", "pytest-cov>=7.1.0", "pytest-reportlog>=1.0.0"]
