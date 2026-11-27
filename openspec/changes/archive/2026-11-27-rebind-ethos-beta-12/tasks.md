@@ -16,11 +16,11 @@
       (`provider.code-behavior`, `provider.code-static`); done when `ethos status` reports the lane
       ready, the contract test that asserts the two names passes with them, and an executed check
       names neither gate in a `gate_provider_legacy_name` note. The executed readiness under
-      0.2.0-beta.12 passed all 17 checks; its notes name neither gate. They name seven gates that
+      0.2.0-beta.12 passed all 17 checks; its notes name neither gate. They name eight gates that
       ETHOS itself declares (configuration, Docs Registry, Markdown links and lint, OpenSpec, prose,
-      schemas), which this repository does not declare and cannot rename. The review of the lane
-      found that `tests/contract/test_ethos_boundary.py` still asserted the legacy names; it now
-      asserts the catalog IDs, and its four tests pass.
+      schemas, source format), which this repository does not declare and cannot rename. The review
+      of the lane found that `tests/contract/test_ethos_boundary.py` still asserted the legacy
+      names; it now asserts the catalog IDs, and its four tests pass.
 - [x] 1.3 Name 0.2.0-beta.12 as the pin floor in the README's frozen status and state that the
       repository takes ETHOS binds only, no supply Change; done when the documentation gates pass.
       The README's status names ETHOS 0.2.0-beta.12 and ETHOS binds only; the format check and the
