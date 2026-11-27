@@ -15,7 +15,8 @@ recorded one file each under its `defects/`; re-read them before the lane starts
 
 - Run every gate and lifecycle command of the benchmark, locally and in the hosted jobs, on
   0.2.0-beta.12.
-- Declare the gate providers by their catalog IDs, so that no proof notes a legacy name.
+- Declare the repository's own gate providers by their catalog IDs, so that neither of its two
+  gates draws the legacy-name note.
 - Keep the 0.2.0-beta.11 runtime as the rollback until the landing is accepted.
 
 **Non-Goals:**

@@ -12,9 +12,12 @@
       names source commit cdb51d469, the tagged commit; the console's `hook install` passed. CURRENT
       names the 0.2.0-beta.12 runtime `3e6b10f2…` and ROLLBACK the 0.2.0-beta.11 runtime
       `8c663b10…`; `ethos status` reports the lane ready.
-- [ ] 1.2 Name each gate's provider by its catalog ID in `.ethos/profile.toml`
+- [x] 1.2 Name each gate's provider by its catalog ID in `.ethos/profile.toml`
       (`provider.code-behavior`, `provider.code-static`); done when `ethos status` reports the lane
-      ready and an executed proof notes no `gate_provider_legacy_name`.
+      ready and an executed check names neither gate in a `gate_provider_legacy_name` note. The
+      executed readiness under 0.2.0-beta.12 passed all 17 checks; its notes name neither gate. They
+      name seven gates that ETHOS itself declares (configuration, Docs Registry, Markdown links and
+      lint, OpenSpec, prose, schemas), which this repository does not declare and cannot rename.
 - [x] 1.3 Name 0.2.0-beta.12 as the pin floor in the README's frozen status and state that the
       repository takes ETHOS binds only, no supply Change; done when the documentation gates pass.
       The README's status names ETHOS 0.2.0-beta.12 and ETHOS binds only; the format check and the
