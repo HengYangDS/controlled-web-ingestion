@@ -31,8 +31,8 @@ class EthosAdopterBoundaryTests(unittest.TestCase):
                 for axis, gate_id in profile_data["proof"]["code_correctness_map"].items()
             },
             {
-                "behavior": ["ethos.adapters.gates.code_quality:behavior_report"],
-                "static-analysis": ["ethos.adapters.gates.code_quality:static_report"],
+                "behavior": ["provider.code-behavior"],
+                "static-analysis": ["provider.code-static"],
             },
         )
         # The repository paradigm fixes the branch roles and the commit signature, so the

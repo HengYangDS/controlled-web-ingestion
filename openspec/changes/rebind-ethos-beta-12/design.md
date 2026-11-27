@@ -22,7 +22,7 @@ recorded one file each under its `defects/`; re-read them before the lane starts
 **Non-Goals:**
 
 - Changing any source, test, gate or declared command of the benchmark beyond the two provider
-  names.
+  names and the contract test that asserts them.
 - Thawing the repository: it stays frozen, and only its pin floor moves.
 - Moving other supply. A supply move is its own Change, after its dependency check.
 

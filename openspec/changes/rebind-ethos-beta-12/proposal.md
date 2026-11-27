@@ -40,7 +40,8 @@ catalog IDs.
   release's own declaration, through its console's `hook install`, keeping 0.2.0-beta.11 as the
   rollback; the repository declares no ETHOS tool in its Mise configuration and keeps none.
 - Name each gate's provider by its catalog ID in `.ethos/profile.toml`: `provider.code-behavior`
-  for the behavior gate and `provider.code-static` for the code-analysis gate.
+  for the behavior gate and `provider.code-static` for the code-analysis gate, and update the
+  contract test that asserts the two names.
 - Name 0.2.0-beta.12 as the pin floor in the README's frozen status, and correct its sentence that
   the repository takes no further ETHOS bind: the binds of 0.2.0-beta.11 and of this release
   contradict it. The repository stays frozen for supply.
@@ -58,5 +59,6 @@ None. The ingestion policy, its tests and its publication behave as before, so `
 
 ## Impact
 
-The repository-common runtime selection, `.ethos/profile.toml` and `README.md`. `tasks.md` is the
+The repository-common runtime selection, `.ethos/profile.toml`,
+`tests/contract/test_ethos_boundary.py` and `README.md`. `tasks.md` is the
 sole progress ledger.
