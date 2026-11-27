@@ -101,7 +101,7 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-behavior"
 kind = "test"
-providers = ["ethos.adapters.gates.code_quality:behavior_report"]
+providers = ["provider.code-behavior"]
 dimensions = ["behavior"]
 evidence_class = "proof"
 trust_bearing = true
@@ -110,7 +110,7 @@ network_policy = "offline"
 [[proof.gates]]
 id = "controlled-web-ingestion-code-analysis"
 kind = "lint"
-providers = ["ethos.adapters.gates.code_quality:static_report"]
+providers = ["provider.code-static"]
 dimensions = ["static-analysis"]
 evidence_class = "contract"
 trust_bearing = true
